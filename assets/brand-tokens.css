@@ -1,0 +1,44 @@
+/* ReFi Hub design tokens.
+   Extracted 2026-09-04 from the published Framer site at refihub.io.
+   Framer keeps all CSS inline in the page HTML (352KB, no external stylesheet),
+   so this is the real published styling, not an approximation.
+   Framer token IDs are kept in comments so the designer can cross-reference in the editor. */
+
+:root{
+  --accent-brown: #715441;     /* --token-e6e50855-78f2-44f8-b9b8-df9fd8cc122e */
+  --accent-slate: #415371;     /* --token-ec8726fc-1398-4f0d-95bf-21e009339010 */
+  --black: #000;               /* --token-5db4a903-36b3-4f67-b597-d8b9c8af2728 */
+  --grey: #8a8a8a;             /* --token-7b2e0288-ef80-426e-bdd3-731aad78effb */
+  --grey-slate: #64748b;       /* --token-4362744d-21b6-44a0-b868-1e888d95c9a6 */
+  --ink: #222;                 /* --token-dcbb78ff-9bab-4047-970b-a809a92fe3a0 */
+  --ink-a10: #0000001a;        /* --token-29b63245-c8e2-4359-8e78-ae4b40c6acb9 */
+  --ink-a30: #0000004d;        /* --token-5b3d5c19-88e7-4aa2-aed3-318234619abc */
+  --ink-a60: #0009;            /* --token-4bae144f-bce0-47f9-922c-225954ca6d21 */
+  --ink-deep: #020617;         /* --token-79b51e0b-b123-4650-ac32-d9253c1b8fba */
+  --paper: #fbfaf9;            /* --token-6f1a9aa1-dc15-4eab-99ad-1c6eabfe4c25 */
+  --paper-a30: #f5f3f24d;      /* --token-b5bafd20-20b7-40f6-95ba-ccf988ea17d7 */
+  --paper-warm: #f2ece8;       /* --token-af75439c-5fb2-489b-9842-49e4e085433f */
+  --rule: #ededed;             /* --token-6c329036-5d60-49ca-9ec8-b83028eb83a4 */
+  --rule-cool: #e2e8f0;        /* --token-2af7bc2f-15de-47a5-bba9-817f6e5e2b72 */
+  --surface: #fafafa;          /* --token-81a208c3-34bd-4542-aefd-1f6139129e6f */
+  --surface-cool: #e8edf3;     /* --token-c85f02ec-ac55-4335-959f-1d6117f0ee79 */
+  --surface-cool-2: #f9fafb;   /* --token-e9147738-11bf-439e-b830-75695c90df11 */
+  --white: #fff;               /* --token-f2d0b226-11d7-401c-9054-7d237b6a1775 */
+  --white-a15: #ffffff26;      /* --token-33e41037-3bf3-4597-b59e-f853d1e11037 */
+  --white-a50: #ffffff80;      /* --token-af040278-6d46-4a32-97d5-3df5c0ef7d2f */
+  --white-a80: #fffc;          /* --token-867f71cc-15a1-405d-85e3-8ec03fb5d2b1 */
+}
+
+/* Typefaces (all on Google Fonts; Framer self-hosts them as woff2):
+   Merriweather      display headings, weight 300, italic for the accent line
+   Inter             body copy and most headings (section h2: 58px/-.05em/400; h3: 28-32px/-.02em)
+   Geist / Variable  large numerals and stat figures (weight ~330, features ss03/cv03/cv04/cv09/cv11)
+   Chivo Mono        small uppercase labels and eyebrows (10-15px, +.06em tracking, weight ~270)
+   Manrope           referenced in the CSS, minor use
+
+   Recurring patterns worth keeping:
+   - Card: white bg, 1px border var(--rule-cool), border-radius 16-20px
+   - Section rhythm: ~120px vertical padding, content max-width 1600px
+   - Primary button: black bg, padding 16px 34px (medium 13px 32px)
+   - Media/feature bands: var(--surface-cool) or var(--paper-warm) full-bleed blocks, radius 16px
+   - Dark CTA card: #000 bg, radius 16px, white text */
