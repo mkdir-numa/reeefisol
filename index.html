@@ -21,7 +21,7 @@
     <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Main">
       <a href="institutions.html">For institutions</a>
-      <a href="index.html#refisol">refiSOL</a>
+      <a href="refisol.html">refiSOL</a>
       <a href="index.html#impact">Impact</a>
       <a href="index.html#faq">FAQ</a>
       <a class="btn btn-primary btn-sm" href="institutions.html#contact">Talk to us</a>
@@ -48,22 +48,18 @@
     <div class="hero-sub">
       <p>Higher net yield than the big custodians. Built for treasuries and funds.</p>
     </div>
-    <p class="small muted" style="margin:-16px 0 28px">
-      <span data-claim="yield.compare">…</span>
-      <span data-chip="yield.compare"></span>
-    </p>
     <div class="btns">
       <a class="btn btn-primary" href="institutions.html#contact">Talk to us</a>
-      <a class="btn btn-coral" data-const-href="stakeRefisolUrl" href="#refisol" target="_blank" rel="noopener">Stake refiSOL</a>
+      <a class="btn btn-coral" href="refisol.html">Stake refiSOL</a>
     </div>
 
     <div class="stats">
-      <div class="stat"><span class="v" data-claim="validator.netApy">…</span><span class="l">Net APY</span><span class="s" data-chip="validator.netApy"></span></div>
-      <div class="stat"><span class="v" data-claim="validator.activeStake">…</span><span class="l">Staked</span><span class="s" data-chip="validator.activeStake"></span></div>
-      <div class="stat"><span class="v" data-claim="validator.uptime30d">…</span><span class="l">Uptime</span><span class="s" data-chip="validator.uptime30d"></span></div>
-      <div class="stat"><span class="v" data-claim="validator.skipRate">…</span><span class="l">Skip rate</span><span class="s" data-chip="validator.skipRate"></span></div>
+      <div class="stat"><span class="v" data-claim="validator.netApy">…</span><span class="l">Net APY</span></div>
+      <div class="stat"><span class="v" data-claim="validator.activeStake">…</span><span class="l">Staked</span></div>
+      <div class="stat"><span class="v" data-claim="validator.uptime12m">…</span><span class="l">Uptime, last 12 months</span></div>
+      <div class="stat"><span class="v" data-claim="validator.skipRate">…</span><span class="l">Skip rate</span></div>
     </div>
-    <p class="stats-note">Live from Stakewiz and validators.app.</p>
+    <p class="verified"><span class="dot" aria-hidden="true"></span>Live data independently verified by <a data-const-href="stakewizUrl" href="#" target="_blank" rel="noopener">Stakewiz</a> and <a data-const-href="validatorsAppUrl" href="#" target="_blank" rel="noopener">validators.app</a>.</p>
   </div>
 </section>
 
@@ -79,47 +75,46 @@
       <div class="card card-coral rv" id="refisol">
         <h3>refiSOL for everyone</h3>
         <p>refiSOL is the liquid staking token from our Solana validator. Any amount. Swap back any time.</p>
-        <div class="btns"><a class="btn btn-primary" data-const-href="stakeRefisolUrl" href="#" target="_blank" rel="noopener">Stake refiSOL</a></div>
+        <div class="btns"><a class="btn btn-primary" href="refisol.html">Stake refiSOL</a></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Why ReFi Hub -->
-<section class="band-sand">
+<!-- Staked by (trust strip) -->
+<section class="band-ink trust">
   <div class="wrap">
-    <div class="sec-head"><h2>Why ReFi Hub</h2></div>
-    <div class="grid g3">
-      <div class="card rv">
-        <div class="icon i-sea" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
-        <h3>Earn more</h3>
-        <p>Higher net yield than Coinbase, Figment, Kiln and Everstake. <span data-claim="validator.commission">…</span> fee on staking rewards, <span data-claim="validator.mevCommission">…</span> on MEV. <span data-chip="validator.commission"></span></p>
-        <div class="mini-tbl" data-render="yieldTable"></div>
-      </div>
-      <div class="card rv">
-        <div class="icon i-leaf" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l3 3v15H6z"/><path d="M9 10h6M9 14h6M9 18h3"/></svg></div>
-        <h3>Report your impact</h3>
-        <p>Every quarter: what your stake funded, what it planted, and the on-chain receipt.</p>
-      </div>
-      <div class="card rv">
-        <div class="icon i-coral" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg></div>
-        <h3>Stay up</h3>
-        <p><span data-claim="validator.uptime30d">…</span> uptime. Jito client, run with Pine Stake. Public on <a href="https://stakewiz.com/validator/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx" target="_blank" rel="noopener">Stakewiz</a>, <a href="https://www.validators.app/validators/ReFiqMfGnc7tW8WQtFFcJRPZSDAWDBnAsdoFYF2QnfR?locale=en&amp;network=mainnet" target="_blank" rel="noopener">validators.app</a> and <a href="https://app.jpool.one/validators/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx" target="_blank" rel="noopener">JPool</a>.</p>
-        <p class="small"><span data-chip="validator.uptime30d"></span><br><span data-chip="validator.client" data-prefix="Jito client: "></span><br><span class="muted">Pine Stake:</span> <span data-chip="validator.operator"></span></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Staked by -->
-<section class="band-ink">
-  <div class="wrap">
-    <div class="sec-head">
+    <div class="trust-head">
       <h2>Staked by Solana's delegation programs</h2>
       <p>They pick validators on performance. Check each one on-chain.</p>
     </div>
     <div class="logos rv" data-render="stakedBy" data-dark data-orgs="solana-foundation,jagpool,phase,vault,definity,dyno,blaze,jpool"></div>
-    <p style="margin-top:22px"><a href="https://app.jpool.one/validators/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx" target="_blank" rel="noopener">See our stake by source →</a></p>
+    <p class="trust-link"><a href="https://app.jpool.one/validators/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx" target="_blank" rel="noopener">See our stake by source →</a></p>
+  </div>
+</section>
+
+<!-- Why ReFi Hub (spec rows) -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><h2>Why ReFi Hub</h2></div>
+    <div class="rows">
+      <div class="row-item rv">
+        <h3>Earn more</h3>
+        <p>Higher net yield than Coinbase, Figment, Kiln and Everstake. <span data-claim="validator.commission">…</span> fee on staking rewards, <span data-claim="validator.mevCommission">…</span> on MEV.</p>
+        <div class="row-num" data-claim="validator.netApy">…</div>
+      </div>
+      <div class="row-item rv">
+        <h3>Report your impact</h3>
+        <p>Every quarter: what your stake funded, what it planted, and the on-chain receipt.</p>
+        <div class="row-num row-word">Quarterly</div>
+      </div>
+      <div class="row-item rv">
+        <h3>Stay up</h3>
+        <p><span data-claim="validator.uptime12m">…</span> uptime. Jito client, run with <a href="https://www.pinestake.com/en" target="_blank" rel="noopener">Pine Stake</a>. Public on <a data-const-href="stakewizUrl" href="#" target="_blank" rel="noopener">Stakewiz</a>, <a data-const-href="validatorsAppUrl" href="#" target="_blank" rel="noopener">validators.app</a> and <a href="https://app.jpool.one/validators/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx" target="_blank" rel="noopener">JPool</a>.</p>
+        <div class="row-num" data-claim="validator.uptime12m">…</div>
+      </div>
+    </div>
+    <p class="verified"><span class="dot" aria-hidden="true"></span>Live data independently verified by <a data-const-href="stakewizUrl" href="#" target="_blank" rel="noopener">Stakewiz</a> and <a data-const-href="validatorsAppUrl" href="#" target="_blank" rel="noopener">validators.app</a>.</p>
   </div>
 </section>
 
@@ -130,15 +125,19 @@
       <h2>Where our fees go</h2>
       <p>A share of our fees plants corals and mangroves.</p>
     </div>
-    <p class="scale">Every 100K SOL staked plants about <span data-claim="impact.scale">…</span> mangroves a year. <span data-chip="impact.scale"></span></p>
 
-    <div class="partners rv" style="margin-top:28px" data-render="partners" data-orgs="seatrees,coral-guardian,coral-tribe"></div>
+    <a class="metric rv" data-const-href="seatreesCoralUrl" href="#" target="_blank" rel="noopener">
+      <span class="metric-v" data-claim="impact.coralsPer100k">…</span>
+      <span class="metric-l">Every 100K SOL staked plants about <span data-claim="impact.coralsPer100k">…</span> corals a year, with SeaTrees in Golfo Dulce, Costa Rica.</span>
+    </a>
 
-    <div class="counters">
-      <div class="counter rv"><div class="v" data-claim="impact.validatorPlanted">…</div><div class="l">planted with validator fees</div><div class="s" data-chip="impact.validatorPlanted"></div></div>
-      <div class="counter rv"><div class="v" data-claim="impact.communityPlanted">…</div><div class="l">planted by the ReFi Hub community since <span data-claim="impact.communitySince">…</span></div><div class="s"><span data-chip="impact.communityPlanted"></span></div></div>
-    </div>
-    <p><a href="donations.html">Every donation, on-chain →</a></p>
+    <p class="worked">We've worked with SeaTrees, Coral Guardian and Coral Tribe.</p>
+    <div class="partners rv" data-render="partners" data-orgs="seatrees,coral-guardian,coral-tribe"></div>
+
+    <a class="counter counter-link rv" data-const-href="coralTribeUrl" href="#" target="_blank" rel="noopener">
+      <div class="v" data-claim="impact.communityPlanted">…</div>
+      <div class="l">planted by the ReFi Hub community, with Coral Tribe</div>
+    </a>
   </div>
 </section>
 
@@ -155,60 +154,46 @@
       <div class="card rv">
         <div class="icon i-leaf" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="6" rx="1.5"/><rect x="4" y="14" width="16" height="6" rx="1.5"/><path d="M8 7h.01M8 17h.01"/></svg></div>
         <h3>Physical security</h3>
-        <p>Bare-metal servers in <span data-claim="validator.dataCentre">…</span>, Buenos Aires. Monitored around the clock.</p>
-        <p class="small"><span data-chip="validator.dataCentre"></span> <span data-chip="validator.city" data-prefix="Location: "></span></p>
+        <p>Bare-metal servers in <a data-const-href="argentinaUrl" href="#" target="_blank" rel="noopener">Buenos Aires, Argentina</a>. Monitored around the clock.</p>
       </div>
       <div class="card rv">
         <div class="icon i-sun" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M15 8l2 2"/></svg></div>
         <h3>Key security</h3>
-        <p>Withdraw keys are kept offline, never on a validator server.</p>
-        <p class="small"><span data-chip="ops.keyCustody"></span></p>
+        <p>Withdraw keys are kept offline, never on a validator server. Withdraw authority is a <a data-const-href="withdrawAuthorityUrl" href="#" target="_blank" rel="noopener">Squads multisig</a>.</p>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- Who we are -->
-<section class="band-sea">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>Building on Solana since 2021. <span data-chip="company.since" data-badge-only></span></h2>
-      <p>ReFi Hub. Impact investing on Solana DeFi.</p>
-    </div>
-    <p class="muted">Team: <span data-claim="company.team">…</span> <span data-chip="company.team"></span></p>
-    <p><a data-const-href="aboutUrl" href="#" target="_blank" rel="noopener">About ReFi Hub →</a></p>
+    <p class="verified">Security practices published by <a data-const-href="pineSecurityUrl" href="#" target="_blank" rel="noopener">Pine Stake</a>, who run the validator with us.</p>
   </div>
 </section>
 
 <!-- How to start -->
-<section>
+<section class="band-sand">
   <div class="wrap">
     <div class="sec-head"><h2>How to start</h2></div>
     <div class="steps">
       <div class="step rv"><div class="n">1</div><h3>Choose your route</h3><p>Large position? Talk to us. Any amount? Use refiSOL.</p></div>
       <div class="step rv"><div class="n">2</div><h3>Stake</h3><p>Delegate from your custodian or wallet, or swap SOL for refiSOL.</p></div>
-      <div class="step rv"><div class="n">3</div><h3>Earn</h3><p>Rewards land every epoch, about every two days.</p>
-        <p class="small" style="margin-top:8px">Current epoch: <span data-claim="network.epochLength">…</span> <span data-chip="network.epochLength"></span></p></div>
-      <div class="step rv"><div class="n">4</div><h3>See what you planted</h3><p>Every donation and planting, on the <a href="donations.html">donations page</a>.</p></div>
+      <div class="step rv"><div class="n">3</div><h3>Earn</h3><p>Rewards land every epoch, every one to two days.</p></div>
+      <div class="step rv"><div class="n">4</div><h3>See what you planted</h3><p>Every donation and planting, in your quarterly impact receipt.</p></div>
     </div>
   </div>
 </section>
 
 <!-- Closing CTA -->
-<section style="padding-top:0">
+<section>
   <div class="wrap">
     <div class="closing rv">
       <h2>Stake SOL. Fund real-world impact.</h2>
       <div class="btns">
         <a class="btn btn-light" href="institutions.html#contact">Talk to us</a>
-        <a class="btn btn-coral" data-const-href="stakeRefisolUrl" href="#" target="_blank" rel="noopener">Stake refiSOL</a>
+        <a class="btn btn-coral" href="refisol.html">Stake refiSOL</a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- FAQ -->
-<section class="faq" id="faq">
+<section class="faq" id="faq" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head"><h2>Straight answers.</h2></div>
 
@@ -219,73 +204,57 @@
 
     <details>
       <summary>How do I stake from a custodian?</summary>
-      <div class="a">
-        <p>Ask your custodian to delegate to vote account <code data-claim="validator.voteAccount">…</code>. Confirmed custodians: <span data-claim="company.custodians">…</span> <span data-chip="company.custodians"></span></p>
-        <div class="proof"><span data-chip="validator.voteAccount"></span></div>
-      </div>
+      <div class="a"><p>Ask your custodian to delegate to vote account <a class="code" href="#" target="_blank" rel="noopener" data-claim="validator.voteAccount">…</a>. Confirmed custodians: pending.</p></div>
     </details>
 
     <details>
       <summary>What are the fees?</summary>
       <div class="a">
         <p><span data-claim="validator.commission">…</span> on staking rewards. <span data-claim="validator.mevCommission">…</span> on MEV. refiSOL pool: <span data-claim="refisol.poolFees" data-part="epoch">…</span> of rewards, <span data-claim="refisol.poolFees" data-part="deposit">…</span> to deposit, <span data-claim="refisol.poolFees" data-part="withdraw">…</span> to withdraw. Fees come out of rewards, never your principal.</p>
-        <div class="proof">
-          <p class="small" style="margin-bottom:8px"><span data-chip="validator.commission" data-prefix="Validator fees: "></span></p>
-          <div data-render="lstFees"></div>
-        </div>
+        <div class="proof"><div data-render="lstFees"></div></div>
       </div>
     </details>
 
     <details>
       <summary>What does the impact cost me?</summary>
-      <div class="a">
-        <p>Less than staying at a big custodian. Our net yield is higher, and impact is paid from our fees.</p>
-        <div class="proof"><span data-claim="yield.compare">…</span> <span data-chip="yield.compare"></span></div>
-      </div>
+      <div class="a"><p>Less than staying at a big custodian. Our net yield is higher, and impact is paid from our fees.</p>
+        <div class="proof"><div data-render="yieldTable"></div></div></div>
     </details>
 
     <details>
       <summary>Does every stake fund impact?</summary>
-      <div class="a"><p>refiSOL: <span data-claim="impact.refisolShare">…</span> of our fees. <span data-chip="impact.refisolShare" data-badge-only></span> New institutional stake: <span data-claim="impact.institutionalShare">…</span> of our fees. <span data-chip="impact.institutionalShare" data-badge-only></span> Stake from delegation programs: no.</p></div>
+      <div class="a"><p>refiSOL: <span data-claim="impact.refisolShare">…</span> of our fees. New institutional stake: <span data-claim="impact.institutionalShare">…</span> of our fees. Stake from delegation programs: no.</p></div>
     </details>
 
     <details>
       <summary>Where does the money go?</summary>
-      <div class="a"><p>SeaTrees, Coral Guardian and Coral Tribe, for coral and mangrove restoration in <span data-claim="impact.locations">…</span>. <span data-chip="impact.locations"></span></p></div>
+      <div class="a"><p>SeaTrees, Coral Guardian and Coral Tribe, for coral and mangrove restoration in <a data-const-href="seatreesCoralUrl" href="#" target="_blank" rel="noopener">Golfo Dulce, Costa Rica</a>. Other sites: pending.</p></div>
     </details>
 
     <details>
       <summary>How do I verify it?</summary>
-      <div class="a"><p>Every payment is on the <a href="donations.html">donations page</a> with its Solscan link. Our partners publish their planting records. <span data-chip="impact.partnerRecords"></span></p></div>
+      <div class="a"><p>Every payment is on-chain, with its <a data-const-href="solscanDonationsUrl" href="#" target="_blank" rel="noopener">Solscan link</a>. Our partners publish their planting records.</p></div>
     </details>
 
     <details>
       <summary>How do I get my SOL back?</summary>
       <div class="a">
-        <p>Native stake: deactivate it. It unlocks at the end of the epoch, about two days. refiSOL: swap back any time at the market rate.</p>
-        <div class="proof">
-          <p class="small" style="margin-bottom:8px">Current epoch: <span data-claim="network.epochLength">…</span> <span data-chip="network.epochLength"></span></p>
-          <div data-render="exitCost"></div>
-        </div>
+        <p>Native stake: deactivate it. It unlocks at the end of the epoch, within one to two days. refiSOL: swap back any time at the market rate.</p>
+        <div class="proof"><div data-render="exitCost"></div></div>
       </div>
     </details>
 
     <details>
       <summary>What are the risks?</summary>
       <div class="a">
-        <p>Downtime lowers rewards but never touches your principal. refiSOL runs on Sanctum's stake pool program (<code data-claim="refisol.program">…</code>; audits: <span data-render="audits"></span>) and can trade below its SOL value when liquidity is thin.</p>
-        <div class="proof small">
-          1 refiSOL = <span data-claim="refisol.rate">…</span> <span data-chip="refisol.rate"></span><br>
-          Supply: <span data-claim="refisol.supply">…</span> refiSOL <span data-chip="refisol.supply"></span><br>
-          Holders: <span data-claim="refisol.holders">…</span> <span data-chip="refisol.holders"></span><br>
-          Program: <span data-chip="refisol.program"></span> <a class="src" href="https://learn.sanctum.so/docs/technical-documentation/sanctum-lsts" target="_blank" rel="noopener">Sanctum docs</a>
-        </div>
+        <p>Downtime lowers rewards but never touches your principal. refiSOL runs on Sanctum's stake pool program (<span class="code" data-claim="refisol.program">…</span>; audits: <span data-render="audits"></span>) and can trade below its SOL value when liquidity is thin.</p>
+        <div class="proof small">1 refiSOL = <span data-claim="refisol.rate">…</span> · Supply: <span data-claim="refisol.supply">…</span> refiSOL · Holders: <span data-claim="refisol.holders">…</span></div>
       </div>
     </details>
 
     <details>
       <summary>Who runs the validator?</summary>
-      <div class="a"><p>ReFi Hub, with Pine Stake. <span data-chip="validator.operator"></span></p></div>
+      <div class="a"><p>ReFi Hub, with <a href="https://www.pinestake.com/en" target="_blank" rel="noopener">Pine Stake</a>.</p></div>
     </details>
   </div>
 </section>
@@ -301,25 +270,22 @@
           <label for="email">Quarterly impact update.</label>
           <div class="row">
             <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
-            <button class="btn btn-coral btn-sm" type="submit" aria-disabled="true">Subscribe</button>
+            <button class="btn btn-coral btn-sm" type="submit">Subscribe</button>
           </div>
-          <span data-chip="company.newsletter"></span>
         </form>
       </div>
       <nav class="foot-links" aria-label="Footer">
         <a href="institutions.html">For institutions</a>
-        <a href="index.html#refisol">refiSOL</a>
-        <a href="donations.html">Donations</a>
+        <a href="refisol.html">refiSOL</a>
         <a href="index.html#faq">FAQ</a>
         <span class="soon">Terms</span>
         <span class="soon">Privacy</span>
         <span class="soon">Disclaimer</span>
-        <span data-chip="company.legalPages"></span>
         <a data-const-href="xUrl" href="#" target="_blank" rel="noopener">X</a>
         <a data-const-href="discordUrl" href="#" target="_blank" rel="noopener">Discord</a>
       </nav>
     </div>
-    <div class="legal"><span data-claim="company.legal">…</span> <span data-chip="company.legal"></span></div>
+    <div class="legal">Legal entity: pending</div>
   </div>
 </footer>
 </body>

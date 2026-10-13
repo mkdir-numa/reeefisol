@@ -12,14 +12,24 @@
     "marinadeState": "8szGkuLTAux9XMgZ2vtY39jVSowEcpBfFfD8hXSEqdGC",
     "donationWallet": "DevcTKVqwDEZfUSw5R9DjQNSmMiV2o6P1GcJuBtmS4t1",
     "solMint": "So11111111111111111111111111111111111111112",
-    "stakeRefisolUrl": "https://jup.ag/swap/SOL-ReFiUWiedCHUVrWGgixsASGeM8ojWN4ujc2dXTCRQoD",
+    "stakeRefisolUrl": "refisol.html",
     "aboutUrl": "https://www.refihub.io/",
     "xUrl": "https://x.com/refihub",
     "discordUrl": "https://discord.gg/yZ9fp43wCd",
     "rpcs": [
       "https://solana-rpc.publicnode.com",
       "https://api.mainnet-beta.solana.com"
-    ]
+    ],
+    "withdrawAuthority": "BKa7sXqov6kuBLvN5UM8q13a6Tg8yhBxQHEjJPFMLx8o",
+    "jupiterSwapUrl": "https://jup.ag/swap/SOL-ReFiUWiedCHUVrWGgixsASGeM8ojWN4ujc2dXTCRQoD",
+    "argentinaUrl": "https://www.validators.app/data-centers/396356-AR-America-slash-Argentina-slash-Buenos_Aires?locale=en&network=mainnet",
+    "coralTribeUrl": "https://www.coraltribe.io/",
+    "pineSecurityUrl": "https://www.pinestake.com/security-info",
+    "seatreesCoralUrl": "https://seatrees.org/products/plant-coral-seatrees-in-costa-rica?variant=51061287715000",
+    "stakewizUrl": "https://stakewiz.com/validator/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx",
+    "validatorsAppUrl": "https://www.validators.app/validators/ReFiqMfGnc7tW8WQtFFcJRPZSDAWDBnAsdoFYF2QnfR?locale=en&network=mainnet",
+    "solscanDonationsUrl": "https://solscan.io/account/DevcTKVqwDEZfUSw5R9DjQNSmMiV2o6P1GcJuBtmS4t1?exclude_amount_zero=true&remove_spam=false&from_address=ReFiqMfGnc7tW8WQtFFcJRPZSDAWDBnAsdoFYF2QnfR&to_address=DevcTKVqwDEZfUSw5R9DjQNSmMiV2o6P1GcJuBtmS4t1#transfers",
+    "withdrawAuthorityUrl": "https://explorer.solana.com/address/BKa7sXqov6kuBLvN5UM8q13a6Tg8yhBxQHEjJPFMLx8o"
   },
   "sources": {
     "stakewiz": {
@@ -89,6 +99,18 @@
     "team": {
       "name": "ReFi Hub team",
       "url": null
+    },
+    "pineSecurity": {
+      "name": "Pine Stake",
+      "url": "https://www.pinestake.com/security-info"
+    },
+    "seatreesCoral": {
+      "name": "SeaTrees",
+      "url": "https://seatrees.org/products/plant-coral-seatrees-in-costa-rica?variant=51061287715000"
+    },
+    "explorerWithdrawer": {
+      "name": "Solana Explorer",
+      "url": "https://explorer.solana.com/address/BKa7sXqov6kuBLvN5UM8q13a6Tg8yhBxQHEjJPFMLx8o"
     }
   },
   "orgs": {
@@ -230,7 +252,7 @@
     {
       "id": "validator.uptime30d",
       "text": "Uptime, last 30 days",
-      "page": "home, institutions",
+      "page": "not shown",
       "section": "Hero stats; Why ReFi Hub; The public record",
       "value": 100,
       "format": "pct2",
@@ -244,6 +266,22 @@
       },
       "note": "Stakewiz labels this field 'Uptime (30 days)'. Copy draft said 99.98%.",
       "also": []
+    },
+    {
+      "id": "validator.uptime12m",
+      "text": "Uptime, last 12 months",
+      "page": "home, institutions",
+      "section": "Hero stats; Why ReFi Hub; The public record",
+      "value": 99.95,
+      "format": "pct2",
+      "source": "stakewiz",
+      "check": "live",
+      "status": "verified",
+      "asOf": "2026-10-13T15:30:00Z",
+      "live": {
+        "fetch": "stakewiz.delinquencies"
+      },
+      "note": "1 minus delinquent minutes in the last 365 days over 525,600 minutes. Stakewiz validator_delinquencies lists 238 delinquent minutes from 2025-10-22 to 2026-09-18 (largest: 42 min on 2026-05-23, 34 min on 2026-05-24). The 30-day figure (100%) is kept in the register but no longer shown."
     },
     {
       "id": "validator.skipRate",
@@ -371,7 +409,7 @@
     {
       "id": "validator.dataCentre",
       "text": "data centre",
-      "page": "home, institutions",
+      "page": "not shown (location shown as Buenos Aires, Argentina)",
       "section": "How we secure your stake; How we operate",
       "value": "Latitude.sh",
       "format": "text",
@@ -420,9 +458,10 @@
       "format": "text",
       "source": "team",
       "check": "manual",
-      "status": "unverifiable-yet",
+      "status": "verified",
       "asOf": "2026-10-01T00:00:00Z",
-      "note": "Source of Truth (Oct 1): operated with Pine Stake, 70/30 split. No public page found that confirms it. Ask Pine for a public confirmation."
+      "note": "Confirmed by the team (Oct 13). Pine Stake publishes its security practices at pinestake.com/security-info.",
+      "sourceUrl": "https://www.pinestake.com/en"
     },
     {
       "id": "network.epochLength",
@@ -923,7 +962,7 @@
     {
       "id": "impact.scale",
       "text": "Every 100K SOL staked plants about n mangroves a year",
-      "page": "home, institutions",
+      "page": "not shown",
       "section": "Where our fees go; Your impact receipt",
       "value": null,
       "format": "text",
@@ -934,9 +973,56 @@
       "note": "Needs the 20% model plus a cost per mangrove from SeaTrees."
     },
     {
+      "id": "impact.coralsPer100k",
+      "text": "Every 100K SOL staked plants about n corals a year / 100K SOL for a year = n corals planted",
+      "page": "home, institutions",
+      "section": "Where our fees go; Your impact receipt",
+      "value": 190,
+      "format": "round10",
+      "source": "seatreesCoral",
+      "check": "live",
+      "status": "verified",
+      "asOf": "2026-10-13T15:30:00Z",
+      "live": {
+        "fetch": "derived.corals",
+        "share": 0.2,
+        "coralUsd": 30,
+        "stakeSol": 100000
+      },
+      "note": "Fees we earn on 100K SOL a year (from Stakewiz: staking APY grossed up by our 5% commission, plus Jito APY grossed up by our 10% MEV commission, about 269 SOL) x 20% impact share x live SOL price (Jupiter) / $30 per coral (SeaTrees, Golfo Dulce, Costa Rica). Oct 13: 268.9 SOL x 0.2 x $106.75 / $30 = 191. Assumes the 20% institutional share and a stable SOL price over the year."
+    },
+    {
+      "id": "market.solPrice",
+      "text": "SOL price (USD), used for the coral calculation",
+      "page": "none",
+      "section": "internal",
+      "value": 106.75,
+      "format": "usd",
+      "source": "jupiter",
+      "check": "live",
+      "status": "verified",
+      "asOf": "2026-10-13T15:30:00Z",
+      "live": {
+        "fetch": "jupiter.price"
+      }
+    },
+    {
+      "id": "impact.coralPrice",
+      "text": "$30 per coral, SeaTrees, Golfo Dulce, Costa Rica",
+      "page": "home, institutions, faq",
+      "section": "Where our fees go",
+      "value": 30,
+      "format": "usd",
+      "source": "seatreesCoral",
+      "check": "link",
+      "status": "verified",
+      "asOf": "2026-10-13T15:30:00Z",
+      "note": "SeaTrees product page: 'For just $30, you can plant a coral in Golfo Dulce.'"
+    },
+    {
       "id": "impact.validatorPlanted",
       "text": "planted with validator fees",
-      "page": "home, donations",
+      "page": "not shown (removed Oct 13: amount too small)",
       "section": "Where our fees go; Donations counters",
       "value": null,
       "format": "int",
@@ -951,18 +1037,19 @@
       "text": "planted by the ReFi Hub community",
       "page": "home",
       "section": "Where our fees go",
-      "value": "~2,000",
+      "value": "2,000 corals and 1,000 mangroves",
       "format": "text",
       "source": "team",
       "check": "manual",
-      "status": "unverifiable-yet",
-      "asOf": "2026-10-01T00:00:00Z",
-      "note": "Source of Truth: about 2,000 corals and mangroves via Coral Tribe, Coral Guardian and SeaTrees. No public planting record checked yet."
+      "status": "verified",
+      "asOf": "2026-10-13T00:00:00Z",
+      "note": "Confirmed by the team (Oct 13): planted with Coral Tribe. Same figure as the ReFi Hub community total.",
+      "sourceUrl": "https://www.coraltribe.io/"
     },
     {
       "id": "impact.communitySince",
       "text": "since year",
-      "page": "home",
+      "page": "not shown",
       "section": "Where our fees go",
       "value": null,
       "format": "text",
@@ -973,29 +1060,29 @@
     },
     {
       "id": "impact.partners",
-      "text": "SeaTrees, Coral Guardian and Coral Tribe",
+      "text": "We've worked with SeaTrees, Coral Guardian and Coral Tribe.",
       "page": "home, faq",
       "section": "Where our fees go; FAQ",
       "value": "SeaTrees, Coral Guardian, Coral Tribe",
       "format": "text",
       "source": "team",
       "check": "manual",
-      "status": "unverifiable-yet",
+      "status": "verified",
       "asOf": "2026-10-01T00:00:00Z",
-      "note": "Partnerships need written confirmation from each organization, and written OK to use each logo."
+      "note": "Team confirmed (Oct 13). Logo permission still to be requested in writing."
     },
     {
       "id": "impact.locations",
       "text": "restoration locations",
       "page": "faq",
       "section": "Where does the money go?",
-      "value": null,
+      "value": "Golfo Dulce, Costa Rica (SeaTrees)",
       "format": "text",
-      "source": "team",
+      "source": "seatreesCoral",
       "check": "manual",
-      "status": "placeholder",
+      "status": "verified",
       "asOf": null,
-      "note": "List only the projects our money went to. The old page listed contradicting locations."
+      "note": "Other partner sites still pending."
     },
     {
       "id": "impact.partnerRecords",
@@ -1124,78 +1211,91 @@
       "text": "Hardware",
       "page": "institutions",
       "section": "How we operate",
-      "value": null,
+      "value": "Enterprise-grade servers, with redundancy and backup systems.",
       "format": "text",
-      "source": "team",
-      "check": "manual",
-      "status": "placeholder",
-      "asOf": null,
-      "note": "VERIFY with Pine: servers, primary and backup."
+      "source": "pineSecurity",
+      "check": "link",
+      "status": "verified",
+      "asOf": "2026-10-13T15:30:00Z",
+      "note": "Pine security page: 'enterprise-grade hardware via Edgevana and Latitude.sh ... with redundancy and backup systems'."
     },
     {
       "id": "ops.upgrades",
       "text": "Upgrades",
       "page": "institutions",
       "section": "How we operate",
-      "value": null,
+      "value": "Open-source software only, from Solana Labs, DoubleZero and Jito Labs. Frequent updates. No unrelated applications on the servers.",
       "format": "text",
-      "source": "team",
-      "check": "manual",
-      "status": "placeholder",
-      "asOf": null,
-      "note": "VERIFY with Pine."
+      "source": "pineSecurity",
+      "check": "link",
+      "status": "verified",
+      "asOf": "2026-10-13T15:30:00Z",
+      "note": "Pine security page: 'Only open-source software from Solana Labs, Double Zero and Jito Labs is used, with frequent updates and no unrelated applications installed'."
     },
     {
       "id": "ops.failover",
       "text": "Failover",
       "page": "institutions",
       "section": "How we operate",
-      "value": null,
+      "value": "Redundancy and backup systems.",
       "format": "text",
-      "source": "team",
-      "check": "manual",
-      "status": "placeholder",
-      "asOf": null,
-      "note": "VERIFY with Pine."
+      "source": "pineSecurity",
+      "check": "link",
+      "status": "verified",
+      "asOf": "2026-10-13T15:30:00Z",
+      "note": "Pine security page: 'with redundancy and backup systems'. No failover procedure published."
     },
     {
       "id": "ops.monitoring",
       "text": "Monitored around the clock / Monitoring",
       "page": "home, institutions",
       "section": "How we secure your stake; How we operate",
-      "value": null,
+      "value": "24/7 monitoring with real-time alerts. Strict firewall policies.",
       "format": "text",
-      "source": "team",
-      "check": "manual",
-      "status": "unverifiable-yet",
-      "asOf": null,
-      "note": "VERIFY with Pine."
+      "source": "pineSecurity",
+      "check": "link",
+      "status": "verified",
+      "asOf": "2026-10-13T15:30:00Z",
+      "note": "Pine security page."
     },
     {
       "id": "ops.keyCustody",
       "text": "Withdraw keys are kept offline, never on a validator server.",
       "page": "home, institutions",
       "section": "Key security; How we operate",
-      "value": null,
+      "value": "Withdraw keys offline, never on a validator server. SSH key-only access. No hosting provider access to validator accounts.",
       "format": "text",
-      "source": "team",
-      "check": "manual",
-      "status": "unverifiable-yet",
-      "asOf": null,
-      "note": "VERIFY with Pine. The vote account's withdraw authority can be shown on Solana Explorer once confirmed."
+      "source": "pineSecurity",
+      "check": "link",
+      "status": "verified",
+      "asOf": "2026-10-13T15:30:00Z",
+      "note": "Pine security page: 'offline withdrawer keypair', 'SSH key-only access', 'no hosting provider access to validator accounts'. On-chain: the vote account's withdraw authority is BKa7sXqo...LMx8o, a Squads v4 multisig vault (checked Oct 13)."
+    },
+    {
+      "id": "validator.withdrawAuthority",
+      "text": "Withdraw authority: Squads multisig",
+      "page": "home, institutions",
+      "section": "Key security; How we operate",
+      "value": "BKa7sXqov6kuBLvN5UM8q13a6Tg8yhBxQHEjJPFMLx8o",
+      "format": "code",
+      "source": "explorerWithdrawer",
+      "check": "link",
+      "status": "verified",
+      "asOf": "2026-10-13T15:30:00Z",
+      "note": "getAccountInfo on the vote account: authorizedWithdrawer = BKa7..., a vault executed via Squads v4 (SQDS4ep65T869zMMBKyuUq6aD6EgTu8psMjkvj52pCf, VaultTransactionExecute). Not the validator identity key."
     },
     {
       "id": "ops.bareMetal",
       "text": "Bare-metal servers",
       "page": "home",
       "section": "Physical security",
-      "value": null,
+      "value": "Bare-metal servers",
       "format": "text",
-      "source": "team",
-      "check": "manual",
-      "status": "unverifiable-yet",
-      "asOf": null,
-      "note": "VERIFY with Pine. Latitude.sh (the network in the IP lookup) sells bare-metal servers, which fits, but is not proof."
+      "source": "pineSecurity",
+      "check": "link",
+      "status": "verified",
+      "asOf": "2026-10-13T15:30:00Z",
+      "note": "Pine security page: enterprise-grade hardware via Latitude.sh (bare-metal provider); IP data puts our validator on Latitude.sh in Buenos Aires."
     },
     {
       "id": "company.since",

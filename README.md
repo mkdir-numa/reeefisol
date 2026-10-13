@@ -5,8 +5,9 @@ Static site for the ReFi Hub validator and refiSOL. Plain HTML, CSS and JS, no b
 ## Pages
 
 - `index.html`: Home, with the FAQ
-- `institutions.html`: For institutions
-- `donations.html`: Donations
+- `institutions.html`: For institutions, with a contact form mockup (not connected)
+- `refisol.html`: refiSOL, with a swap widget mockup (rate is live; the real swap opens in Jupiter)
+- `donations.html`: Donations. Kept but not linked from anywhere for now
 
 ## How the numbers work
 
@@ -17,13 +18,13 @@ Each claim has the exact text, page and section, the saved value, its source, ho
 - `check`: `live` (fetched on page load), `link` (static link to the source) or `manual` (confirmed by a person)
 - `status`: `verified`, `placeholder` or `unverifiable-yet`
 
-On the page, every value shows a small source link with its time. Live values show a green dot and the fetch time. If a live fetch fails, the saved value from `claims.json` stays, with an amber dot and its saved date. Anything not verified shows an `unverified` badge; hover it for the reason.
+Each section ends with one line saying the live data is independently verified by Stakewiz and validators.app (with links), instead of a source chip on every number. If a live fetch fails, the saved value from `claims.json` stays. The register still records each claim's status, including the ones the site shows as pending.
 
 Live sources (all public and CORS-enabled):
 
-- Stakewiz API: stake, APY, uptime, skip rate, commissions, client, location, epoch length, peer yields, stake by source, Argentina count
+- Stakewiz API: stake, APY, 12-month uptime (from its delinquency history), skip rate, commissions, client, location, epoch length, peer yields, stake by source, Argentina count
 - Solana RPC (publicnode, then mainnet-beta): refiSOL, jitoSOL and Marinade pool accounts (fees, exchange rate, supply, program)
-- Jupiter API: refiSOL holders, swap quotes at 10, 100 and 1,000 SOL
+- Jupiter API: refiSOL holders, swap quotes at 10, 100 and 1,000 SOL, SOL price (for corals per 100K SOL)
 
 To update a saved value, edit its entry in `claims.json` and its `asOf` date.
 

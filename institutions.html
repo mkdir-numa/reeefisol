@@ -21,7 +21,7 @@
     <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Main">
       <a href="institutions.html" aria-current="page">For institutions</a>
-      <a href="index.html#refisol">refiSOL</a>
+      <a href="refisol.html">refiSOL</a>
       <a href="index.html#impact">Impact</a>
       <a href="index.html#faq">FAQ</a>
       <a class="btn btn-primary btn-sm" href="institutions.html#contact">Talk to us</a>
@@ -47,11 +47,8 @@
     <div>
       <h2>One page your board can read.</h2>
       <p class="lead">Every quarter: your stake, the fees it earned us, your share to impact, what it planted, and the on-chain receipt.</p>
-      <p class="scale" style="margin:24px 0">100K SOL for a year = <span data-claim="impact.scale">…</span> mangroves planted. <span data-chip="impact.scale"></span></p>
-      <div class="btns">
-        <a class="btn btn-ghost" href="#" aria-disabled="true">See a sample receipt</a>
-        <span data-chip="company.sampleReceipt"></span>
-      </div>
+      <p class="scale" style="margin-top:24px">100K SOL for a year = about <span data-claim="impact.coralsPer100k">…</span> corals planted.</p>
+      <p class="small muted">With <a data-const-href="seatreesCoralUrl" href="#" target="_blank" rel="noopener">SeaTrees in Golfo Dulce, Costa Rica</a>, from <span data-claim="impact.institutionalShare">…</span> of the fees we earn on your stake.</p>
     </div>
     <div class="receipt-mock rv" aria-hidden="true">
       <div class="kicker" style="margin-bottom:10px">Impact receipt</div>
@@ -74,7 +71,7 @@
         <ul>
           <li>Direct stake from your custodian or wallet</li>
           <li>Terms by contract: commission, MEV, impact share</li>
-          <li><span data-claim="impact.institutionalShare">…</span> of our fees on your stake plant corals and mangroves <span data-chip="impact.institutionalShare" data-badge-only></span></li>
+          <li><span data-claim="impact.institutionalShare">…</span> of our fees on your stake plant corals and mangroves</li>
           <li>Quarterly impact receipt</li>
           <li>Reporting on your schedule: rewards, uptime, skip rate, as PDF or CSV</li>
           <li>A named contact</li>
@@ -85,12 +82,12 @@
         <h3>refiSOL Open</h3>
         <ul>
           <li>refiSOL is the liquid staking token from our Solana validator</li>
-          <li><span data-claim="validator.commission">…</span> on staking rewards, <span data-claim="validator.mevCommission">…</span> on MEV <span data-chip="validator.commission"></span></li>
-          <li><span data-claim="impact.refisolShare">…</span> of our refiSOL fees plant corals and mangroves <span data-chip="impact.refisolShare" data-badge-only></span></li>
+          <li><span data-claim="validator.commission">…</span> on staking rewards, <span data-claim="validator.mevCommission">…</span> on MEV</li>
+          <li><span data-claim="impact.refisolShare">…</span> of our refiSOL fees plant corals and mangroves</li>
           <li>Swap back to SOL any time</li>
-          <li>Public record: <a href="https://stakewiz.com/validator/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx" target="_blank" rel="noopener">Stakewiz</a> · <a href="https://www.validators.app/validators/ReFiqMfGnc7tW8WQtFFcJRPZSDAWDBnAsdoFYF2QnfR?locale=en&amp;network=mainnet" target="_blank" rel="noopener">validators.app</a> · <a href="https://app.jpool.one/validators/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx" target="_blank" rel="noopener">JPool</a></li>
+          <li>Public record: <a data-const-href="stakewizUrl" href="#" target="_blank" rel="noopener">Stakewiz</a> · <a data-const-href="validatorsAppUrl" href="#" target="_blank" rel="noopener">validators.app</a> · <a href="https://app.jpool.one/validators/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx" target="_blank" rel="noopener">JPool</a></li>
         </ul>
-        <div class="btns"><a class="btn btn-coral" data-const-href="stakeRefisolUrl" href="#" target="_blank" rel="noopener">Stake refiSOL</a></div>
+        <div class="btns"><a class="btn btn-coral" href="refisol.html">Stake refiSOL</a></div>
       </div>
     </div>
   </div>
@@ -101,16 +98,15 @@
   <div class="wrap">
     <div class="sec-head"><h2>The public record</h2></div>
     <div class="record">
-      <div class="stat rv"><span class="v" data-claim="validator.activeStake">…</span><span class="l">active stake</span><span class="s" data-chip="validator.activeStake"></span></div>
-      <div class="stat rv"><span class="v" data-claim="validator.uptime30d">…</span><span class="l">uptime, last 30 days</span><span class="s" data-chip="validator.uptime30d"></span></div>
-      <div class="stat rv"><span class="v" data-claim="validator.skipRate">…</span><span class="l">skip rate, current epoch</span><span class="s" data-chip="validator.skipRate"></span></div>
-      <div class="stat rv"><span class="v" data-claim="validator.netApy">…</span><span class="l">net APY vs <span data-claim="yield.compare" data-part="range">…</span> at the big custodians</span><span class="s" data-chip="yield.compare"></span></div>
-      <div class="stat rv"><span class="v" style="font-size:24px">Jito client</span><span class="l">live since October 10, 2025</span><span class="s"><span data-chip="validator.client"></span><br><span data-chip="validator.liveSince"></span></span></div>
-      <div class="stat rv"><span class="v" style="font-size:24px">Only validator in Argentina</span><span class="l">Active validators in Argentina: <span data-claim="validator.onlyArgentina">…</span></span><span class="s" data-chip="validator.onlyArgentina"></span></div>
+      <div class="stat rv"><span class="v" data-claim="validator.activeStake">…</span><span class="l">active stake</span></div>
+      <div class="stat rv"><span class="v" data-claim="validator.uptime12m">…</span><span class="l">uptime, last 12 months</span></div>
+      <div class="stat rv"><span class="v" data-claim="validator.skipRate">…</span><span class="l">skip rate, current epoch</span></div>
+      <div class="stat rv"><span class="v" data-claim="validator.netApy">…</span><span class="l">net APY vs <span data-claim="yield.compare" data-part="range">…</span> at the big custodians</span></div>
+      <div class="stat rv"><span class="v v-text">Jito client</span><span class="l">live since October 10, 2025</span></div>
+      <div class="stat rv"><span class="v v-text">Only validator in Argentina</span><span class="l"><a data-const-href="argentinaUrl" href="#" target="_blank" rel="noopener">Buenos Aires</a></span></div>
     </div>
-    <div class="card" style="margin-top:16px">
-      <div data-render="yieldTable"></div>
-    </div>
+    <div class="card" style="margin-top:16px"><div data-render="yieldTable"></div></div>
+    <p class="verified"><span class="dot" aria-hidden="true"></span>Live data independently verified by <a data-const-href="stakewizUrl" href="#" target="_blank" rel="noopener">Stakewiz</a> and <a data-const-href="validatorsAppUrl" href="#" target="_blank" rel="noopener">validators.app</a>.</p>
   </div>
 </section>
 
@@ -119,19 +115,20 @@
   <div class="wrap">
     <div class="sec-head"><h2>How we operate</h2></div>
     <dl class="dl">
-      <div><dt>Operator.</dt><dd><span class="logo-pill" data-render="orgLogo" data-org="pine-stake" data-dark></span>ReFi Hub, with Pine Stake. <span data-chip="validator.operator"></span></dd></div>
-      <div><dt>Hardware.</dt><dd><span data-claim="ops.hardware">…</span> <span data-chip="ops.hardware"></span></dd></div>
-      <div><dt>Location.</dt><dd><span data-claim="validator.dataCentre">…</span>, Buenos Aires. <span data-chip="validator.dataCentre"></span> <span data-chip="validator.city" data-prefix="Location: "></span></dd></div>
-      <div><dt>Client.</dt><dd>Jito-Solana. <span data-chip="validator.client"></span></dd></div>
-      <div><dt>Upgrades.</dt><dd><span data-claim="ops.upgrades">…</span> <span data-chip="ops.upgrades"></span></dd></div>
-      <div><dt>Failover.</dt><dd><span data-claim="ops.failover">…</span> <span data-chip="ops.failover"></span></dd></div>
-      <div><dt>Monitoring.</dt><dd><span data-claim="ops.monitoring">…</span> <span data-chip="ops.monitoring"></span></dd></div>
-      <div><dt>Key custody.</dt><dd>Withdraw keys offline, never on a validator server. <span data-chip="ops.keyCustody"></span></dd></div>
-      <div><dt>Commission.</dt><dd><span data-claim="validator.commission">…</span> on staking rewards, <span data-claim="validator.mevCommission">…</span> on MEV. Contracted terms for managed positions. <span data-chip="validator.mevCommission"></span></dd></div>
-      <div><dt>Impact.</dt><dd><span data-claim="impact.refisolShare">…</span> of refiSOL fees. <span data-chip="impact.refisolShare" data-badge-only></span> <span data-claim="impact.institutionalShare">…</span> of fees on new institutional stake. <span data-chip="impact.institutionalShare" data-badge-only></span> Corals and mangroves only.</dd></div>
+      <div><dt>Operator.</dt><dd><span class="logo-pill" data-render="orgLogo" data-org="pine-stake" data-dark></span>ReFi Hub, with <a href="https://www.pinestake.com/en" target="_blank" rel="noopener">Pine Stake</a>.</dd></div>
+      <div><dt>Hardware.</dt><dd data-claim="ops.hardware">…</dd></div>
+      <div><dt>Location.</dt><dd><a data-const-href="argentinaUrl" href="#" target="_blank" rel="noopener">Buenos Aires, Argentina</a>.</dd></div>
+      <div><dt>Client.</dt><dd>Jito-Solana.</dd></div>
+      <div><dt>Upgrades.</dt><dd data-claim="ops.upgrades">…</dd></div>
+      <div><dt>Failover.</dt><dd data-claim="ops.failover">…</dd></div>
+      <div><dt>Monitoring.</dt><dd data-claim="ops.monitoring">…</dd></div>
+      <div><dt>Key custody.</dt><dd><span data-claim="ops.keyCustody">…</span> Withdraw authority: <a data-const-href="withdrawAuthorityUrl" href="#" target="_blank" rel="noopener">Squads multisig</a>.</dd></div>
+      <div><dt>Commission.</dt><dd><span data-claim="validator.commission">…</span> on staking rewards, <span data-claim="validator.mevCommission">…</span> on MEV. Contracted terms for managed positions.</dd></div>
+      <div><dt>Impact.</dt><dd><span data-claim="impact.refisolShare">…</span> of refiSOL fees. <span data-claim="impact.institutionalShare">…</span> of fees on new institutional stake. Corals and mangroves only.</dd></div>
       <div><dt>Reporting.</dt><dd>Quarterly impact receipt. Contract-defined validator reports.</dd></div>
-      <div><dt>Public record.</dt><dd>Vote account <code data-claim="validator.voteAccount">…</code> <span data-chip="validator.voteAccount"></span></dd></div>
+      <div><dt>Public record.</dt><dd>Vote account <a class="code" data-claim="validator.voteAccount" href="#" target="_blank" rel="noopener">…</a></dd></div>
     </dl>
+    <p class="verified">Infrastructure and security practices as published by <a data-const-href="pineSecurityUrl" href="#" target="_blank" rel="noopener">Pine Stake</a>.</p>
   </div>
 </section>
 
@@ -151,21 +148,41 @@
 
 <!-- Contact -->
 <section class="contact" id="contact">
-  <div class="wrap">
-    <div class="sec-head"><h2>Contact</h2></div>
-    <div class="card">
-      <dl class="dl" style="grid-template-columns:140px 1fr">
-        <div><dt>Name</dt><dd><span data-claim="contact.name">…</span> <span data-chip="contact.name"></span></dd></div>
-        <div><dt>Email</dt><dd><span data-claim="contact.email">…</span> <span data-chip="contact.email"></span></dd></div>
-        <div><dt>Also</dt><dd>Telegram · X <span data-chip="contact.handles"></span></dd></div>
-        <div><dt>Response time</dt><dd>Within one business day.</dd></div>
-      </dl>
+  <div class="wrap contact-grid">
+    <div>
+      <h2>Contact</h2>
+      <p class="lead">Response time: Within one business day.</p>
+      <p class="muted small">Also on Telegram and <a data-const-href="xUrl" href="#" target="_blank" rel="noopener">X</a>.</p>
     </div>
+    <form class="card contact-form" novalidate>
+      <div class="f2">
+        <label>Name<input name="name" required autocomplete="name"></label>
+        <label>Organization<input name="org" required autocomplete="organization"></label>
+      </div>
+      <label>Work email<input name="email" type="email" required autocomplete="email"></label>
+      <div class="f2">
+        <label>SOL to stake
+          <select name="size" required>
+            <option value="">Choose a range</option>
+            <option>Under 10K SOL</option>
+            <option>10K to 100K SOL</option>
+            <option>100K to 1M SOL</option>
+            <option>Over 1M SOL</option>
+          </select>
+        </label>
+        <label>Custodian or wallet<input name="custody" placeholder="For example, your custodian's name"></label>
+      </div>
+      <label>What would you like to know?<textarea name="msg" rows="4"></textarea></label>
+      <label class="check"><input type="checkbox" name="pack"> Send me the diligence pack</label>
+      <div class="form-foot">
+        <button class="btn btn-primary" type="submit">Send</button>
+        <span class="form-note small muted" role="status"></span>
+      </div>
+    </form>
   </div>
 </section>
 
 </main>
-
 
 <footer>
   <div class="wrap">
@@ -176,25 +193,22 @@
           <label for="email">Quarterly impact update.</label>
           <div class="row">
             <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
-            <button class="btn btn-coral btn-sm" type="submit" aria-disabled="true">Subscribe</button>
+            <button class="btn btn-coral btn-sm" type="submit">Subscribe</button>
           </div>
-          <span data-chip="company.newsletter"></span>
         </form>
       </div>
       <nav class="foot-links" aria-label="Footer">
         <a href="institutions.html">For institutions</a>
-        <a href="index.html#refisol">refiSOL</a>
-        <a href="donations.html">Donations</a>
+        <a href="refisol.html">refiSOL</a>
         <a href="index.html#faq">FAQ</a>
         <span class="soon">Terms</span>
         <span class="soon">Privacy</span>
         <span class="soon">Disclaimer</span>
-        <span data-chip="company.legalPages"></span>
         <a data-const-href="xUrl" href="#" target="_blank" rel="noopener">X</a>
         <a data-const-href="discordUrl" href="#" target="_blank" rel="noopener">Discord</a>
       </nav>
     </div>
-    <div class="legal"><span data-claim="company.legal">…</span> <span data-chip="company.legal"></span></div>
+    <div class="legal">Legal entity: pending</div>
   </div>
 </footer>
 </body>

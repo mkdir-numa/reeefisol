@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>refiSOL · ReFi Hub</title>
+<meta name="description" content="refiSOL is the liquid staking token from our Solana validator. Any amount. Swap back any time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;400;500&family=Geist:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/brand-tokens.css">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="ReFi Hub home"><img src="assets/refihub-black.svg" alt="ReFi Hub"></a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="institutions.html">For institutions</a>
+      <a href="refisol.html" aria-current="page">refiSOL</a>
+      <a href="index.html#impact">Impact</a>
+      <a href="index.html#faq">FAQ</a>
+      <a class="btn btn-primary btn-sm" href="institutions.html#contact">Talk to us</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- Hero with swap widget -->
+<section class="rs-hero">
+  <div class="wrap rs-grid">
+    <div class="rs-copy">
+      <div class="kicker">refiSOL</div>
+      <h1>Stake SOL. Plant corals and mangroves.</h1>
+      <p class="lead">refiSOL is the liquid staking token from our Solana validator. Any amount. Swap back any time.</p>
+      <div class="rs-facts">
+        <div><span class="v" data-claim="validator.netApy">…</span><span class="l">Net APY</span></div>
+        <div><span class="v" data-claim="impact.refisolShare">…</span><span class="l">of our refiSOL fees plant corals and mangroves</span></div>
+      </div>
+    </div>
+
+    <div class="swap-card" data-render="swapMock" aria-label="Swap widget mockup">
+      <div class="swap-top">
+        <img src="assets/refihub-white.svg" alt="ReFi Hub" class="swap-logo">
+        <span class="swap-pill">Connect wallet</span>
+      </div>
+      <div class="swap-box">
+        <div class="swap-row"><span>Selling</span><span>SOL</span></div>
+        <div class="swap-row">
+          <span class="token"><span class="tok-dot tok-sol" aria-hidden="true"></span>SOL</span>
+          <input type="number" inputmode="decimal" min="0" step="any" value="10" aria-label="SOL amount">
+        </div>
+      </div>
+      <div class="swap-arrow" aria-hidden="true">↓</div>
+      <div class="swap-box">
+        <div class="swap-row"><span>Buying</span><span>refiSOL</span></div>
+        <div class="swap-row">
+          <span class="token"><span class="tok-dot tok-refi" aria-hidden="true"></span>refiSOL</span>
+          <span class="swap-out" data-out>0.00</span>
+        </div>
+      </div>
+      <div class="swap-rate" data-rate></div>
+      <button class="swap-btn" type="button">Connect wallet</button>
+      <div class="swap-foot"><span>Powered by Jupiter</span><a data-const-href="jupiterSwapUrl" href="#" target="_blank" rel="noopener">Open in Jupiter →</a></div>
+      <span class="swap-tag">Mockup</span>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><h2>How refiSOL works</h2></div>
+    <div class="steps steps-3">
+      <div class="step rv"><div class="n">1</div><h3>Swap SOL for refiSOL</h3><p>Any amount, in one transaction.</p></div>
+      <div class="step rv"><div class="n">2</div><h3>Hold</h3><p>Rewards build up inside the token. Today 1 refiSOL = <span data-claim="refisol.rate">…</span>.</p></div>
+      <div class="step rv"><div class="n">3</div><h3>Swap back any time</h3><p>At the market rate. No lockup.</p></div>
+    </div>
+    <p class="verified"><span class="dot" aria-hidden="true"></span>Live data independently verified by <a data-const-href="stakewizUrl" href="#" target="_blank" rel="noopener">Stakewiz</a> and <a data-const-href="validatorsAppUrl" href="#" target="_blank" rel="noopener">validators.app</a>.</p>
+  </div>
+</section>
+
+<!-- Where fees go -->
+<section class="impact">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Where our fees go</h2>
+      <p>A share of our fees plants corals and mangroves.</p>
+    </div>
+    <p class="worked">We've worked with SeaTrees, Coral Guardian and Coral Tribe.</p>
+    <div class="partners rv" data-render="partners" data-orgs="seatrees,coral-guardian,coral-tribe"></div>
+  </div>
+</section>
+
+<!-- Closing -->
+<section>
+  <div class="wrap">
+    <div class="closing rv">
+      <h2>Large position? Talk to us.</h2>
+      <div class="btns">
+        <a class="btn btn-light" href="institutions.html">For institutions</a>
+        <a class="btn btn-coral" href="index.html#faq">FAQ</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <img class="foot-logo" src="assets/refihub-white.svg" alt="ReFi Hub">
+    <div class="foot-grid">
+      <div class="signup">
+        <form>
+          <label for="email">Quarterly impact update.</label>
+          <div class="row">
+            <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
+            <button class="btn btn-coral btn-sm" type="submit">Subscribe</button>
+          </div>
+        </form>
+      </div>
+      <nav class="foot-links" aria-label="Footer">
+        <a href="institutions.html">For institutions</a>
+        <a href="refisol.html">refiSOL</a>
+        <a href="index.html#faq">FAQ</a>
+        <span class="soon">Terms</span>
+        <span class="soon">Privacy</span>
+        <span class="soon">Disclaimer</span>
+        <a data-const-href="xUrl" href="#" target="_blank" rel="noopener">X</a>
+        <a data-const-href="discordUrl" href="#" target="_blank" rel="noopener">Discord</a>
+      </nav>
+    </div>
+    <div class="legal">Legal entity: pending</div>
+  </div>
+</footer>
+</body>
+</html>

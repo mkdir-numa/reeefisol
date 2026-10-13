@@ -21,7 +21,7 @@
     <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Main">
       <a href="institutions.html">For institutions</a>
-      <a href="index.html#refisol">refiSOL</a>
+      <a href="refisol.html">refiSOL</a>
       <a href="index.html#impact">Impact</a>
       <a href="index.html#faq">FAQ</a>
       <a class="btn btn-primary btn-sm" href="institutions.html#contact">Talk to us</a>
@@ -35,9 +35,9 @@
   <div class="wrap">
     <h1>Every donation, on-chain.</h1>
     <div class="don-counters">
-      <div class="stat"><span class="v" data-claim="donations.fromValidator">…</span><span class="l">donated</span><span class="s" data-chip="donations.fromValidator"></span></div>
-      <div class="stat"><span class="v" data-claim="impact.validatorPlanted">…</span><span class="l">planted with validator fees</span><span class="s" data-chip="impact.validatorPlanted"></span></div>
-      <div class="stat"><span class="v" data-claim="donations.count">…</span><span class="l">donations</span><span class="s" data-chip="donations.count"></span></div>
+      <div class="stat"><span class="v" data-claim="donations.fromValidator">…</span><span class="l">donated</span></div>
+      <div class="stat"><span class="v" data-claim="impact.validatorPlanted">…</span><span class="l">planted with validator fees</span></div>
+      <div class="stat"><span class="v" data-claim="donations.count">…</span><span class="l">donations</span></div>
     </div>
   </div>
 </section>
@@ -46,11 +46,7 @@
   <div class="wrap">
     <div class="card">
       <div data-render="donations"></div>
-      <div class="tbl-foot">
-        <span class="small muted">Donation wallet: <span data-claim="donations.walletActivity">…</span></span>
-        <span data-chip="donations.walletActivity"></span>
-        <span data-chip="donations.rows"></span>
-      </div>
+      <p class="small muted" style="margin-top:12px">Donation wallet: <span data-claim="donations.walletActivity">…</span>. <a data-const-href="solscanDonationsUrl" href="#" target="_blank" rel="noopener">Full history on Solscan</a>.</p>
     </div>
   </div>
 </section>
@@ -59,14 +55,13 @@
   <div class="wrap">
     <div class="sec-head"><h2>This month</h2></div>
     <div class="grid g2">
-      <div class="stat"><span class="v" data-claim="donations.owedThisMonth">…</span><span class="l">Owed</span><span class="s" data-chip="donations.owedThisMonth"></span></div>
-      <div class="stat"><span class="v" data-claim="donations.paidThisMonth">…</span><span class="l">Paid</span><span class="s" data-chip="donations.paidThisMonth"></span></div>
+      <div class="stat"><span class="v" data-claim="donations.owedThisMonth">…</span><span class="l">Owed</span></div>
+      <div class="stat"><span class="v" data-claim="donations.paidThisMonth">…</span><span class="l">Paid</span></div>
     </div>
   </div>
 </section>
 
 </main>
-
 
 <footer>
   <div class="wrap">
@@ -77,25 +72,22 @@
           <label for="email">Quarterly impact update.</label>
           <div class="row">
             <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
-            <button class="btn btn-coral btn-sm" type="submit" aria-disabled="true">Subscribe</button>
+            <button class="btn btn-coral btn-sm" type="submit">Subscribe</button>
           </div>
-          <span data-chip="company.newsletter"></span>
         </form>
       </div>
       <nav class="foot-links" aria-label="Footer">
         <a href="institutions.html">For institutions</a>
-        <a href="index.html#refisol">refiSOL</a>
-        <a href="donations.html">Donations</a>
+        <a href="refisol.html">refiSOL</a>
         <a href="index.html#faq">FAQ</a>
         <span class="soon">Terms</span>
         <span class="soon">Privacy</span>
         <span class="soon">Disclaimer</span>
-        <span data-chip="company.legalPages"></span>
         <a data-const-href="xUrl" href="#" target="_blank" rel="noopener">X</a>
         <a data-const-href="discordUrl" href="#" target="_blank" rel="noopener">Discord</a>
       </nav>
     </div>
-    <div class="legal"><span data-claim="company.legal">…</span> <span data-chip="company.legal"></span></div>
+    <div class="legal">Legal entity: pending</div>
   </div>
 </footer>
 </body>

@@ -97,6 +97,25 @@
     'stakewiz.stakes': function () {
       return once('sws', function () { return getJSON('https://api.stakewiz.com/validator_stakes/' + C.voteAccount); });
     },
+    'stakewiz.delinquencies': function () {
+      return once('swd', function () { return getJSON('https://api.stakewiz.com/validator_delinquencies/' + C.voteAccount); });
+    },
+    'jupiter.price': function () {
+      return once('jp', function () {
+        var qs = '/price/v3?ids=' + C.solMint;
+        return getJSON('https://lite-api.jup.ag' + qs).catch(function () { return getJSON('https://api.jup.ag' + qs); })
+          .then(function (j) { return j[C.solMint].usdPrice; });
+      });
+    },
+    // Fees we earn on a stake for a year, times the impact share, in USD, divided by the price of one coral.
+    'derived.corals': function (spec) {
+      return Promise.all([F['stakewiz.validator'](), F['jupiter.price']()]).then(function (r) {
+        var v = r[0], price = r[1];
+        var c = v.commission / 10000, j = v.jito_commission_bps / 10000;
+        var feeRate = (v.staking_apy / (1 - c)) * c / 100 + (v.jito_apy / (1 - j)) * j / 100;
+        return spec.stakeSol * feeRate * spec.share * price / spec.coralUsd;
+      });
+    },
     'stakewiz.all': function () {
       return once('swa', function () { return getJSON('https://api.stakewiz.com/validators', null, 30000); });
     },
@@ -157,6 +176,14 @@
           else if (L.derive === 'city') v = d.ip_city + ', ' + d.ip_country;
           else { v = pick(d, L.path); if (L.scale) v = v * L.scale; }
           return { value: v, asOf: stakewizTime(d.updated_at) || now };
+        case 'stakewiz.delinquencies':
+          var since = Date.now() - 365 * 864e5;
+          var mins = d.filter(function (x) { return new Date(x.date + 'T00:00:00Z').getTime() >= since; })
+                      .reduce(function (a, x) { return a + Number(x.delinquent_minutes || 0); }, 0);
+          return { value: (1 - mins / (365 * 1440)) * 100, asOf: now };
+        case 'jupiter.price':
+        case 'derived.corals':
+          return { value: d, asOf: now };
         case 'stakewiz.epoch':
           return { value: d.duration_seconds / 86400, asOf: now };
         case 'stakewiz.stakes':
@@ -200,6 +227,8 @@
       case 'days': return trimNum(v * 24, 0) + ' hours';
       case 'code': case 'program': case 'text': return String(v);
       case 'compare': return trimNum(v.ours, 2) + '% vs ' + trimNum(v.min, 2) + '-' + trimNum(v.max, 2) + '%';
+      case 'round10': return (Math.round(v / 10) * 10).toLocaleString('en-US');
+      case 'usd': return '$' + trimNum(v, 2);
       case 'activity': return v.txs + ' transactions, last on ' + dateFmt.format(new Date(v.last));
       default: return String(v);
     }
@@ -290,13 +319,12 @@
       var peers = ['coinbase', 'figment', 'kiln', 'everstake'].map(function (k) { return CL['yield.peer.' + k]; });
       var t = el('table', { class: 'tbl' }, [
         el('thead', null, [el('tr', null, [el('th', { text: 'Validator' }), el('th', { text: 'Net APY' })])]),
-        el('tbody', null, [el('tr', { class: 'us' }, [el('td', { text: 'ReFi Hub' }), el('td', { text: fmt(ours, cur(ours).value) })])].concat(
+        el('tbody', null, [el('tr', { class: 'us' }, [el('td', null, [el('a', { href: SRC.stakewiz.url, target: '_blank', rel: 'noopener', text: 'ReFi Hub' })]), el('td', { text: fmt(ours, cur(ours).value) })])].concat(
           peers.map(function (p) {
             return el('tr', null, [el('td', null, [el('a', { href: p.sourceUrl, target: '_blank', rel: 'noopener', text: p.text })]), el('td', { text: fmt(p, cur(p).value) })]);
           })))
       ]);
-      var foot = el('div', { class: 'tbl-foot' }, [chip(CL['yield.compare'])]);
-      n.replaceChildren(el('div', { class: 'tbl-wrap' }, [t]), foot);
+      n.replaceChildren(el('div', { class: 'tbl-wrap' }, [t]));
     },
     stakedBy: function (n) {
       var slugs = n.dataset.orgs.split(',');
@@ -308,8 +336,7 @@
           box,
           el('div', { class: 'logo-meta' }, [
             el('span', { class: 'small org-name', text: o.name }),
-            el('span', { class: 'amt val', text: claim ? fmt(claim, cur(claim).value) : 'pending' }),
-            claim ? chip(claim) : null
+            el('span', { class: 'amt val', text: claim ? fmt(claim, cur(claim).value) : 'pending' })
           ])
         ]);
       }));
@@ -320,7 +347,7 @@
         var o = ORGS[slug] || { name: slug };
         var logo = orgLogo(slug, false) || el('span', { class: 'logo-text', text: o.name });
         var box = o.url ? el('a', { href: o.url, target: '_blank', rel: 'noopener', class: 'logo-box', 'aria-label': o.name }, [logo]) : el('div', { class: 'logo-box' }, [logo]);
-        return el('div', { class: 'logo-card' }, [box, el('div', { class: 'logo-meta' }, [el('span', { class: 'small muted', text: o.name }), chip(claim, { badgeOnly: true })])]);
+        return el('a', { class: 'logo-card', href: o.url, target: '_blank', rel: 'noopener' }, [el('div', { class: 'logo-box' }, [logo]), el('span', { class: 'small muted', text: o.name })]);
       }));
     },
     orgLogo: function (n) {
@@ -330,11 +357,11 @@
     lstFees: function (n) {
       var rows = [['refiSOL', 'refisol.poolFees'], ['jitoSOL', 'lst.jitosolFees'], ['mSOL', 'lst.msolFees']];
       var t = el('table', { class: 'tbl' }, [
-        el('thead', null, [el('tr', null, ['Token', 'On rewards', 'Deposit', 'Withdraw', 'Source'].map(function (h) { return el('th', { text: h }); }))]),
+        el('thead', null, [el('tr', null, ['Token', 'On rewards', 'Deposit', 'Withdraw'].map(function (h) { return el('th', { text: h }); }))]),
         el('tbody', null, rows.map(function (r) {
           var c = CL[r[1]], v = cur(c).value || {};
           return el('tr', null, [el('td', { text: r[0] }), el('td', { text: trimNum(v.epoch, 2) + '%' }), el('td', { text: trimNum(v.deposit, 2) + '%' }),
-            el('td', { text: trimNum(v.withdraw, 2) + '%' }), el('td', null, [chip(c)])]);
+            el('td', { text: trimNum(v.withdraw, 2) + '%' })]);
         }))
       ]);
       n.replaceChildren(el('div', { class: 'tbl-wrap' }, [t]));
@@ -347,13 +374,24 @@
           return el('tr', null, [el('td', { text: q.sol.toLocaleString('en-US') + ' SOL' }), el('td', { class: q.drop == null ? 'pending' : '', text: q.drop == null ? 'no quote' : trimNum(q.drop, 2) + '%' })]);
         }))
       ]);
-      n.replaceChildren(el('div', { class: 'tbl-wrap' }, [t]), el('div', { class: 'tbl-foot' }, [chip(c)]));
+      n.replaceChildren(el('div', { class: 'tbl-wrap' }, [t]));
     },
     audits: function (n) {
       var c = CL['refisol.audits'];
       var kids = [];
       c.value.forEach(function (a, i) { if (i) kids.push(', '); kids.push(el('a', { href: a.url, target: '_blank', rel: 'noopener', text: a.name })); });
       n.replaceChildren.apply(n, kids);
+    },
+    swapMock: function (n) {
+      var input = $('input', n), out = $('[data-out]', n), rateEl = $('[data-rate]', n);
+      var rate = cur(CL['refisol.rate']).value;
+      function upd() {
+        var sol = parseFloat(input.value) || 0;
+        out.textContent = sol > 0 ? trimNum(sol / rate, 4) : '0.00';
+        if (rateEl) rateEl.textContent = '1 SOL ≈ ' + trimNum(1 / rate, 4) + ' refiSOL';
+      }
+      if (!input._wired) { input.addEventListener('input', upd); input._wired = true; }
+      upd();
     },
     donations: function (n) {
       var c = CL['donations.rows'];
@@ -362,10 +400,10 @@
         el('tbody', null, c.value.map(function (r) {
           return el('tr', null, [
             el('td', { text: dateFmt.format(new Date(r.date + 'T12:00:00Z')) }),
-            el('td', null, [r.partner ? r.partner : el('span', { class: 'pending', text: 'pending ' }), r.partner ? null : el('span', { class: 'badge', title: r.flow, tabindex: '0', text: 'unverified' })]),
+            el('td', null, [r.partner ? r.partner : el('span', { class: 'pending', text: 'pending' })]),
             el('td', null, [el('span', { text: r.amount }), el('br'), el('span', { class: 'small muted', text: r.flow })]),
             el('td', null, [r.planted ? r.planted : el('span', { class: 'pending', text: 'pending' })]),
-            el('td', null, [el('a', { class: 'src', href: 'https://solscan.io/tx/' + r.tx, target: '_blank', rel: 'noopener', text: 'Solscan ' + r.tx.slice(0, 6) + '...' })])
+            el('td', null, [el('a', { href: 'https://solscan.io/tx/' + r.tx, target: '_blank', rel: 'noopener', text: 'Solscan' })])
           ]);
         }))
       ]);
@@ -383,6 +421,7 @@
       if (r === 'stakedBy') n.dataset.orgs.split(',').forEach(function (s) { used['stakedBy.' + s] = 1; });
       if (r === 'lstFees') ['refisol.poolFees', 'lst.jitosolFees', 'lst.msolFees'].forEach(function (k) { used[k] = 1; });
       if (r === 'exitCost') used['refisol.exitCost'] = 1;
+      if (r === 'swapMock') used['refisol.rate'] = 1;
     });
     if (used['yield.compare']) ['validator.netApy', 'yield.peer.coinbase', 'yield.peer.figment', 'yield.peer.kiln', 'yield.peer.everstake'].forEach(function (k) { used[k] = 1; });
 
@@ -435,6 +474,13 @@
     $$('a[aria-disabled="true"]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); }); });
     var form = $('.signup form');
     if (form) form.addEventListener('submit', function (e) { e.preventDefault(); });
+    var cf = $('.contact-form');
+    if (cf) cf.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var msg = $('.form-note', cf);
+      if (!cf.checkValidity()) { cf.reportValidity(); return; }
+      msg.textContent = 'Mockup only: this form is not connected yet.';
+    });
   }
 
   function constLinks() {
