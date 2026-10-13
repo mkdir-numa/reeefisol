@@ -498,8 +498,18 @@
       $$('.rv').forEach(function (n) { io.observe(n); });
     } else $$('.rv').forEach(function (n) { n.classList.add('in'); });
     $$('a[aria-disabled="true"]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); }); });
-    var form = $('.signup form');
+    var form = $('form.signup') || $('.signup form');
     if (form) form.addEventListener('submit', function (e) { e.preventDefault(); });
+    $$('[data-copy]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var label = $('em', b);
+        if (!navigator.clipboard) return;
+        navigator.clipboard.writeText(b.dataset.copy).then(function () {
+          label.textContent = 'Copied';
+          setTimeout(function () { label.textContent = 'Copy'; }, 1500);
+        });
+      });
+    });
     var cf = $('.contact-form');
     if (cf) cf.addEventListener('submit', function (e) {
       e.preventDefault();

@@ -1344,12 +1344,13 @@
       "text": "Legal entity and jurisdiction",
       "page": "all",
       "section": "Footer; Diligence pack",
-      "value": null,
+      "value": "ReFi Hub LTD",
       "format": "text",
       "source": "team",
       "check": "manual",
-      "status": "placeholder",
-      "asOf": null
+      "status": "verified",
+      "asOf": "2026-10-13T00:00:00Z",
+      "note": "Team confirmed (Oct 13): footer reads '© 2026 ReFi Hub LTD. All rights reserved.' Jurisdiction still to add."
     },
     {
       "id": "company.custodians",
