@@ -387,3 +387,17 @@ a.logo-card:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(13,58,6
 .swap-tag{position:absolute;top:-12px;right:16px;font:500 10.5px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;background:var(--sun-100);color:#7a5a10;padding:5px 9px;border-radius:999px}
 .steps-3{grid-template-columns:repeat(3,1fr)}
 @media (max-width:860px){.steps-3{grid-template-columns:1fr}}
+
+/* How to start: vertical timeline */
+.tl{max-width:760px}
+.tl-step{display:grid;grid-template-columns:96px 1fr;gap:24px;position:relative;padding-bottom:44px}
+.tl-step:last-child{padding-bottom:0}
+.tl-step::before{content:"";position:absolute;left:28px;top:64px;bottom:8px;width:1px;background:var(--line-cool)}
+.tl-step:last-child::before{display:none}
+.tl-num{font-family:var(--serif);font-weight:300;font-size:56px;line-height:1;color:var(--sea-500)}
+.tl-step:nth-child(2) .tl-num{color:var(--leaf-500)}
+.tl-step:nth-child(3) .tl-num{color:var(--sun-500)}
+.tl-step:nth-child(4) .tl-num{color:var(--coral-500)}
+.tl-step h3{font-size:clamp(20px,2vw,24px);font-weight:400;letter-spacing:-.02em;margin:6px 0}
+.tl-step p{color:var(--muted);font-size:17px;margin:0;max-width:480px}
+@media (max-width:560px){.tl-step{grid-template-columns:56px 1fr;gap:14px}.tl-num{font-size:40px}.tl-step::before{left:18px;top:50px}}
