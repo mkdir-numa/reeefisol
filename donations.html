@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Donations · ReFi Hub</title>
+<meta name="description" content="Every donation, on-chain.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;400;500&family=Geist:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/brand-tokens.css">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="ReFi Hub home"><img src="assets/refihub-black.svg" alt="ReFi Hub"></a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="institutions.html">For institutions</a>
+      <a href="index.html#refisol">refiSOL</a>
+      <a href="index.html#impact">Impact</a>
+      <a href="index.html#faq">FAQ</a>
+      <a class="btn btn-primary btn-sm" href="institutions.html#contact">Talk to us</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Every donation, on-chain.</h1>
+    <div class="don-counters">
+      <div class="stat"><span class="v" data-claim="donations.fromValidator">…</span><span class="l">donated</span><span class="s" data-chip="donations.fromValidator"></span></div>
+      <div class="stat"><span class="v" data-claim="impact.validatorPlanted">…</span><span class="l">planted with validator fees</span><span class="s" data-chip="impact.validatorPlanted"></span></div>
+      <div class="stat"><span class="v" data-claim="donations.count">…</span><span class="l">donations</span><span class="s" data-chip="donations.count"></span></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="card">
+      <div data-render="donations"></div>
+      <div class="tbl-foot">
+        <span class="small muted">Donation wallet: <span data-claim="donations.walletActivity">…</span></span>
+        <span data-chip="donations.walletActivity"></span>
+        <span data-chip="donations.rows"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band-sand">
+  <div class="wrap">
+    <div class="sec-head"><h2>This month</h2></div>
+    <div class="grid g2">
+      <div class="stat"><span class="v" data-claim="donations.owedThisMonth">…</span><span class="l">Owed</span><span class="s" data-chip="donations.owedThisMonth"></span></div>
+      <div class="stat"><span class="v" data-claim="donations.paidThisMonth">…</span><span class="l">Paid</span><span class="s" data-chip="donations.paidThisMonth"></span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+
+<footer>
+  <div class="wrap">
+    <img class="foot-logo" src="assets/refihub-white.svg" alt="ReFi Hub">
+    <div class="foot-grid">
+      <div class="signup">
+        <form>
+          <label for="email">Quarterly impact update.</label>
+          <div class="row">
+            <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
+            <button class="btn btn-coral btn-sm" type="submit" aria-disabled="true">Subscribe</button>
+          </div>
+          <span data-chip="company.newsletter"></span>
+        </form>
+      </div>
+      <nav class="foot-links" aria-label="Footer">
+        <a href="institutions.html">For institutions</a>
+        <a href="index.html#refisol">refiSOL</a>
+        <a href="donations.html">Donations</a>
+        <a href="index.html#faq">FAQ</a>
+        <span class="soon">Terms</span>
+        <span class="soon">Privacy</span>
+        <span class="soon">Disclaimer</span>
+        <span data-chip="company.legalPages"></span>
+        <a data-const-href="xUrl" href="#" target="_blank" rel="noopener">X</a>
+        <a data-const-href="discordUrl" href="#" target="_blank" rel="noopener">Discord</a>
+      </nav>
+    </div>
+    <div class="legal"><span data-claim="company.legal">…</span> <span data-chip="company.legal"></span></div>
+  </div>
+</footer>
+</body>
+</html>

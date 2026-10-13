@@ -1,8 +1,44 @@
-# refiSOL staking page
+# ReFi Hub staking site
 
-Prototype of the new ReFi Hub staking landing page. Single self-contained `index.html` — no build step, open it in a browser.
+Static site for the ReFi Hub validator and refiSOL. Plain HTML, CSS and JS, no build step. Works on GitHub Pages.
 
-- Styling follows the published refihub.io brand system; the extracted design tokens live in [`assets/brand-tokens.css`](assets/brand-tokens.css) (with Framer token IDs for cross-reference).
-- Logos and partner marks are embedded as data URIs; source files are in [`assets/`](assets/).
-- The stake widget is a mock — production embeds the Jupiter swap widget, same as the live app.
-- **Numbers are pre-verification.** Every figure that still needs the data pass carries a hover tooltip naming its source. Verify before publishing.
+## Pages
+
+- `index.html`: Home, with the FAQ
+- `institutions.html`: For institutions
+- `donations.html`: Donations
+
+## How the numbers work
+
+Every number and checkable fact is read from [`claims.json`](claims.json), the claim register. Nothing numeric is typed into the HTML.
+
+Each claim has the exact text, page and section, the saved value, its source, how it is checked and its status:
+
+- `check`: `live` (fetched on page load), `link` (static link to the source) or `manual` (confirmed by a person)
+- `status`: `verified`, `placeholder` or `unverifiable-yet`
+
+On the page, every value shows a small source link with its time. Live values show a green dot and the fetch time. If a live fetch fails, the saved value from `claims.json` stays, with an amber dot and its saved date. Anything not verified shows an `unverified` badge; hover it for the reason.
+
+Live sources (all public and CORS-enabled):
+
+- Stakewiz API: stake, APY, uptime, skip rate, commissions, client, location, epoch length, peer yields, stake by source, Argentina count
+- Solana RPC (publicnode, then mainnet-beta): refiSOL, jitoSOL and Marinade pool accounts (fees, exchange rate, supply, program)
+- Jupiter API: refiSOL holders, swap quotes at 10, 100 and 1,000 SOL
+
+To update a saved value, edit its entry in `claims.json` and its `asOf` date.
+
+## Run locally
+
+`fetch` needs a server (opening the file directly will not load `claims.json`):
+
+```bash
+python3 -m http.server 8765
+```
+
+Then open http://localhost:8765.
+
+## Files
+
+- `assets/site.css`, `assets/site.js`: styles and the claim renderer
+- `assets/brand-tokens.css`: ReFi Hub brand tokens from refihub.io
+- `assets/logos/`: official logos, with sources and terms in [`assets/logos/SOURCES.md`](assets/logos/SOURCES.md). No written permission has been obtained for any of them yet.
