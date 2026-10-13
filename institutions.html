@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;400;500&family=Geist:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/brand-tokens.css">
-<link rel="stylesheet" href="assets/site.css?v=4">
-<script src="assets/site.js?v=4" defer></script>
+<link rel="stylesheet" href="assets/site.css?v=5">
+<script src="assets/site.js?v=6" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -50,13 +50,19 @@
       <p class="scale" style="margin-top:24px">100K SOL for a year = about <span data-claim="impact.coralsPer100k">…</span> corals planted.</p>
       <p class="small muted">With <a data-const-href="seatreesCoralUrl" href="#" target="_blank" rel="noopener">SeaTrees in Golfo Dulce, Costa Rica</a>, from <span data-claim="impact.institutionalShare">…</span> of the fees we earn on your stake.</p>
     </div>
-    <div class="receipt-mock rv" aria-hidden="true">
-      <div class="kicker" style="margin-bottom:10px">Impact receipt</div>
-      <div class="row"><span>Your stake</span><span>·····</span></div>
-      <div class="row"><span>Fees it earned us</span><span>·····</span></div>
-      <div class="row"><span>Your share to impact</span><span>·····</span></div>
-      <div class="row"><span>What it planted</span><span>·····</span></div>
-      <div class="row"><span>On-chain receipt</span><span>·····</span></div>
+    <div class="rcpt rv" data-render="receipt">
+      <div class="rcpt-head">
+        <div><div class="kicker">Impact receipt · sample quarter</div><p class="rcpt-title">You earned more and planted corals</p></div>
+        <span class="rcpt-tag">Sample</span>
+      </div>
+      <div class="rcpt-kpis">
+        <div class="rcpt-kpi"><span class="l">With ReFi Hub</span><span class="v" data-r="with">…</span><span class="s" data-r="withApy"></span></div>
+        <div class="rcpt-kpi"><span class="l">At a big custodian</span><span class="v muted-v" data-r="cust">…</span><span class="s" data-r="custApy"></span></div>
+      </div>
+      <div class="rcpt-line"><span>Extra rewards to you</span><span class="pos" data-r="extra">…</span></div>
+      <div class="rcpt-line"><span>Impact funded from our fees</span><span data-r="impact">…</span></div>
+      <div class="rcpt-line"><span>Planted</span><span data-r="corals">…</span></div>
+      <p class="rcpt-foot">100,000 SOL for one quarter at today's rates. Benchmark: Coinbase, Figment, Kiln and Everstake on Stakewiz.</p>
     </div>
   </div>
 </section>

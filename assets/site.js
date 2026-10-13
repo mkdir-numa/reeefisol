@@ -81,6 +81,11 @@
     };
   }
 
+  function feeRate(v) {
+    var c = v.commission / 10000, j = v.jito_commission_bps / 10000;
+    return (v.staking_apy / (1 - c)) * c / 100 + (v.jito_apy / (1 - j)) * j / 100;
+  }
+
   /* ---------- live fetchers (memoised) ---------- */
   var memo = {};
   function once(key, fn) { if (!memo[key]) memo[key] = fn(); return memo[key]; }
@@ -107,13 +112,14 @@
           .then(function (j) { return j[C.solMint].usdPrice; });
       });
     },
+    // Share of a stake's yearly rewards that we earn as fees (commission on staking rewards plus MEV commission).
+    'derived.fees': function (spec) {
+      return F['stakewiz.validator']().then(function (v) { return spec.stakeSol * feeRate(v); });
+    },
     // Fees we earn on a stake for a year, times the impact share, in USD, divided by the price of one coral.
     'derived.corals': function (spec) {
       return Promise.all([F['stakewiz.validator'](), F['jupiter.price']()]).then(function (r) {
-        var v = r[0], price = r[1];
-        var c = v.commission / 10000, j = v.jito_commission_bps / 10000;
-        var feeRate = (v.staking_apy / (1 - c)) * c / 100 + (v.jito_apy / (1 - j)) * j / 100;
-        return spec.stakeSol * feeRate * spec.share * price / spec.coralUsd;
+        return spec.stakeSol * feeRate(r[0]) * spec.share * r[1] / spec.coralUsd;
       });
     },
     'stakewiz.all': function () {
@@ -182,6 +188,7 @@
                       .reduce(function (a, x) { return a + Number(x.delinquent_minutes || 0); }, 0);
           return { value: (1 - mins / (365 * 1440)) * 100, asOf: now };
         case 'jupiter.price':
+        case 'derived.fees':
         case 'derived.corals':
           return { value: d, asOf: now };
         case 'stakewiz.epoch':
@@ -382,6 +389,24 @@
       c.value.forEach(function (a, i) { if (i) kids.push(', '); kids.push(el('a', { href: a.url, target: '_blank', rel: 'noopener', text: a.name })); });
       n.replaceChildren.apply(n, kids);
     },
+    // Sample quarterly receipt for 100K SOL, built from today's live numbers.
+    receipt: function (n) {
+      var stake = 100000, q = 4;
+      var ours = cur(CL['validator.netApy']).value;
+      var peers = ['coinbase', 'figment', 'kiln', 'everstake'].map(function (k) { return cur(CL['yield.peer.' + k]).value; });
+      var avg = peers.reduce(function (a, b) { return a + b; }, 0) / peers.length;
+      var share = cur(CL['impact.institutionalShare']).value / 100;
+      var withUs = stake * ours / 100 / q, atCust = stake * avg / 100 / q;
+      var impact = cur(CL['impact.feesPer100k']).value * share / q;
+      var corals = cur(CL['impact.coralsPer100k']).value / q;
+      var sol = function (v, d) { return trimNum(v, d || 0) + ' SOL'; };
+      function set(k, t) { var e = $('[data-r="' + k + '"]', n); if (e) e.textContent = t; }
+      set('with', sol(withUs)); set('withApy', ours.toFixed(2) + '% net APY');
+      set('cust', sol(atCust)); set('custApy', avg.toFixed(2) + '% average');
+      var extra = withUs - atCust;
+      set('extra', (extra >= 0 ? '+' : '') + sol(extra)); $('[data-r="extra"]', n).classList.toggle('neg', extra < 0);
+      set('impact', sol(impact, 1)); set('corals', 'about ' + Math.round(corals) + ' corals');
+    },
     swapMock: function (n) {
       var input = $('input', n), out = $('[data-out]', n), rateEl = $('[data-rate]', n);
       var rate = cur(CL['refisol.rate']).value;
@@ -422,6 +447,7 @@
       if (r === 'lstFees') ['refisol.poolFees', 'lst.jitosolFees', 'lst.msolFees'].forEach(function (k) { used[k] = 1; });
       if (r === 'exitCost') used['refisol.exitCost'] = 1;
       if (r === 'swapMock') used['refisol.rate'] = 1;
+      if (r === 'receipt') ['validator.netApy', 'yield.peer.coinbase', 'yield.peer.figment', 'yield.peer.kiln', 'yield.peer.everstake', 'impact.feesPer100k', 'impact.coralsPer100k'].forEach(function (k) { used[k] = 1; });
     });
     if (used['yield.compare']) ['validator.netApy', 'yield.peer.coinbase', 'yield.peer.figment', 'yield.peer.kiln', 'yield.peer.everstake'].forEach(function (k) { used[k] = 1; });
 

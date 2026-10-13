@@ -992,6 +992,23 @@
       "note": "Fees we earn on 100K SOL a year (from Stakewiz: staking APY grossed up by our 5% commission, plus Jito APY grossed up by our 10% MEV commission, about 269 SOL) x 20% impact share x live SOL price (Jupiter) / $30 per coral (SeaTrees, Golfo Dulce, Costa Rica). Oct 13: 268.9 SOL x 0.2 x $106.75 / $30 = 191. Assumes the 20% institutional share and a stable SOL price over the year."
     },
     {
+      "id": "impact.feesPer100k",
+      "text": "Fees we earn on 100K SOL a year (used for the sample impact receipt)",
+      "page": "institutions",
+      "section": "Your impact receipt",
+      "value": 268.9,
+      "format": "num2",
+      "source": "stakewiz",
+      "check": "live",
+      "status": "verified",
+      "asOf": "2026-10-13T15:30:00Z",
+      "live": {
+        "fetch": "derived.fees",
+        "stakeSol": 100000
+      },
+      "note": "Staking APY grossed up by our 5% commission, plus Jito APY grossed up by our 10% MEV commission, times 100K SOL. The sample receipt shows one quarter (divided by 4) and the 20% impact share."
+    },
+    {
       "id": "market.solPrice",
       "text": "SOL price (USD), used for the coral calculation",
       "page": "none",
