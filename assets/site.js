@@ -486,6 +486,7 @@
   function constLinks() {
     $$('[data-const-href]').forEach(function (a) { var v = C[a.dataset.constHref]; if (v) a.href = v; });
     $$('[data-const]').forEach(function (n) { var v = C[n.dataset.const]; if (v) n.textContent = v; });
+    $$('[data-claim-href]').forEach(function (a) { var c = CL[a.dataset.claimHref]; if (c) a.href = c.sourceUrl || (SRC[c.source] || {}).url; });
   }
 
   chrome();
