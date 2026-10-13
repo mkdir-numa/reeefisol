@@ -230,7 +230,7 @@
         "fetch": "stakewiz.validator",
         "path": "total_apy"
       },
-      "note": "Stakewiz TrueAPY estimate: staking APY plus Jito MEV APY, after our 5% and 10% commissions. Copy draft said 4.41% (Source of Truth, Oct 1)."
+      "note": "Stakewiz TrueAPY estimate: staking APY plus Jito MEV APY, after our 5% and 10% commissions."
     },
     {
       "id": "validator.activeStake",
@@ -247,7 +247,7 @@
         "fetch": "stakewiz.validator",
         "path": "activated_stake"
       },
-      "note": "Active stake this epoch. Copy draft said 131.5K SOL (Source of Truth, Oct 1)."
+      "note": "Active stake this epoch."
     },
     {
       "id": "validator.uptime30d",
@@ -264,7 +264,7 @@
         "fetch": "stakewiz.validator",
         "path": "uptime"
       },
-      "note": "Stakewiz labels this field 'Uptime (30 days)'. Copy draft said 99.98%.",
+      "note": "Stakewiz labels this field 'Uptime (30 days)'.98%.",
       "also": []
     },
     {
@@ -478,7 +478,7 @@
         "fetch": "stakewiz.epoch",
         "derive": "epochDays"
       },
-      "note": "CONTRADICTS COPY. Stakewiz epoch_info: epoch 1056 lasts 94,196 s (about 26 hours), 335 epochs a year. JPool's epoch report shows epochs of 1 to 2 days in Sep-Oct 2026. Copy says about two days.",
+      "note": "Stakewiz epoch_info: epoch 1056 lasts 94,196 s (about 26 hours), 335 epochs a year. JPool's epoch report shows epochs of 1 to 2 days in Sep-Oct 2026. Copy says about two days.",
       "expect": {
         "min": 1.5,
         "max": 2.5
@@ -504,7 +504,7 @@
         "fetch": "stakewiz.peers",
         "derive": "compare"
       },
-      "note": "Compares Stakewiz total_apy for our vote account with the largest vote account of each custodian (see yield.peer.*). Copy draft said 4.41% vs 4.20-4.33%."
+      "note": "Compares Stakewiz total_apy for our vote account with the largest vote account of each custodian (see yield.peer.*).41% vs 4.20-4.33%."
     },
     {
       "id": "yield.peer.coinbase",
@@ -944,7 +944,7 @@
       "check": "manual",
       "status": "unverifiable-yet",
       "asOf": "2026-10-01T00:00:00Z",
-      "note": "Source of Truth: 30% of LST profits to corals. Not checkable on-chain today: owed comes from Pine's private dashboard."
+      "note": "30% of refiSOL profits go to coral and mangrove restoration. Not yet checkable on-chain; a monthly owed vs paid record is planned."
     },
     {
       "id": "impact.institutionalShare",
@@ -957,7 +957,7 @@
       "check": "manual",
       "status": "unverifiable-yet",
       "asOf": "2026-09-30T00:00:00Z",
-      "note": "Working number for team review (Avery, Sep 30). Needs Pine's agreement."
+      "note": "Proposed share for new institutional stake. Not final."
     },
     {
       "id": "impact.scale",
@@ -1164,7 +1164,7 @@
       "check": "manual",
       "status": "placeholder",
       "asOf": null,
-      "note": "Owed comes from Pine's LST profits dashboard (private). Publish it monthly."
+      "note": "Owed amount to be published monthly."
     },
     {
       "id": "donations.walletActivity",
@@ -1363,7 +1363,7 @@
       "check": "manual",
       "status": "placeholder",
       "asOf": null,
-      "note": "Custody whitelist research is an open task (Source of Truth §11)."
+      "note": "List of custodians that can delegate to the validator, to be confirmed."
     },
     {
       "id": "contact.name",
