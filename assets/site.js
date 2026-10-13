@@ -515,7 +515,15 @@
     $$('[data-claim-href]').forEach(function (a) { var c = CL[a.dataset.claimHref]; if (c) a.href = c.sourceUrl || (SRC[c.source] || {}).url; });
   }
 
+  // Open the FAQ answer a link points to (for example index.html#faq-fees).
+  function openFromHash() {
+    var id = location.hash.slice(1), d = id && document.getElementById(id);
+    if (d && d.tagName === 'DETAILS') { d.open = true; d.scrollIntoView({ block: 'start' }); }
+  }
+  addEventListener('hashchange', openFromHash);
+
   chrome();
+  openFromHash();
   getJSON('claims.json').then(function (reg) {
     REG = reg; C = reg.constants; SRC = reg.sources; ORGS = reg.orgs;
     reg.claims.forEach(function (c) { CL[c.id] = c; });

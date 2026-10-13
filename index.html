@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;400;500&family=Geist:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/brand-tokens.css">
 <link rel="stylesheet" href="assets/site.css?v=5">
-<script src="assets/site.js?v=6" defer></script>
+<script src="assets/site.js?v=7" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -197,17 +197,17 @@
   <div class="wrap">
     <div class="sec-head"><h2>Straight answers.</h2></div>
 
-    <details>
+    <details id="faq-who">
       <summary>Who is this for?</summary>
       <div class="a"><p>Treasuries, funds and companies holding SOL. And anyone who wants their stake to plant something.</p></div>
     </details>
 
-    <details>
+    <details id="faq-custodian">
       <summary>How do I stake from a custodian?</summary>
       <div class="a"><p>Ask your custodian to delegate to vote account <a class="code" href="#" target="_blank" rel="noopener" data-claim="validator.voteAccount">…</a>. Confirmed custodians: pending.</p></div>
     </details>
 
-    <details>
+    <details id="faq-fees">
       <summary>What are the fees?</summary>
       <div class="a">
         <p><span data-claim="validator.commission">…</span> on staking rewards. <span data-claim="validator.mevCommission">…</span> on MEV. refiSOL pool: <span data-claim="refisol.poolFees" data-part="epoch">…</span> of rewards, <span data-claim="refisol.poolFees" data-part="deposit">…</span> to deposit, <span data-claim="refisol.poolFees" data-part="withdraw">…</span> to withdraw. Fees come out of rewards, never your principal.</p>
@@ -215,28 +215,28 @@
       </div>
     </details>
 
-    <details>
+    <details id="faq-cost">
       <summary>What does the impact cost me?</summary>
       <div class="a"><p>Less than staying at a big custodian. Our net yield is higher, and impact is paid from our fees.</p>
         <div class="proof"><div data-render="yieldTable"></div></div></div>
     </details>
 
-    <details>
+    <details id="faq-impact">
       <summary>Does every stake fund impact?</summary>
       <div class="a"><p>refiSOL: <span data-claim="impact.refisolShare">…</span> of our fees. New institutional stake: <span data-claim="impact.institutionalShare">…</span> of our fees. Stake from delegation programs: no.</p></div>
     </details>
 
-    <details>
+    <details id="faq-money">
       <summary>Where does the money go?</summary>
       <div class="a"><p>SeaTrees, Coral Guardian and Coral Tribe, for coral and mangrove restoration in <a data-const-href="seatreesCoralUrl" href="#" target="_blank" rel="noopener">Golfo Dulce, Costa Rica</a>. Other sites: pending.</p></div>
     </details>
 
-    <details>
+    <details id="faq-verify">
       <summary>How do I verify it?</summary>
       <div class="a"><p>Every payment is on-chain, with its <a data-const-href="solscanDonationsUrl" href="#" target="_blank" rel="noopener">Solscan link</a>. Our partners publish their planting records.</p></div>
     </details>
 
-    <details>
+    <details id="faq-unstake">
       <summary>How do I get my SOL back?</summary>
       <div class="a">
         <p>Native stake: deactivate it. It unlocks at the end of the epoch, within one to two days. refiSOL: swap back any time at the market rate.</p>
@@ -244,7 +244,7 @@
       </div>
     </details>
 
-    <details>
+    <details id="faq-risks">
       <summary>What are the risks?</summary>
       <div class="a">
         <p>Downtime lowers rewards but never touches your principal. refiSOL runs on Sanctum's stake pool program (<span class="code" data-claim="refisol.program">…</span>; audits: <span data-render="audits"></span>) and can trade below its SOL value when liquidity is thin.</p>
@@ -252,7 +252,7 @@
       </div>
     </details>
 
-    <details>
+    <details id="faq-operator">
       <summary>Who runs the validator?</summary>
       <div class="a"><p>ReFi Hub, with <a href="https://www.pinestake.com/en" target="_blank" rel="noopener">Pine Stake</a>.</p></div>
     </details>
