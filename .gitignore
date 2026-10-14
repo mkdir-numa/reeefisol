@@ -6,5 +6,7 @@ PLAN.md
 ReFi Hub Logos/
 index-v1-backup.html
 index-v2-backup.html
-.claude/
+# shared Claude Code config (.claude/settings.json, hooks) is committed;
+# only personal overrides stay local
+.claude/settings.local.json
 drafts/
