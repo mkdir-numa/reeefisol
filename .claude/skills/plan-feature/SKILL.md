@@ -26,7 +26,7 @@ This skill is **project-aware, not project-specific**: it works in any repo by d
 
 ## Step 0 — Load project context (mandatory, before anything else)
 
-1. **Check for a project appendix**: look in `references/projects/` (sibling of this file) for a file matching the current repo (by repo directory name or the markers listed at the top of each appendix). If one matches, read it in full — it is **authoritative** for this project's guardrails and known file map, and overrides anything you'd infer yourself. (No appendix exists for this repo yet — add one there if this project accumulates guardrails worth encoding.)
+1. **Check for a project appendix**: look in `references/projects/` (sibling of this file) for a file matching the current repo (by repo directory name or the markers listed at the top of each appendix). If one matches, read it in full — it is **authoritative** for this project's guardrails and known file map, and overrides anything you'd infer yourself. (A reeefisol appendix ships with this skill.)
 2. **Whether or not an appendix exists**, read the repo's own ground truth: `CLAUDE.md`, `README.md`, `docs/` (especially anything named PRD, ROADMAP, ARCHITECTURE, DESIGN, or an `adr/`/`decisions/` folder), and skim the top-level source layout.
 3. From those, write down (for your own use throughout) the project's constraints in **three buckets** — keep them straight for the rest of the run:
    - **Enduring principles** — quality bars that always bind (design-system rules, data-integrity rules, review/eval gates, security tiers, mobile/a11y bars).
@@ -37,14 +37,15 @@ This skill is **project-aware, not project-specific**: it works in any repo by d
 ## Step 1 — Intake & critical framing
 
 1. Restate the idea in **one sentence** and name the **job-to-be-done** (who is it for, what are they trying to decide/do).
-2. If the idea is underspecified in a way that changes the design, ask **2–3 sharp clarifying questions** via `AskUserQuestion` before researching. Don't ask what you can infer from the docs or code.
-3. Critically assess up front: Is it strategically worth building (user job, roadmap fit, portfolio value)? What's the strongest reason **not** to build it? What's the smallest version that delivers the value, and what adjacent improvement might deliver more for less? If it adds a new capability layer (DB, auth, payments, live external data, background jobs), is that jump intended? Write down explicit **kill/scope criteria**.
+2. **Check for prior art before researching**: skim `docs/features/` and the repo's open issues (`gh issue list`) for an existing PDR or issue that overlaps or conflicts with this idea. If one exists, surface it and ask whether to update it, supersede it (say so in both), or drop the new idea — don't produce a second, conflicting spec.
+3. If the idea is underspecified in a way that changes the design, ask **2–3 sharp clarifying questions** via `AskUserQuestion` before researching. Don't ask what you can infer from the docs or code.
+4. Critically assess up front: Is it strategically worth building (user job, roadmap fit, portfolio value)? What's the strongest reason **not** to build it? What's the smallest version that delivers the value, and what adjacent improvement might deliver more for less? If it adds a new capability layer (DB, auth, payments, live external data, background jobs), is that jump intended? Write down explicit **kill/scope criteria**.
 
 ## Step 2 — Parallel research fan-out
 
 Launch the research dimensions **as parallel subagents in a single message** (multiple `Agent` calls at once). Give each agent: the one-sentence idea, the Step-0 constraint buckets, the **exact files to read** (from the appendix if present, otherwise from your Step-0 survey), and the **structured output** you need back. Use read-only `Explore` agents for discovery and a `Plan` agent for the architecture dimension.
 
-**Scale the fan-out to the feature.** A one-screen tweak may need only dimensions 2–4 (or a single combined agent); a new capability layer needs all five. Never skip dimension 4 or 5 — dependencies/risk and verification design are where plans quietly fail.
+**Scale the fan-out to the feature.** A one-screen tweak may collapse dimensions 1–3 into a single combined agent; a new capability layer needs all five run separately. Whatever the scale, dimensions 4 and 5 always run in some form — dependencies/risk and verification design are where plans quietly fail.
 
 1. **Product & strategy fit** (`Explore`) — read the PRD/roadmap/ADR-equivalents found in Step 0. Return: strategic fit verdict, the scope boundary, what to cut, competing/related roadmap items, whether the idea crosses a former scope-fence intentionally, and **at least one cheaper alternative or adjacent quick-win** that delivers similar value (or an explicit "none found").
 2. **UX/UI & user flows** (`Explore`) — read the design-system docs/tokens and survey the UI code (for a non-UI product, "UX" = the interaction surface: CLI ergonomics, Slack/bot conversation design, API developer experience — treat it with the same rigor). Return: screens/routes/surfaces touched, components to reuse vs. create, **every user flow step-by-step**, all states (empty / loading / error / partial / no-results / permission-denied), mobile behavior, accessibility notes, copy/tone requirements, any missing design tokens.
@@ -80,7 +81,8 @@ Fold every real finding back into the PDR (or record it as an explicit accepted 
    gh issue create --title "PDR: <Feature name>" --body-file docs/features/<slug>.md --label enhancement
    ```
    Use labels that actually exist in the repo (`gh label list`); drop any that don't rather than failing. If the repo has no GitHub remote or `gh` fails, skip the issue, keep the local file, and say so plainly.
-3. Report back with: the **plain-language overview restated first** (so the founder can skim the outcome without opening anything), then the **"actions needed from you" list** (or "None"), then the issue URL and local path. State clearly: the PDR is ready for a fresh Claude Code run to implement — **you have not implemented it.**
+3. **Commit the doc following the repo's git workflow** (if `CLAUDE.md` defines one — e.g. branch + PR — follow it; never commit straight to a protected main). If committing isn't possible, the GitHub issue is the canonical copy and the local file is a working artifact — state which one is canonical in your report.
+4. Report back with: the **plain-language overview restated first** (so the founder can skim the outcome without opening anything), then the **"actions needed from you" list** (or "None"), then the issue URL and local path. State clearly: the PDR is ready for a fresh Claude Code run to implement — **you have not implemented it.**
 
 ## Do not
 

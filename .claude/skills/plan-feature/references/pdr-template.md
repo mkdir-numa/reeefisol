@@ -33,6 +33,7 @@ What are the one or two big decisions this plan makes?>
 - **In scope:**
 - **Out of scope (explicitly):**
 - **Kill/scope criteria:** <conditions under which to stop or shrink>
+- **Estimated effort:** <rough but honest: hours / a day / N days, with the main driver of uncertainty. For anything over ~2 days, split into an MVP phase and a later phase, each with its own estimate — so the feature can be prioritized and partially shipped.>
 
 ## 4. UX / interaction spec
 
