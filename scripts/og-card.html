@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>Link preview card</title>
+<!-- Template for the 1200x630 link-preview images in assets/og/. See scripts/make-og-images.sh.
+     Usage: og-card.html?title=...&kicker=...&art=reef  (art = reef, current, plate, tide or pollen) -->
+<link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400&family=Inter:wght@400;500&family=Merriweather:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/brand-tokens.css">
+<style>
+  html,body{margin:0;width:1200px;height:630px;overflow:hidden}
+  body{background:linear-gradient(160deg,#fbfaf9 0%,#fbfaf9 55%,#e3eedb 100%);font-family:Inter,sans-serif;color:#222;position:relative}
+  .logo{position:absolute;left:72px;top:64px;height:40px}
+  .kicker{position:absolute;left:72px;top:184px;font:400 18px/1 "Chivo Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:#155a63}
+  h1{position:absolute;left:72px;top:224px;width:600px;margin:0;font:300 64px/1.1 Merriweather,Georgia,serif;letter-spacing:-.015em;color:#000}
+  .url{position:absolute;left:72px;bottom:60px;font:500 20px/1 Inter,sans-serif;color:#64748b}
+  canvas{position:absolute;right:40px;top:65px;width:500px;height:500px}
+</style>
+</head>
+<body>
+<img class="logo" src="../assets/refihub-black.svg" alt="">
+<div class="kicker" id="kicker"></div>
+<h1 id="title"></h1>
+<div class="url">Solana staking that plants corals and mangroves</div>
+<canvas id="art" data-seed="11" aria-hidden="true"></canvas>
+<script>
+  var q = new URLSearchParams(location.search);
+  document.getElementById('title').textContent = q.get('title') || 'Stake SOL. Plant corals and mangroves.';
+  document.getElementById('kicker').textContent = q.get('kicker') || 'ReFi Hub staking';
+  document.getElementById('art').setAttribute('data-stipple', q.get('art') || 'reef');
+</script>
+<script src="../assets/stipple.js"></script>
+</body>
+</html>
