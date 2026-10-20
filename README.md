@@ -5,7 +5,7 @@ Static site for the ReFi Hub validator and refiSOL. Plain HTML, CSS and JS, no b
 ## Pages
 
 - `index.html`: Home, with the FAQ
-- `institutions.html`: For institutions, with a contact form mockup (not connected)
+- `institutions.html`: For institutions, with the contact form (sent by email via Web3Forms, see `FORM_KEY` in `assets/site.js`)
 - `refisol.html`: refiSOL, with a swap widget mockup (rate is live; the real swap opens in Jupiter)
 - `donations.html`: Donations. Kept but not linked from anywhere for now
 

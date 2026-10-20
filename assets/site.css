@@ -277,6 +277,8 @@ footer a:hover{color:#fff;text-decoration:underline}
 .signup input{flex:1;min-width:0;font:inherit;padding:12px 14px;border-radius:999px;border:1px solid #1e293b;background:#0f172a;color:#fff}
 .signup input::placeholder{color:#64748b}
 .signup .badge{margin-top:10px}
+.signup .form-note{display:block;margin-top:10px;color:#cbd5e1}
+.hp{position:absolute;left:-9999px}
 .foot-links{display:flex;flex-wrap:wrap;gap:10px 20px;align-content:flex-start}
 .foot-links .soon{color:#64748b}
 .legal{margin-top:40px;padding-top:24px;border-top:1px solid #1e293b;font-size:13px;color:#94a3b8;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
