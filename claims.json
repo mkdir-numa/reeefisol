@@ -15,6 +15,7 @@
     "stakeRefisolUrl": "refisol.html",
     "aboutUrl": "https://www.refihub.io/",
     "xUrl": "https://x.com/refihub",
+    "telegramUrl": "https://t.me/numalunah",
     "discordUrl": "https://discord.gg/yZ9fp43wCd",
     "rpcs": [
       "https://solana-rpc.publicnode.com",
@@ -1517,13 +1518,13 @@
       "text": "Telegram and X handles",
       "page": "institutions",
       "section": "Contact",
-      "value": null,
+      "value": "Telegram @numalunah, X @refihub",
       "format": "text",
       "source": "team",
       "check": "manual",
-      "status": "placeholder",
-      "asOf": null,
-      "note": "Our X account is x.com/refihub. Telegram handle to be added."
+      "status": "verified",
+      "asOf": "2026-10-20T00:00:00Z",
+      "note": "Telegram goes to a direct message with Numa (t.me/numalunah, added Oct 20). X is x.com/refihub."
     },
     {
       "id": "company.sampleReceipt",
