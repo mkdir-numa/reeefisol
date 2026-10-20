@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;400;500&family=Geist:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/brand-tokens.css">
-<link rel="stylesheet" href="assets/site.css?v=5">
-<script src="assets/site.js?v=9" defer></script>
+<link rel="stylesheet" href="assets/site.css?v=8">
+<script src="assets/site.js?v=11" defer></script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="3f416ae1-d70a-4f8d-b82f-4b7835e6029d"></script>
 </head>
 <body>
@@ -75,7 +75,9 @@
       <div class="sf-sign">
         <form class="signup">
           <label for="email">Quarterly impact update</label>
-          <div class="row"><input id="email" type="email" placeholder="you@example.com" autocomplete="email"><button class="btn btn-coral btn-sm" type="submit">Subscribe</button></div>
+          <div class="row"><input id="email" name="email" type="email" required placeholder="you@example.com" autocomplete="email"><button class="btn btn-coral btn-sm" type="submit">Subscribe</button></div>
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <span class="form-note small" role="status"></span>
         </form>
         <button class="copy" type="button" data-copy="ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx"><b>Vote account</b><span>ReFiSbu...9NUx</span><em>Copy</em></button>
       </div>

@@ -6,6 +6,9 @@
   document.documentElement.classList.remove('no-js');
 
   var REG = null, C = {}, SRC = {}, ORGS = {}, CL = {};
+  // Web3Forms access key (free plan). Submissions from the contact form and newsletter boxes
+  // are emailed to the inbox this key was created for. Public by design: it can only send to that inbox.
+  var FORM_KEY = 'f1591609-237b-42b0-a39e-0c9537b5bc61';
   var dateFmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
   var timeFmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
   var clockFmt = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit' });
@@ -498,8 +501,11 @@
       $$('.rv').forEach(function (n) { io.observe(n); });
     } else $$('.rv').forEach(function (n) { n.classList.add('in'); });
     $$('a[aria-disabled="true"]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); }); });
-    var form = $('form.signup') || $('.signup form');
-    if (form) form.addEventListener('submit', function (e) { e.preventDefault(); });
+    $$('form.signup').forEach(function (f) {
+      wireForm(f, function () {
+        return { subject: 'Newsletter signup: ' + f.elements.email.value, email: f.elements.email.value };
+      }, 'Thanks, you are on the list.');
+    });
     $$('[data-copy]').forEach(function (b) {
       b.addEventListener('click', function () {
         var label = $('em', b);
@@ -511,11 +517,45 @@
       });
     });
     var cf = $('.contact-form');
-    if (cf) cf.addEventListener('submit', function (e) {
+    if (cf) wireForm(cf, function () {
+      var v = cf.elements;
+      return {
+        subject: 'Stake insight inquiry: ' + v.name.value + ' (' + v.org.value + ')',
+        name: v.name.value,
+        email: v.email.value,
+        'Organization': v.org.value,
+        'SOL to stake': v.size.value,
+        'Custodian or wallet': v.custody.value,
+        'Message': v.msg.value,
+        'Wants diligence pack': v.pack.checked ? 'Yes' : 'No'
+      };
+    }, 'Thanks, we have your message. We reply within one business day.');
+  }
+
+  // Send a form to Web3Forms by email. fields() returns what goes in the email.
+  function wireForm(form, fields, thanks) {
+    var note = $('.form-note', form), btn = $('button[type="submit"]', form);
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var msg = $('.form-note', cf);
-      if (!cf.checkValidity()) { cf.reportValidity(); return; }
-      msg.textContent = 'Mockup only: this form is not connected yet.';
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      var data = fields();
+      data.access_key = FORM_KEY;
+      data.from_name = 'ReFi Hub staking site';
+      data.page = location.pathname.split('/').pop() || 'index.html';
+      data.botcheck = form.elements.botcheck && form.elements.botcheck.checked;
+      btn.disabled = true;
+      note.textContent = 'Sending...';
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(data)
+      }).then(function (r) { return r.json(); }).then(function (r) {
+        if (!r.success) throw new Error(r.message);
+        form.reset();
+        note.textContent = thanks;
+      }).catch(function () {
+        note.textContent = 'Sorry, that did not send. Please try again, or message us on X.';
+      }).then(function () { btn.disabled = false; });
     });
   }
 
@@ -523,6 +563,37 @@
     $$('[data-const-href]').forEach(function (a) { var v = C[a.dataset.constHref]; if (v) a.href = v; });
     $$('[data-const]').forEach(function (n) { var v = C[n.dataset.const]; if (v) n.textContent = v; });
     $$('[data-claim-href]').forEach(function (a) { var c = CL[a.dataset.claimHref]; if (c) a.href = c.sourceUrl || (SRC[c.source] || {}).url; });
+  }
+
+  /* ---------- Jupiter swap widget ----------
+     Uses the pinned copy in assets/vendor/jupiter-plugin (see its README). The fallback
+     card stays visible until the widget has actually rendered, and stays if it never does. */
+  function jupiterSwap() {
+    var card = $('[data-swap]'), mount = $('#jupiter-swap');
+    if (!card || !mount || !window.Jupiter || !window.Jupiter.init || !C.refisolMint || !C.solMint) return;
+    try {
+      window.Jupiter.init({
+        displayMode: 'integrated',
+        integratedTargetId: 'jupiter-swap',
+        containerStyles: { height: '520px' },
+        defaultExplorer: 'Solscan',
+        formProps: {
+          initialInputMint: C.solMint,
+          initialOutputMint: C.refisolMint,
+          fixedMint: C.refisolMint
+        }
+      });
+    } catch (e) {
+      if (window.console) console.warn('[swap] Jupiter widget failed to start', e && e.message);
+      return;
+    }
+    var tries = 0, t = setInterval(function () {
+      var host = $$('*', mount).filter(function (n) { return n.shadowRoot; })[0];
+      if (host && host.shadowRoot.querySelector('form')) {
+        clearInterval(t);
+        card.classList.add('is-live');
+      } else if (++tries > 150) clearInterval(t); // ~15s, then keep the fallback
+    }, 100);
   }
 
   // Open the FAQ answer a link points to (for example index.html#faq-fees).
@@ -559,6 +630,7 @@
     reg.claims.forEach(function (c) { CL[c.id] = c; });
     window.REFI_CLAIMS = CL;
     constLinks();
+    jupiterSwap();
     renderValues();
     runLive();
   }).catch(function (e) {
