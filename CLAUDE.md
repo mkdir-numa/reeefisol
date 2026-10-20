@@ -8,6 +8,8 @@ Static site for the ReFi Hub validator and refiSOL. Plain HTML/CSS/JS, **no buil
 
 - Pages: `index.html`, `institutions.html`, `refisol.html`, `donations.html` (unlinked)
 - `assets/site.css`, `assets/site.js` — styles and the claim renderer
+- `assets/vendor/jupiter-plugin/` — pinned Jupiter swap widget (touches wallets). Never hand-edit, never switch to loading it from `plugin.jup.ag`, and keep the CSP and `integrity` attributes in `refisol.html`. Updates go through `scripts/vendor-jupiter-plugin.sh` and the review steps in that folder's README
+- Analytics: Umami Cloud (free Hobby plan, one site, cookieless). The script tag is in each page's `<head>`; click events are in the `analytics` section of `assets/site.js`. Add the script tag to any new page, except `refisol.html`, which only allows scripts from our own site.
 - Run locally: `python3 -m http.server 8765` then open http://localhost:8765 (opening files directly breaks `fetch`)
 
 ## Critical content rule: claims.json
@@ -31,3 +33,7 @@ When asked to review the other person's PR: `gh pr view <number>`, `gh pr diff <
 ## Hosting note
 
 The site currently deploys via GitHub Pages from main. The team plans to move to Netlify (or similar) later, which would add per-PR preview links — update this file when that happens.
+
+## Graphics
+
+The animated dotted artwork comes from `assets/stipple.js`: add `<canvas data-stipple="reef" aria-hidden="true"></canvas>` (also `current`, `plate`, `tide`, `pollen`; `data-dark` on dark backgrounds) and size it in CSS. Preview every expression at `prototypes/stipple/`. Earlier explorations are recorded in `docs/design/graphics-round-1.md`.
