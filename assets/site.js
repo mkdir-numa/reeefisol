@@ -565,6 +565,37 @@
     $$('[data-claim-href]').forEach(function (a) { var c = CL[a.dataset.claimHref]; if (c) a.href = c.sourceUrl || (SRC[c.source] || {}).url; });
   }
 
+  /* ---------- Jupiter swap widget ----------
+     Uses the pinned copy in assets/vendor/jupiter-plugin (see its README). The fallback
+     card stays visible until the widget has actually rendered, and stays if it never does. */
+  function jupiterSwap() {
+    var card = $('[data-swap]'), mount = $('#jupiter-swap');
+    if (!card || !mount || !window.Jupiter || !window.Jupiter.init || !C.refisolMint || !C.solMint) return;
+    try {
+      window.Jupiter.init({
+        displayMode: 'integrated',
+        integratedTargetId: 'jupiter-swap',
+        containerStyles: { height: '520px' },
+        defaultExplorer: 'Solscan',
+        formProps: {
+          initialInputMint: C.solMint,
+          initialOutputMint: C.refisolMint,
+          fixedMint: C.refisolMint
+        }
+      });
+    } catch (e) {
+      if (window.console) console.warn('[swap] Jupiter widget failed to start', e && e.message);
+      return;
+    }
+    var tries = 0, t = setInterval(function () {
+      var host = $$('*', mount).filter(function (n) { return n.shadowRoot; })[0];
+      if (host && host.shadowRoot.querySelector('form')) {
+        clearInterval(t);
+        card.classList.add('is-live');
+      } else if (++tries > 150) clearInterval(t); // ~15s, then keep the fallback
+    }, 100);
+  }
+
   // Open the FAQ answer a link points to (for example index.html#faq-fees).
   function openFromHash() {
     var id = location.hash.slice(1), d = id && document.getElementById(id);
@@ -579,6 +610,7 @@
     reg.claims.forEach(function (c) { CL[c.id] = c; });
     window.REFI_CLAIMS = CL;
     constLinks();
+    jupiterSwap();
     renderValues();
     runLive();
   }).catch(function (e) {

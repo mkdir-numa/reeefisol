@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;400;500&family=Geist:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/brand-tokens.css">
-<link rel="stylesheet" href="assets/site.css?v=5">
-<script src="assets/site.js?v=8" defer></script>
+<link rel="stylesheet" href="assets/site.css?v=8">
+<script src="assets/site.js?v=10" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -33,11 +33,14 @@
 
 <!-- Hero -->
 <section class="hero">
-  <div class="wrap">
-    <div class="kicker">Managed staking</div>
-    <h1>Stake your treasury. Report the impact.</h1>
-    <p class="lead">Contracted Solana staking for treasuries, funds and companies. Quarterly impact receipts for your board.</p>
-    <div class="btns"><a class="btn btn-primary" href="#contact">Start a conversation</a></div>
+  <div class="wrap split-art">
+    <div>
+      <div class="kicker">Managed staking</div>
+      <h1>Stake your treasury. Report the impact.</h1>
+      <p class="lead">Contracted Solana staking for treasuries, funds and companies. Quarterly impact receipts for your board.</p>
+      <div class="btns"><a class="btn btn-primary" href="#contact">Start a conversation</a></div>
+    </div>
+    <canvas class="split-graphic" data-stipple="plate" aria-hidden="true"></canvas>
   </div>
 </section>
 
@@ -140,15 +143,18 @@
 
 <!-- Diligence pack -->
 <section class="band-sand">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>Diligence pack</h2>
-      <p>Operating policy, infrastructure summary, incident history, key management policy, a sample impact receipt, legal entity details.</p>
+  <div class="wrap split-art">
+    <div>
+      <div class="sec-head">
+        <h2>Diligence pack</h2>
+        <p>Operating policy, infrastructure summary, incident history, key management policy, a sample impact receipt, legal entity details.</p>
+      </div>
+      <div class="btns">
+        <a class="btn btn-primary" href="#contact">Ask for the diligence pack</a>
+        <a class="btn btn-ghost" href="#operate">Operating summary</a>
+      </div>
     </div>
-    <div class="btns">
-      <a class="btn btn-primary" href="#contact">Ask for the diligence pack</a>
-      <a class="btn btn-ghost" href="#operate">Operating summary</a>
-    </div>
+    <canvas class="split-graphic split-graphic-sm" data-stipple="reef" aria-hidden="true"></canvas>
   </div>
 </section>
 
@@ -224,5 +230,6 @@
     </div>
   </div>
 </footer>
+<script src="assets/stipple.js?v=3" defer></script>
 </body>
 </html>

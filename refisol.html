@@ -3,14 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Only scripts from this site may run here: the swap widget is a reviewed, pinned copy, never loaded from a third party -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https: wss:; frame-src https:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <title>refiSOL · ReFi Hub</title>
 <meta name="description" content="refiSOL is the liquid staking token from our Solana validator. Any amount. Swap back any time.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;400;500&family=Geist:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/brand-tokens.css">
-<link rel="stylesheet" href="assets/site.css?v=5">
-<script src="assets/site.js?v=8" defer></script>
+<link rel="stylesheet" href="assets/site.css?v=8">
+<!-- Jupiter swap widget, pinned copy. integrity = the browser refuses the file if a single byte changes.
+     The app script carries the id the loader looks for, so the loader uses this checked copy instead of adding its own.
+     To update: scripts/vendor-jupiter-plugin.sh (see assets/vendor/jupiter-plugin/README.md). -->
+<script src="assets/vendor/jupiter-plugin/1.0.16/plugin-v1.js" integrity="sha384-VqTeMzcevTMEcQjlLr91lxMw3JrOFEGmM32VllKpfOhznrTCIm+4XmbiTCeA/Jrw" defer></script>
+<script id="jupiter-load-script-app" src="assets/vendor/jupiter-plugin/1.0.16/plugin-1.0.16-app.js" integrity="sha384-TWtgSU/UbGA4iE6R1fx/AJadHkj/7gG6jLQeUfs6bXROWHTNn8vNEmjBkCFUrF82" defer></script>
+<script src="assets/site.js?v=10" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -44,30 +51,33 @@
       </div>
     </div>
 
-    <div class="swap-card" data-render="swapMock" aria-label="Swap widget mockup">
-      <div class="swap-top">
-        <img src="assets/refihub-white.svg" alt="ReFi Hub" class="swap-logo">
-        <span class="swap-pill">Connect wallet</span>
-      </div>
-      <div class="swap-box">
-        <div class="swap-row"><span>Selling</span><span>SOL</span></div>
-        <div class="swap-row">
-          <span class="token"><span class="tok-dot tok-sol" aria-hidden="true"></span>SOL</span>
-          <input type="number" inputmode="decimal" min="0" step="any" value="10" aria-label="SOL amount">
+    <div class="swap-card" data-swap>
+      <!-- Jupiter's swap widget mounts here (pinned copy in assets/vendor/jupiter-plugin) -->
+      <div class="swap-live" id="jupiter-swap"></div>
+      <!-- Shown until the widget loads, and kept if it can't: an estimate plus a link out -->
+      <div class="swap-fallback" data-render="swapMock">
+        <div class="swap-top">
+          <img src="assets/refihub-white.svg" alt="ReFi Hub" class="swap-logo">
         </div>
-      </div>
-      <div class="swap-arrow" aria-hidden="true">↓</div>
-      <div class="swap-box">
-        <div class="swap-row"><span>Buying</span><span>refiSOL</span></div>
-        <div class="swap-row">
-          <span class="token"><span class="tok-dot tok-refi" aria-hidden="true"></span>refiSOL</span>
-          <span class="swap-out" data-out>0.00</span>
+        <div class="swap-box">
+          <div class="swap-row"><span>Selling</span><span>SOL</span></div>
+          <div class="swap-row">
+            <span class="token"><span class="tok-dot tok-sol" aria-hidden="true"></span>SOL</span>
+            <input type="number" inputmode="decimal" min="0" step="any" value="10" aria-label="SOL amount">
+          </div>
         </div>
+        <div class="swap-arrow" aria-hidden="true">↓</div>
+        <div class="swap-box">
+          <div class="swap-row"><span>About</span><span>refiSOL</span></div>
+          <div class="swap-row">
+            <span class="token"><span class="tok-dot tok-refi" aria-hidden="true"></span>refiSOL</span>
+            <span class="swap-out" data-out>0.00</span>
+          </div>
+        </div>
+        <div class="swap-rate" data-rate></div>
+        <a class="swap-btn" data-const-href="jupiterSwapUrl" href="#" target="_blank" rel="noopener">Swap on Jupiter →</a>
+        <div class="swap-foot"><span>Estimate at the pool rate. Jupiter shows the exact price.</span></div>
       </div>
-      <div class="swap-rate" data-rate></div>
-      <button class="swap-btn" type="button">Connect wallet</button>
-      <div class="swap-foot"><span>Powered by Jupiter</span><a data-const-href="jupiterSwapUrl" href="#" target="_blank" rel="noopener">Open in Jupiter →</a></div>
-      <span class="swap-tag">Mockup</span>
     </div>
   </div>
 </section>
