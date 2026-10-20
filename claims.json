@@ -26,6 +26,9 @@
     "coralTribeUrl": "https://www.coraltribe.io/",
     "pineSecurityUrl": "https://www.pinestake.com/security-info",
     "seatreesCoralUrl": "https://seatrees.org/products/plant-coral-seatrees-in-costa-rica?variant=51061287715000",
+    "seatreesUrl": "https://seatrees.org/",
+    "coralGuardianUrl": "https://www.coralguardian.org/en/",
+    "coralGuardianIndonesiaUrl": "https://www.coralguardian.org/en/indonesia/",
     "stakewizUrl": "https://stakewiz.com/validator/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx",
     "validatorsAppUrl": "https://www.validators.app/validators/ReFiqMfGnc7tW8WQtFFcJRPZSDAWDBnAsdoFYF2QnfR?locale=en&network=mainnet",
     "solscanDonationsUrl": "https://solscan.io/account/DevcTKVqwDEZfUSw5R9DjQNSmMiV2o6P1GcJuBtmS4t1?exclude_amount_zero=true&remove_spam=false&from_address=ReFiqMfGnc7tW8WQtFFcJRPZSDAWDBnAsdoFYF2QnfR&to_address=DevcTKVqwDEZfUSw5R9DjQNSmMiV2o6P1GcJuBtmS4t1#transfers",
@@ -1093,13 +1096,13 @@
       "text": "restoration locations",
       "page": "faq",
       "section": "Where does the money go?",
-      "value": "Golfo Dulce, Costa Rica (SeaTrees)",
+      "value": "Golfo Dulce, Costa Rica (SeaTrees); Hatamin Island, Indonesia (Coral Guardian)",
       "format": "text",
       "source": "seatreesCoral",
       "check": "manual",
       "status": "verified",
-      "asOf": null,
-      "note": "Other partner sites still pending."
+      "asOf": "2026-10-20T00:00:00Z",
+      "note": "Hatamin Island added Oct 20: Coral Guardian's Indonesia project (https://www.coralguardian.org/en/indonesia/)."
     },
     {
       "id": "impact.partnerRecords",
@@ -1355,7 +1358,7 @@
     {
       "id": "company.custodians",
       "text": "Confirmed custodians",
-      "page": "faq",
+      "page": "not shown",
       "section": "How do I stake from a custodian?",
       "value": null,
       "format": "text",
@@ -1363,7 +1366,7 @@
       "check": "manual",
       "status": "placeholder",
       "asOf": null,
-      "note": "List of custodians that can delegate to the validator, to be confirmed."
+      "note": "List of custodians that can delegate to the validator, to be confirmed. Taken out of the FAQ on Oct 20 until there is a list to show."
     },
     {
       "id": "contact.name",
