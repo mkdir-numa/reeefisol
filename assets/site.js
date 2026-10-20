@@ -253,8 +253,9 @@
   }
   function cur(claim) { return claim._cur || { value: claim.value, asOf: claim.asOf, live: false }; }
   function isUnverified(claim) { return claim.status !== 'verified'; }
-  // Claims that appear on a linked page. "not shown", "none" and the unlinked donations page are left off the audit page.
-  function onSite(claim) { return !/^(not shown|none|donations$)/.test(claim.page); }
+  // The audit page lists verified claims that appear on a linked page. "not shown", "none" and the unlinked
+  // donations page are left off, and so are claims not yet verifiable or still pending.
+  function onAudit(claim) { return claim.status === 'verified' && !/^(not shown|none|donations$)/.test(claim.page); }
 
   /* ---------- source chip ---------- */
   function orgLogo(slug, dark) {
@@ -454,7 +455,7 @@
         n._rows = [];
         var groups = REG_GROUPS.map(function (g) { return { title: g[0], prefixes: g[1], claims: [] }; });
         var other = { title: 'Other', prefixes: [], claims: [] };
-        REG.claims.filter(onSite).forEach(function (c) {
+        REG.claims.filter(onAudit).forEach(function (c) {
           var g = groups.filter(function (g) { return g.prefixes.some(function (p) { return c.id.indexOf(p) === 0; }); })[0] || other;
           g.claims.push(c);
         });
@@ -493,11 +494,10 @@
       });
     },
     registerSummary: function (n) {
-      var shown = REG.claims.filter(onSite);
+      var shown = REG.claims.filter(onAudit);
       function count(k, v) { return shown.filter(function (c) { return c[k] === v; }).length; }
-      n.textContent = shown.length + ' numbers and facts on this site. ' + count('check', 'live') + ' are fetched live from public sources each time you open a page. ' +
-        count('status', 'verified') + ' are verified, ' + count('status', 'unverifiable-yet') + ' are not yet verifiable and ' +
-        count('status', 'placeholder') + ' are still pending. Register last updated ' + dateFmt.format(new Date(REG.updated)) + '.';
+      n.textContent = shown.length + ' verified numbers and facts on this site. ' + count('check', 'live') + ' are fetched live from public sources each time you open a page, ' +
+        count('check', 'link') + ' link to a public source and ' + count('check', 'manual') + ' are confirmed by our team. Register last updated ' + dateFmt.format(new Date(REG.updated)) + '.';
     }
   };
   var REG_GROUPS = [
@@ -524,8 +524,8 @@
       if (r === 'lstFees') ['refisol.poolFees', 'lst.jitosolFees', 'lst.msolFees'].forEach(function (k) { used[k] = 1; });
       if (r === 'exitCost') used['refisol.exitCost'] = 1;
       if (r === 'swapMock') used['refisol.rate'] = 1;
-      if (r === 'register') REG.claims.filter(onSite).forEach(function (c) { used[c.id] = 1; });
-      if (r === 'receipt')['validator.netApy', 'yield.peer.coinbase', 'yield.peer.figment', 'yield.peer.kiln', 'yield.peer.everstake', 'impact.feesPer100k', 'impact.coralsPer100k'].forEach(function (k) { used[k] = 1; });
+      if (r === 'register') REG.claims.filter(onAudit).forEach(function (c) { used[c.id] = 1; });
+      if (r === 'receipt') ['validator.netApy', 'yield.peer.coinbase', 'yield.peer.figment', 'yield.peer.kiln', 'yield.peer.everstake', 'impact.feesPer100k', 'impact.coralsPer100k'].forEach(function (k) { used[k] = 1; });
     });
     if (used['yield.compare']) ['validator.netApy', 'yield.peer.coinbase', 'yield.peer.figment', 'yield.peer.kiln', 'yield.peer.everstake'].forEach(function (k) { used[k] = 1; });
 

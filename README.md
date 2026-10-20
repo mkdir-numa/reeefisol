@@ -8,7 +8,7 @@ Static site for the ReFi Hub validator and refiSOL. Plain HTML, CSS and JS, no b
 - `institutions.html`: For institutions, with a contact form mockup (not connected)
 - `refisol.html`: refiSOL, with a swap widget mockup (rate is live; the real swap opens in Jupiter)
 - `donations.html`: Donations. Kept but not linked from anywhere for now
-- `audit.html`: Audit our numbers. Lists every claim shown on the site with its value, status, check method and source, read straight from `claims.json`. Linked from the Verify column of every footer
+- `audit.html`: Audit our numbers. Lists every verified claim shown on the site with its value, status, check method and source, read straight from `claims.json`. Linked from the Verify column of every footer
 
 ## How the numbers work
 
