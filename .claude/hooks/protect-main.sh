@@ -10,7 +10,32 @@ if ! printf '%s' "$cmd" | grep -qE 'git[^|;&]*\b(commit|push)\b'; then
   exit 0
 fi
 
-branch=$(git -C "${CLAUDE_PROJECT_DIR:-.}" branch --show-current 2>/dev/null)
+# Work out which folder the commit/push runs in, so a worktree on a feature branch isn't
+# judged by the main folder's branch. In order: `git -C <dir>`, a leading `cd <dir>`,
+# the tool call's cwd, then the project folder.
+dir=$(printf '%s' "$input" | python3 -c '
+import json, os, shlex, sys
+d = json.load(sys.stdin)
+cmd = d.get("tool_input", {}).get("command", "")
+base = d.get("cwd") or os.environ.get("CLAUDE_PROJECT_DIR") or "."
+try:
+    words = shlex.split(cmd, posix=True)
+except ValueError:
+    words = cmd.split()
+target = None
+for i, w in enumerate(words):
+    if w == "git" and i + 2 < len(words) and words[i + 1] == "-C":
+        target = words[i + 2]; break
+if target is None and len(words) > 1 and words[0] == "cd":
+    target = words[1].rstrip(";&")
+if target:
+    target = os.path.expanduser(target)
+    if not os.path.isabs(target):
+        target = os.path.join(base, target)
+print(target or base)
+' 2>/dev/null)
+
+branch=$(git -C "${dir:-${CLAUDE_PROJECT_DIR:-.}}" branch --show-current 2>/dev/null)
 
 if [ "$branch" = "main" ]; then
   echo "BLOCKED: you are on 'main'. This repo never commits or pushes directly to main." >&2
