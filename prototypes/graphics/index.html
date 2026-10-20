@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Graphics lab · ReFi Hub staking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;400;500&family=Geist:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/brand-tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<style>
+  /* lab chrome */
+  .lab-bar{position:sticky;top:0;z-index:50;background:rgba(251,250,249,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .lab-bar-in{display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;padding-top:12px;padding-bottom:12px}
+  .lab-title{font:500 15px/1 var(--sans);margin-right:auto}
+  .lab-title small{font:400 12px/1 var(--mono);color:var(--muted);margin-left:8px;text-transform:uppercase;letter-spacing:.06em}
+  .seg{display:inline-flex;border:1px solid var(--line-cool);border-radius:999px;padding:3px;background:#fff}
+  .seg button{border:0;background:transparent;border-radius:999px;padding:8px 14px;font:500 13px/1 var(--sans);color:var(--muted);cursor:pointer}
+  .seg button[aria-pressed="true"]{background:var(--sea-900);color:#fff}
+  .lab-btn{border:1px solid var(--line-cool);background:#fff;border-radius:999px;padding:10px 16px;font:500 13px/1 var(--sans);cursor:pointer}
+  .lab-btn:hover{border-color:var(--sea-900)}
+  .lab-intro{padding:36px 0 8px}
+  .lab-intro p{color:var(--muted);max-width:720px;margin:0 0 18px}
+  .lab-key{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 8px}
+  .lab-key div{border:1px solid var(--line-cool);border-radius:14px;padding:14px 16px;background:#fff}
+  .lab-key b{display:block;font-weight:500;margin-bottom:4px}
+  .lab-key span{color:var(--muted);font-size:14px;line-height:1.45}
+  @media (max-width:760px){.lab-key{grid-template-columns:1fr}.lab-bar{position:static}}
+  .lab-label{border-top:1px dashed var(--line-cool);padding:14px 0 0}
+  .lab-label .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .chip{font:400 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;padding:6px 10px;border-radius:999px;background:var(--sea-100);color:var(--sea-900)}
+  .chip-style{background:#fff;border:1px solid var(--line-cool);color:var(--text)}
+
+  /* graphics in place */
+  canvas.art{display:block}
+  .hero-wrap .art-hero{position:absolute;right:var(--gutter);top:-24px;width:min(470px,38vw);height:min(470px,38vw);z-index:-1}
+  .lab-card{position:relative;overflow:hidden;min-height:320px}
+  .lab-card .art-card{position:absolute;right:0;top:0;width:62%;height:100%;-webkit-mask-image:linear-gradient(to right,transparent,#000 40%);mask-image:linear-gradient(to right,transparent,#000 40%)}
+  .lab-card-body{position:relative;z-index:1;display:flex;flex-direction:column;flex:1}
+  .lab-card-body h3{max-width:13ch}
+  .lab-card-body p{max-width:30ch}
+  .lab-card-body .btns{margin-top:auto;padding-top:18px}
+  .lab-steps{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,380px);gap:40px}
+  .art-steps{width:100%;height:100%;min-height:420px}
+  .lab-split{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:40px;align-items:center}
+  .art-split{width:100%;height:clamp(300px,36vw,460px)}
+  .art-dil{width:100%;height:260px}
+  @media (max-width:860px){
+    .hero-wrap .art-hero{position:static;width:100%;height:260px;margin:0 0 16px}
+    .lab-card .art-card{width:100%;opacity:.45;-webkit-mask-image:none;mask-image:none}
+    .lab-steps,.lab-split{grid-template-columns:1fr}
+    .art-steps{min-height:0;height:150px;order:-1}
+    .art-split{height:260px}
+  }
+</style>
+</head>
+<body>
+
+<div class="lab-bar">
+  <div class="wrap lab-bar-in">
+    <div class="lab-title">Graphics lab <small>prototype · not on the site</small></div>
+    <div class="seg" role="group" aria-label="Style" id="style">
+      <button data-v="all" aria-pressed="true">Compare all</button>
+      <button data-v="A" aria-pressed="false">A · Flow lines</button>
+      <button data-v="B" aria-pressed="false">B · Stipple</button>
+      <button data-v="C" aria-pressed="false">C · Branching</button>
+    </div>
+    <div class="seg" role="group" aria-label="Preview colour" id="palette">
+      <button data-v="site" aria-pressed="true">Site colours</button>
+      <button data-v="ink" aria-pressed="false">Ink</button>
+      <button data-v="blue" aria-pressed="false">Electric blue</button>
+    </div>
+    <button class="lab-btn" id="shuffle" type="button">Shuffle ↻</button>
+  </div>
+</div>
+
+<main id="lab">
+  <div class="wrap lab-intro">
+    <p>Three graphic styles from the mood board, drawn by code and placed in the five sections that need artwork. <b>Shuffle</b> grows a new variation of every graphic. Colour buttons are a quick preview only; colours are the next step.</p>
+    <div class="lab-key">
+      <div><b>A · Flow lines</b><span>Lines flow from many sources into one node, our validator. Nature and network at once. Ref: the blue field-line drawing.</span></div>
+      <div><b>B · Stipple</b><span>Polyps and fronds drawn in dots, like a halftone print. Each dot could stand for corals planted. Ref: the dotted flowers, and PR #15.</span></div>
+      <div><b>C · Branching</b><span>Coral grown by a branching rule, over a flat disc. The most literal coral, and the calmest. Ref: the branching trees on beige.</span></div>
+    </div>
+  </div>
+  <div id="sections"></div>
+</main>
+
+<template id="t-hero">
+  <section class="hero">
+    <div class="wrap hero-wrap">
+      <canvas class="art art-hero" data-motif="hero" aria-hidden="true"></canvas>
+      <h1>Stake SOL. Plant corals and mangroves.</h1>
+      <div class="hero-sub"><p>Higher net yield than the big custodians. Built for treasuries and funds.</p></div>
+      <div class="btns">
+        <a class="btn btn-primary" href="#">Talk to us</a>
+        <a class="btn btn-coral" href="#">Stake refiSOL</a>
+      </div>
+    </div>
+  </section>
+</template>
+
+<template id="t-card">
+  <section style="padding-top:28px">
+    <div class="wrap">
+      <div class="grid ways">
+        <div class="card card-sea lab-card">
+          <canvas class="art art-card" data-motif="card" data-dark aria-hidden="true"></canvas>
+          <div class="lab-card-body">
+            <h3>Managed staking for large positions</h3>
+            <p>Contracted terms, reporting and a quarterly impact receipt for your board.</p>
+            <div class="btns"><a class="btn btn-light" href="#">For institutions</a></div>
+          </div>
+        </div>
+        <div class="card card-coral">
+          <h3>refiSOL for everyone</h3>
+          <p>refiSOL is the liquid staking token from our Solana validator. Any amount. Swap back any time.</p>
+          <div class="btns"><a class="btn btn-primary" href="#">Stake refiSOL</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<template id="t-steps">
+  <section>
+    <div class="wrap">
+      <div class="sec-head"><h2>How to start</h2></div>
+      <div class="lab-steps">
+        <div class="tl">
+          <div class="tl-step"><div class="tl-num">1</div><div><h3>Choose your route</h3><p>Large position? <a href="#">Talk to us</a>. Any amount? <a href="#">Use refiSOL</a>.</p></div></div>
+          <div class="tl-step"><div class="tl-num">2</div><div><h3>Stake</h3><p>Delegate from your custodian or wallet, or swap SOL for refiSOL.</p></div></div>
+          <div class="tl-step"><div class="tl-num">3</div><div><h3>Earn</h3><p>Rewards land every epoch, every one to two days.</p></div></div>
+          <div class="tl-step"><div class="tl-num">4</div><div><h3>See what you planted</h3><p>Every donation and planting, in your quarterly impact receipt.</p></div></div>
+        </div>
+        <canvas class="art art-steps" data-motif="steps" aria-hidden="true"></canvas>
+      </div>
+    </div>
+  </section>
+</template>
+
+<template id="t-inst">
+  <section class="hero">
+    <div class="wrap lab-split">
+      <div>
+        <div class="kicker">Managed staking</div>
+        <h1>Stake your treasury. Report the impact.</h1>
+        <p class="lead">Contracted Solana staking for treasuries, funds and companies. Quarterly impact receipts for your board.</p>
+        <div class="btns"><a class="btn btn-primary" href="#">Start a conversation</a></div>
+      </div>
+      <canvas class="art art-split" data-motif="inst" aria-hidden="true"></canvas>
+    </div>
+  </section>
+</template>
+
+<template id="t-dil">
+  <section class="band-sand">
+    <div class="wrap lab-split">
+      <div>
+        <div class="sec-head">
+          <h2>Diligence pack</h2>
+          <p>Operating policy, infrastructure summary, incident history, key management policy, a sample impact receipt, legal entity details.</p>
+        </div>
+        <div class="btns">
+          <a class="btn btn-primary" href="#">Ask for the diligence pack</a>
+          <a class="btn btn-ghost" href="#">Operating summary</a>
+        </div>
+      </div>
+      <canvas class="art art-dil" data-motif="dil" aria-hidden="true"></canvas>
+    </div>
+  </section>
+</template>
+
+<script src="graphics.js"></script>
+<script>
+(function () {
+  var SECTIONS = [
+    ['hero', 'Home · Hero'],
+    ['card', 'Home · Managed staking card'],
+    ['steps', 'Home · How to start'],
+    ['inst', 'Institutions · Hero'],
+    ['dil', 'Institutions · Diligence pack']
+  ];
+  var NAMES = { A: 'A · Flow lines', B: 'B · Stipple', C: 'C · Branching' };
+  var state = { style: 'all', palette: 'site', seed: 7 };
+  var root = document.getElementById('sections');
+
+  function label(text, style) {
+    var d = document.createElement('div');
+    d.className = 'lab-label';
+    d.innerHTML = '<div class="wrap"><span class="chip"></span><span class="chip chip-style"></span></div>';
+    d.querySelector('.chip').textContent = text;
+    d.querySelector('.chip-style').textContent = NAMES[style];
+    return d;
+  }
+
+  function build() {
+    root.innerHTML = '';
+    var styles = state.style === 'all' ? ['A', 'B', 'C'] : [state.style];
+    SECTIONS.forEach(function (s) {
+      styles.forEach(function (st) {
+        root.appendChild(label(s[1], st));
+        var node = document.getElementById('t-' + s[0]).content.cloneNode(true);
+        node.querySelectorAll('canvas.art').forEach(function (c) { c.setAttribute('data-style', st); });
+        root.appendChild(node);
+      });
+    });
+    draw();
+  }
+
+  function draw() {
+    root.querySelectorAll('canvas.art').forEach(function (c) { RefiGraphics.render(c, state); });
+  }
+
+  function bindSeg(id, key) {
+    var seg = document.getElementById(id);
+    seg.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      seg.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      state[key] = b.getAttribute('data-v');
+      key === 'style' ? build() : draw();
+    });
+  }
+  bindSeg('style', 'style');
+  bindSeg('palette', 'palette');
+  document.getElementById('shuffle').addEventListener('click', function () { state.seed = (state.seed * 7919 + 13) % 100003; draw(); });
+
+  var t;
+  window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(draw, 200); });
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(build);
+})();
+</script>
+</body>
+</html>
