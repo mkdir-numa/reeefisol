@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;400;500&family=Geist:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/brand-tokens.css">
-<link rel="stylesheet" href="assets/site.css?v=6">
+<link rel="stylesheet" href="assets/site.css?v=7">
 <script src="assets/site.js?v=9" defer></script>
 </head>
 <body>
@@ -34,16 +34,7 @@
 <!-- Hero -->
 <section class="hero">
   <div class="wrap hero-wrap">
-    <svg class="hero-art" viewBox="0 0 420 420" aria-hidden="true" focusable="false">
-      <circle cx="250" cy="170" r="150" fill="var(--sea-100)"/>
-      <circle cx="160" cy="250" r="110" fill="var(--coral-100)"/>
-      <circle cx="300" cy="300" r="80" fill="var(--leaf-100)"/>
-      <g fill="none" stroke-linecap="round" stroke-width="3">
-        <path d="M150 330c0-40 4-70 18-104M168 226c-10-18-26-28-44-30M168 226c8-20 22-30 40-32M160 270c-14-6-28-4-38 6" stroke="var(--coral-500)"/>
-        <path d="M300 340v-90M300 250c-18 0-30 18-34 40M300 250c18 0 30 18 34 40M300 250c-6-26-2-46 14-60M300 250c4-24 18-38 40-44" stroke="var(--leaf-500)"/>
-        <path d="M120 120c30-14 60-14 90 0s60 14 90 0M140 150c26-12 52-12 78 0s52 12 78 0" stroke="var(--sea-500)" opacity=".7"/>
-      </g>
-    </svg>
+    <canvas class="hero-art" data-stipple="reef" aria-hidden="true"></canvas>
     <h1>Stake SOL. Plant corals and mangroves.</h1>
     <div class="hero-sub">
       <p>Higher net yield than the big custodians. Built for treasuries and funds.</p>
@@ -67,7 +58,8 @@
 <section id="ways" style="padding-top:0">
   <div class="wrap">
     <div class="grid ways">
-      <div class="card card-sea rv">
+      <div class="card card-sea card-art rv">
+        <canvas data-stipple="current" data-dark aria-hidden="true"></canvas>
         <h3>Managed staking for large positions</h3>
         <p>Contracted terms, reporting and a quarterly impact receipt for your board.</p>
         <div class="btns"><a class="btn btn-light" href="institutions.html">For institutions</a></div>
@@ -138,6 +130,77 @@
       <div class="v" data-claim="impact.communityPlanted">…</div>
       <div class="l">planted by the ReFi Hub community, with Coral Tribe</div>
     </a>
+
+    <!-- Gallery: partner work and events. Figures come from claims.json. -->
+    <div class="gallery" data-gallery>
+      <div class="gal-head">
+        <h3>On the ground</h3>
+        <p>Our partners’ restoration work, and where we’ve shown up.</p>
+      </div>
+      <div class="spot">
+        <div class="spot-stage">
+      <figure class="spot-fig is-active" id="g-transplant">
+        <img src="assets/gallery/transplant-900.jpg" srcset="assets/gallery/transplant-900.jpg 900w, assets/gallery/transplant.jpg 1600w" sizes="(max-width: 760px) 100vw, 1000px" width="1600" height="1059" alt="Snorkellers attaching coral fragments to a metal nursery frame in shallow water" loading="lazy" decoding="async" style="object-position:50% 50%">
+        <figcaption>
+          <span class="cap-kicker">October 2022 · Bali and Hatamin Island, Indonesia</span>
+          <span class="cap-title">Planting coral fragments on a reef frame</span>
+          <span class="cap-body">Working with Coral Triangle Center and <a href="https://www.coralguardian.org/en/" target="_blank" rel="noopener">Coral Guardian</a>, the Coral Tribe community planted <span data-claim="gallery.coralsIndonesia">…</span> corals across two Indonesian sites.</span>
+          <span class="cap-credit">Photo: Julien Holleville / Coral Guardian</span>
+        </figcaption>
+      </figure>
+      <figure class="spot-fig" id="g-reef">
+        <img src="assets/gallery/reef-900.jpg" srcset="assets/gallery/reef-900.jpg 900w, assets/gallery/reef.jpg 1600w" sizes="(max-width: 760px) 100vw, 1000px" width="1600" height="1200" alt="A dense restored reef of branching corals in pink, yellow and purple, with small fish" loading="lazy" decoding="async" style="object-position:50% 60%">
+        <figcaption>
+          <span class="cap-kicker">Indonesia</span>
+          <span class="cap-title">A reef brought back to life</span>
+          <span class="cap-body">Branching corals and reef fish return to a site restored by our partner <a href="https://www.coralguardian.org/en/" target="_blank" rel="noopener">Coral Guardian</a>.</span>
+          <span class="cap-credit">Photo: Coco Tamlyn / Coral Guardian</span>
+        </figcaption>
+      </figure>
+      <figure class="spot-fig" id="g-jose">
+        <img src="assets/gallery/jose-macias-900.jpg" srcset="assets/gallery/jose-macias-900.jpg 900w, assets/gallery/jose-macias.jpg 1600w" sizes="(max-width: 760px) 100vw, 1000px" width="1600" height="1136" alt="José Macías of Coral Soul on a boat at sea, holding an underwater camera rig" loading="lazy" decoding="async" style="object-position:45% 40%">
+        <figcaption>
+          <span class="cap-kicker">August 2025 · Granada</span>
+          <span class="cap-title">José Macías, Coral Soul</span>
+          <span class="cap-body">Our partners <a href="https://www.coralsoul.org/en/home/" target="_blank" rel="noopener">Coral Soul</a> and Coral Guardian have hauled <span data-claim="gallery.granadaWasteKg">…</span> kg of waste off the deep-water reefs near Granada. José (pictured) brings technology and art to the work.</span>
+        </figcaption>
+      </figure>
+      <figure class="spot-fig" id="g-cleanup">
+        <img src="assets/gallery/reef-cleanup-900.jpg" srcset="assets/gallery/reef-cleanup-900.jpg 900w, assets/gallery/reef-cleanup.jpg 1600w" sizes="(max-width: 760px) 100vw, 1000px" width="1600" height="1060" alt="Two divers collecting waste from a rocky reef into mesh bags" loading="lazy" decoding="async" style="object-position:50% 45%">
+        <figcaption>
+          <span class="cap-kicker">Coral Soul · reef cleanup</span>
+          <span class="cap-title">Taking the trash out</span>
+          <span class="cap-body">A big part of protecting a reef is simply removing what doesn’t belong there.</span>
+          <span class="cap-credit">Photo: José Macías / Coral Soul</span>
+        </figcaption>
+      </figure>
+      <figure class="spot-fig" id="g-breakpoint">
+        <img src="assets/gallery/breakpoint-2023-900.jpg" srcset="assets/gallery/breakpoint-2023-900.jpg 900w, assets/gallery/breakpoint-2023.jpg 1600w" sizes="(max-width: 760px) 100vw, 1000px" width="1600" height="899" alt="Amira Villani presenting Solana ReFi on the main stage at Solana Breakpoint 2023" loading="lazy" decoding="async" style="object-position:30% 45%">
+        <figcaption>
+          <span class="cap-kicker">Solana Breakpoint 2023</span>
+          <span class="cap-title">Amira Villani on the main stage</span>
+          <span class="cap-body">Presenting Solana ReFi, the builder community Coral Tribe started in 2022. After <span data-claim="gallery.solanaReFiEvents">…</span> meetups and events for public-goods builders, it carries on as <a href="https://solanaimpact.com/" target="_blank" rel="noopener">Solana Impact</a>.</span>
+        </figcaption>
+      </figure>
+      <figure class="spot-fig" id="g-stage">
+        <img src="assets/gallery/refi-hub-stage-900.jpg" srcset="assets/gallery/refi-hub-stage-900.jpg 900w, assets/gallery/refi-hub-stage.jpg 1600w" sizes="(max-width: 760px) 100vw, 1000px" width="1600" height="1067" alt="Two ReFi Hub team members presenting on stage at Solana Summit Vietnam 2025" loading="lazy" decoding="async" style="object-position:30% 40%">
+        <figcaption>
+          <span class="cap-kicker">2025 · Vietnam</span>
+          <span class="cap-title">ReFi Hub takes the stage at <a href="https://solanasummit.org/" target="_blank" rel="noopener">Solana Summit</a> Vietnam 2025</span>
+          <span class="cap-body">ReFi Hub spun out of <a data-const-href="coralTribeUrl" href="https://coraltribe.io/" target="_blank" rel="noopener">Coral Tribe</a> to connect everyday investors with real-world impact projects.</span>
+        </figcaption>
+      </figure>
+        </div>
+        <div class="spot-thumbs" role="group" aria-label="Choose a photo">
+      <button type="button" class="spot-th" aria-controls="g-transplant" aria-pressed="true" aria-label="Show photo: Planting coral fragments"><img src="assets/gallery/transplant-thumb.jpg" width="360" height="240" alt="" loading="lazy"></button>
+      <button type="button" class="spot-th" aria-controls="g-reef" aria-pressed="false" aria-label="Show photo: A restored reef"><img src="assets/gallery/reef-thumb.jpg" width="360" height="240" alt="" loading="lazy"></button>
+      <button type="button" class="spot-th" aria-controls="g-jose" aria-pressed="false" aria-label="Show photo: José Macías, Coral Soul"><img src="assets/gallery/jose-macias-thumb.jpg" width="360" height="240" alt="" loading="lazy"></button>
+      <button type="button" class="spot-th" aria-controls="g-cleanup" aria-pressed="false" aria-label="Show photo: Divers removing waste from a reef"><img src="assets/gallery/reef-cleanup-thumb.jpg" width="360" height="238" alt="" loading="lazy"></button>
+      <button type="button" class="spot-th" aria-controls="g-breakpoint" aria-pressed="false" aria-label="Show photo: Amira Villani at Breakpoint 2023"><img src="assets/gallery/breakpoint-2023-thumb.jpg" width="360" height="240" alt="" loading="lazy"></button>
+      <button type="button" class="spot-th" aria-controls="g-stage" aria-pressed="false" aria-label="Show photo: ReFi Hub at Solana Summit Vietnam 2025"><img src="assets/gallery/refi-hub-stage-thumb.jpg" width="360" height="240" alt="" loading="lazy"></button>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -170,11 +233,14 @@
 <section>
   <div class="wrap">
     <div class="sec-head"><h2>How to start</h2></div>
+    <div class="tl-wrap">
     <div class="tl">
       <div class="tl-step rv"><div class="tl-num">1</div><div><h3>Choose your route</h3><p>Large position? <a href="institutions.html#contact">Talk to us</a>. Any amount? <a href="refisol.html">Use refiSOL</a>.</p></div></div>
       <div class="tl-step rv"><div class="tl-num">2</div><div><h3>Stake</h3><p>Delegate from your custodian or wallet, or swap SOL for refiSOL.</p></div></div>
       <div class="tl-step rv"><div class="tl-num">3</div><div><h3>Earn</h3><p>Rewards land every epoch, every one to two days.</p></div></div>
       <div class="tl-step rv"><div class="tl-num">4</div><div><h3>See what you planted</h3><p>Every donation and planting, in your quarterly impact receipt.</p></div></div>
+    </div>
+    <canvas class="tl-graphic" data-stipple="pollen" aria-hidden="true"></canvas>
     </div>
   </div>
 </section>
@@ -292,5 +358,7 @@
     </div>
   </div>
 </footer>
+<script src="assets/stipple.js?v=3" defer></script>
+<script src="assets/gallery.js?v=1" defer></script>
 </body>
 </html>
