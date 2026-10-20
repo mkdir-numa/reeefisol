@@ -7,7 +7,10 @@
      pollen    Pollen drift    polyps on the reef floor with one swoosh of golden pollen drifting above
    Every graphic reacts to the pointer and adds small sparkles. With prefers-reduced-motion
    each one draws a single still frame instead.
-   Prototype: not linked from the site yet. */
+
+   On the site:  <canvas data-stipple="reef" aria-hidden="true"></canvas>
+                 optional: data-dark (light-on-dark palette), data-seed="11" (another variation)
+   The canvas takes its size from CSS. The lab at prototypes/stipple/ shows every expression. */
 (function () {
   'use strict';
 
@@ -482,6 +485,7 @@
     this.m = { x: 0, y: 0, tx: 0, ty: 0, on: 0, ton: 0, px: 0, py: 0, speed: 0 };
     this.visible = !io; cv.__stage = this;
     if (io) io.observe(cv);
+    if (ro) ro.observe(cv);
     this.setup();
   }
   Stage.prototype.setup = function () {
@@ -506,6 +510,7 @@
   };
   Stage.prototype.destroy = function () {
     if (io) io.unobserve(this.cv);
+    if (ro) ro.unobserve(this.cv);
     var i = stages.indexOf(this); if (i > -1) stages.splice(i, 1);
   };
 
@@ -529,8 +534,15 @@
     document.addEventListener('pointerleave', function () { stages.forEach(function (s) { s.m.ton = 0; }); });
   }
 
-  var rt;
-  window.addEventListener('resize', function () {
+  // Redraw a canvas when its size changes (window resize, fonts loading, layout shifts).
+  var rt, ro = 'ResizeObserver' in window ? new ResizeObserver(function (es) {
+    clearTimeout(rt);
+    rt = setTimeout(function () {
+      es.forEach(function (e) { var s = e.target.__stage; if (s && (Math.round(e.contentRect.width) !== Math.round(s.w || 0) || Math.round(e.contentRect.height) !== Math.round(s.h || 0))) s.setup(); });
+      kick();
+    }, 150);
+  }) : null;
+  if (!ro) window.addEventListener('resize', function () {
     clearTimeout(rt);
     rt = setTimeout(function () { stages.forEach(function (s) { s.setup(); }); kick(); }, 200);
   });
@@ -543,4 +555,13 @@
     reducedMotion: REDUCE,
     keys: Object.keys(EXPR)
   };
+
+  // Start every <canvas data-stipple="..."> on the page.
+  function autoMount() {
+    document.querySelectorAll('canvas[data-stipple]').forEach(function (cv) {
+      var key = cv.getAttribute('data-stipple');
+      if (!cv.__stage && EXPR[key]) window.RefiStipple.mount(cv, key, { dark: cv.hasAttribute('data-dark'), seed: +cv.getAttribute('data-seed') || 11 });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', autoMount); else autoMount();
 })();
