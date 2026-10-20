@@ -8,6 +8,7 @@ Static site for the ReFi Hub validator and refiSOL. Plain HTML/CSS/JS, **no buil
 
 - Pages: `index.html`, `institutions.html`, `refisol.html`, `donations.html` (unlinked)
 - `assets/site.css`, `assets/site.js` — styles and the claim renderer
+- Analytics: Umami Cloud (free Hobby plan, one site, cookieless). The script tag is in each page's `<head>`; click events are in the `analytics` section of `assets/site.js`. Add the script tag to any new page.
 - Run locally: `python3 -m http.server 8765` then open http://localhost:8765 (opening files directly breaks `fetch`)
 
 ## Critical content rule: claims.json
