@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Stipple lab · ReFi Hub staking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;400;500&family=Geist:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/brand-tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<style>
+  /* lab chrome */
+  .lab-bar{position:sticky;top:0;z-index:50;background:rgba(251,250,249,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .lab-bar-in{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding-top:12px;padding-bottom:12px}
+  .lab-title{font:500 15px/1 var(--sans);margin-right:auto}
+  .lab-title small{font:400 12px/1 var(--mono);color:var(--muted);margin-left:8px;text-transform:uppercase;letter-spacing:.06em}
+  .seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--line-cool);border-radius:999px;padding:3px;background:#fff}
+  .seg button{border:0;background:transparent;border-radius:999px;padding:8px 13px;font:500 13px/1 var(--sans);color:var(--muted);cursor:pointer}
+  .seg button[aria-pressed="true"]{background:var(--sea-900);color:#fff}
+  .lab-link{font:500 13px/1 var(--sans)}
+  @media (max-width:760px){.lab-bar{position:static}}
+
+  .lab-intro{padding:40px 0 0}
+  .lab-intro h1{font-size:clamp(32px,4.4vw,52px);max-width:none;margin-bottom:14px}
+  .lab-intro p{color:var(--muted);max-width:740px;margin:0 0 10px}
+
+  /* gallery */
+  .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .tile{border:1px solid var(--line-cool);border-radius:var(--radius);overflow:hidden;background:var(--bg);display:flex;flex-direction:column}
+  .tile:first-child{grid-column:1 / -1}
+  .tile canvas{display:block;width:100%;height:360px;touch-action:pan-y}
+  .tile:first-child canvas{height:480px}
+  .tile-body{padding:18px 22px 22px;border-top:1px solid var(--line-cool);background:#fff;flex:1}
+  .tile-body h3{display:flex;gap:10px;align-items:baseline;margin-bottom:6px}
+  .tile-num{font:400 12px/1 var(--mono);color:var(--muted)}
+  .tile-body p{color:var(--muted);margin:0 0 8px;font-size:15px}
+  .tile-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .chip{font:400 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;padding:6px 10px;border-radius:999px;background:var(--sea-100);color:var(--sea-900)}
+  .chip-try{background:var(--sun-100);color:#6b4b0e}
+  .is-dark .tile{background:var(--sea-900);border-color:var(--sea-900)}
+  @media (max-width:860px){.tiles{grid-template-columns:1fr}.tile canvas,.tile:first-child canvas{height:320px}}
+
+  /* in-place sections */
+  .lab-label{border-top:1px dashed var(--line-cool);padding:16px 0 0}
+  .lab-label .wrap{display:flex;gap:10px 14px;align-items:center;flex-wrap:wrap}
+  .lab-label .seg button{padding:7px 11px;font-size:12px}
+  canvas.art{display:block;touch-action:pan-y}
+  .hero-wrap .art-hero{position:absolute;right:var(--gutter);top:-24px;width:min(470px,38vw);height:min(470px,38vw);z-index:-1}
+  .lab-card{position:relative;overflow:hidden;min-height:320px}
+  .lab-card .art-card{position:absolute;right:0;top:0;width:62%;height:100%;-webkit-mask-image:linear-gradient(to right,transparent,#000 40%);mask-image:linear-gradient(to right,transparent,#000 40%)}
+  .lab-card-body{position:relative;z-index:1;display:flex;flex-direction:column;flex:1;pointer-events:none}
+  .lab-card-body a{pointer-events:auto}
+  .lab-card-body h3{max-width:13ch}
+  .lab-card-body p{max-width:30ch}
+  .lab-card-body .btns{margin-top:auto;padding-top:18px}
+  .lab-steps{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);gap:40px}
+  .art-steps{width:100%;height:100%;min-height:440px}
+  .lab-split{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:40px;align-items:center}
+  .art-split{width:100%;height:clamp(300px,36vw,460px)}
+  .art-dil{width:100%;height:280px}
+  @media (max-width:860px){
+    .hero-wrap .art-hero{position:static;width:100%;height:280px;margin:0 0 16px}
+    .lab-card .art-card{width:100%;opacity:.5;-webkit-mask-image:none;mask-image:none}
+    .lab-steps,.lab-split{grid-template-columns:1fr}
+    .art-steps{min-height:0;height:260px;order:-1}
+    .art-split{height:280px}
+  }
+</style>
+</head>
+<body>
+
+<div class="lab-bar">
+  <div class="wrap lab-bar-in">
+    <div class="lab-title">Stipple lab <small>round 2 · prototype</small></div>
+    <div class="seg" role="group" aria-label="Gallery background" id="bg">
+      <button data-v="light" aria-pressed="true">Light</button>
+      <button data-v="dark" aria-pressed="false">Dark</button>
+    </div>
+    <div class="seg" role="group" aria-label="Motion" id="motion">
+      <button data-v="on" aria-pressed="true">Motion on</button>
+      <button data-v="off" aria-pressed="false">Pause</button>
+    </div>
+    <a class="lab-link" href="../graphics/">Round 1 ↗</a>
+  </div>
+</div>
+
+<main>
+  <div class="wrap lab-intro">
+    <div class="kicker">Graphics · round 2</div>
+    <h1>Five ways to draw the reef in dots</h1>
+    <p>The stipple style from round 1, mixed with its flow lines. Every graphic moves gently on its own and reacts to your pointer, with small sparkles. On a phone, drag across them.</p>
+    <p>Pick the best fit per section in <a href="#in-place">Try them in place</a> below.</p>
+  </div>
+
+  <section style="padding-top:32px">
+    <div class="wrap">
+      <div class="tiles" id="tiles"></div>
+    </div>
+  </section>
+
+  <div class="wrap" id="in-place"><div class="sec-head" style="margin-bottom:8px"><h2>Try them in place</h2><p>Each section starts with a suggested graphic. Switch it with the buttons above the section.</p></div></div>
+  <div id="sections"></div>
+</main>
+
+<template id="t-hero">
+  <section class="hero">
+    <div class="wrap hero-wrap">
+      <canvas class="art art-hero" aria-hidden="true"></canvas>
+      <h1>Stake SOL. Plant corals and mangroves.</h1>
+      <div class="hero-sub"><p>Higher net yield than the big custodians. Built for treasuries and funds.</p></div>
+      <div class="btns">
+        <a class="btn btn-primary" href="#">Talk to us</a>
+        <a class="btn btn-coral" href="#">Stake refiSOL</a>
+      </div>
+    </div>
+  </section>
+</template>
+
+<template id="t-card">
+  <section style="padding-top:28px">
+    <div class="wrap">
+      <div class="grid ways">
+        <div class="card card-sea lab-card">
+          <canvas class="art art-card" data-dark aria-hidden="true"></canvas>
+          <div class="lab-card-body">
+            <h3>Managed staking for large positions</h3>
+            <p>Contracted terms, reporting and a quarterly impact receipt for your board.</p>
+            <div class="btns"><a class="btn btn-light" href="#">For institutions</a></div>
+          </div>
+        </div>
+        <div class="card card-coral">
+          <h3>refiSOL for everyone</h3>
+          <p>refiSOL is the liquid staking token from our Solana validator. Any amount. Swap back any time.</p>
+          <div class="btns"><a class="btn btn-primary" href="#">Stake refiSOL</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<template id="t-steps">
+  <section>
+    <div class="wrap">
+      <div class="sec-head"><h2>How to start</h2></div>
+      <div class="lab-steps">
+        <div class="tl">
+          <div class="tl-step"><div class="tl-num">1</div><div><h3>Choose your route</h3><p>Large position? <a href="#">Talk to us</a>. Any amount? <a href="#">Use refiSOL</a>.</p></div></div>
+          <div class="tl-step"><div class="tl-num">2</div><div><h3>Stake</h3><p>Delegate from your custodian or wallet, or swap SOL for refiSOL.</p></div></div>
+          <div class="tl-step"><div class="tl-num">3</div><div><h3>Earn</h3><p>Rewards land every epoch, every one to two days.</p></div></div>
+          <div class="tl-step"><div class="tl-num">4</div><div><h3>See what you planted</h3><p>Every donation and planting, in your quarterly impact receipt.</p></div></div>
+        </div>
+        <canvas class="art art-steps" aria-hidden="true"></canvas>
+      </div>
+    </div>
+  </section>
+</template>
+
+<template id="t-inst">
+  <section class="hero">
+    <div class="wrap lab-split">
+      <div>
+        <div class="kicker">Managed staking</div>
+        <h1>Stake your treasury. Report the impact.</h1>
+        <p class="lead">Contracted Solana staking for treasuries, funds and companies. Quarterly impact receipts for your board.</p>
+        <div class="btns"><a class="btn btn-primary" href="#">Start a conversation</a></div>
+      </div>
+      <canvas class="art art-split" aria-hidden="true"></canvas>
+    </div>
+  </section>
+</template>
+
+<template id="t-dil">
+  <section class="band-sand">
+    <div class="wrap lab-split">
+      <div>
+        <div class="sec-head">
+          <h2>Diligence pack</h2>
+          <p>Operating policy, infrastructure summary, incident history, key management policy, a sample impact receipt, legal entity details.</p>
+        </div>
+        <div class="btns">
+          <a class="btn btn-primary" href="#">Ask for the diligence pack</a>
+          <a class="btn btn-ghost" href="#">Operating summary</a>
+        </div>
+      </div>
+      <canvas class="art art-dil" aria-hidden="true"></canvas>
+    </div>
+  </section>
+</template>
+
+<script src="stipple.js"></script>
+<script>
+(function () {
+  var EXPRS = [
+    { key: 'reef', name: 'Reef bloom', desc: 'Polyps and fronds in dots over a halftone disc. The polyps breathe and sway, the disc swells under your pointer like a lens, and the dots part around it.', tryIt: 'Hover a polyp: it opens and sparkles', fits: 'Home hero' },
+    { key: 'current', name: 'Current', desc: 'Round 1’s flow lines redrawn in dots. Warm pulses travel from small polyps into the core node, our validator. Stake flowing in.', tryIt: 'Sweep across: the lines bend away', fits: 'Managed staking card' },
+    { key: 'plate', name: 'Specimen plate', desc: 'Nine polyps on a halftone disc, each linked to the centre by a dotted line with pulses running inwards. Calm and ordered.', tryIt: 'Hover a polyp to open it', fits: 'Institutions hero' },
+    { key: 'tide', name: 'Tide', desc: 'A field of halftone dots. Coral shapes surface as bigger dots while a slow tide rolls across. Works as a quiet background too.', tryIt: 'Move across it: ripples follow you', fits: 'Diligence pack, bands' },
+    { key: 'spawn', name: 'Spawning', desc: 'Polyps release tiny spawn that drift upwards and link into a network, like a reef on spawning night.', tryIt: 'Hold still near the spawn: it gathers', fits: 'How to start' }
+  ];
+  var SECTIONS = [
+    ['hero', 'Home · Hero', 'reef'],
+    ['card', 'Home · Managed staking card', 'current'],
+    ['steps', 'Home · How to start', 'spawn'],
+    ['inst', 'Institutions · Hero', 'plate'],
+    ['dil', 'Institutions · Diligence pack', 'tide']
+  ];
+  var dark = false, tileStages = [];
+  // ?sections shows only the in-place sections (handy for screenshots and sharing one view)
+  if (new URLSearchParams(location.search).has('sections')) document.querySelectorAll('.lab-intro, #tiles, #tiles').forEach(function (n) { n.closest('section, .lab-intro').style.display = 'none'; });
+
+  // gallery
+  var tiles = document.getElementById('tiles');
+  function buildTiles() {
+    tileStages.forEach(function (s) { s.destroy(); }); tileStages = [];
+    tiles.innerHTML = '';
+    tiles.classList.toggle('is-dark', dark);
+    EXPRS.forEach(function (e, i) {
+      var a = document.createElement('article'); a.className = 'tile';
+      a.innerHTML = '<canvas aria-hidden="true"></canvas><div class="tile-body"><h3><span class="tile-num"></span><span class="tile-name"></span></h3><p class="tile-desc"></p><div class="tile-meta"><span class="chip chip-try"></span><span class="chip"></span></div></div>';
+      a.querySelector('.tile-num').textContent = String(i + 1).padStart(2, '0');
+      a.querySelector('.tile-name').textContent = e.name;
+      a.querySelector('.tile-desc').textContent = e.desc;
+      a.querySelector('.chip-try').textContent = RefiStipple.reducedMotion ? 'Still frame (reduced motion is on)' : e.tryIt;
+      a.querySelectorAll('.chip')[1].textContent = 'Suits: ' + e.fits;
+      tiles.appendChild(a);
+      tileStages.push(RefiStipple.mount(a.querySelector('canvas'), e.key, { dark: dark, seed: 11 }));
+    });
+  }
+
+  // sections with a picker each
+  var root = document.getElementById('sections');
+  SECTIONS.forEach(function (s) {
+    var label = document.createElement('div'); label.className = 'lab-label';
+    label.innerHTML = '<div class="wrap"><span class="chip"></span><div class="seg" role="group"></div></div>';
+    label.querySelector('.chip').textContent = s[1];
+    var seg = label.querySelector('.seg'); seg.setAttribute('aria-label', 'Graphic for ' + s[1]);
+    EXPRS.forEach(function (e, i) {
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = (i + 1) + ' · ' + e.name;
+      b.setAttribute('data-v', e.key); b.setAttribute('aria-pressed', e.key === s[2] ? 'true' : 'false');
+      seg.appendChild(b);
+    });
+    root.appendChild(label);
+    root.appendChild(document.getElementById('t-' + s[0]).content.cloneNode(true));
+    var cv = root.lastElementChild.querySelector('canvas.art');
+    var stage = RefiStipple.mount(cv, s[2], { dark: cv.hasAttribute('data-dark'), seed: 11 });
+    seg.addEventListener('click', function (ev) {
+      var b = ev.target.closest('button'); if (!b) return;
+      seg.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      stage.destroy();
+      stage = RefiStipple.mount(cv, b.getAttribute('data-v'), { dark: cv.hasAttribute('data-dark'), seed: 11 });
+    });
+  });
+
+  function bindSeg(id, fn) {
+    var seg = document.getElementById(id);
+    seg.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      seg.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      fn(b.getAttribute('data-v'));
+    });
+  }
+  bindSeg('bg', function (v) { dark = v === 'dark'; buildTiles(); });
+  bindSeg('motion', function (v) { RefiStipple.setPaused(v === 'off'); });
+  if (RefiStipple.reducedMotion) document.getElementById('motion').style.display = 'none';
+
+  var probe = (new URLSearchParams(location.search).get('probe') || '').split(',').map(Number);
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(buildTiles).then(function () {
+    if (probe.length === 2 && !isNaN(probe[0])) setInterval(function () { RefiStipple.probe(probe[0], probe[1]); }, 50);
+  });
+})();
+</script>
+</body>
+</html>
