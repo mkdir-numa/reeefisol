@@ -37,3 +37,7 @@ The site currently deploys via GitHub Pages from main. The team plans to move to
 ## Graphics
 
 The animated dotted artwork comes from `assets/stipple.js`: add `<canvas data-stipple="reef" aria-hidden="true"></canvas>` (also `current`, `plate`, `tide`, `pollen`; `data-dark` on dark backgrounds) and size it in CSS. Preview every expression at `prototypes/stipple/`. Earlier explorations are recorded in `docs/design/graphics-round-1.md`.
+
+## Favicon and link previews
+
+Every page's `<head>` has the favicon links (`assets/favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`) and, for public pages, Open Graph tags pointing at a 1200x630 card in `assets/og/`. Copy them into any new page. To change a card's headline or graphic, edit `scripts/make-og-images.sh` and re-run it. The `og:url` and `og:image` addresses are absolute (`https://mkdir-numa.github.io/reeefisol/`): update them if the site moves to a custom domain.
