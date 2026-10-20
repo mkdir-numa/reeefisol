@@ -688,7 +688,7 @@
 
   /* ---------- analytics ---------- */
   // Umami (cloud.umami.is) counts page views on its own. This adds a few click events:
-  // main buttons, links that leave the site, copying the vote account, and form sends.
+  // main buttons, links that leave the site, links to refiSOL, copying the vote account, and form sends.
   function track(name, data) { if (window.umami) window.umami.track(name, data); }
   function analytics() {
     document.addEventListener('click', function (e) {
@@ -697,6 +697,8 @@
       if (n.hasAttribute('data-copy')) track('copy-address');
       else if (n.tagName === 'A' && n.hostname && n.hostname !== location.hostname) track('outbound-link', { to: n.hostname, label: label });
       else if (n.classList.contains('btn') && n.tagName === 'A') track('cta-click', { label: label, to: n.getAttribute('href') });
+      // refiSOL itself can't load analytics (its security rule), so count every link that leads there, menu included
+      else if (n.tagName === 'A' && /(^|\/)refisol\.html/.test(n.getAttribute('href') || '')) track('refisol-link', { label: label, from: location.pathname.split('/').pop() || 'index.html' });
     });
     document.addEventListener('submit', function (e) {
       var f = e.target, email = $('input[type="email"]', f);
