@@ -6,6 +6,9 @@
   document.documentElement.classList.remove('no-js');
 
   var REG = null, C = {}, SRC = {}, ORGS = {}, CL = {};
+  // Web3Forms access key (free plan). Submissions from the contact form and newsletter boxes
+  // are emailed to the inbox this key was created for. Public by design: it can only send to that inbox.
+  var FORM_KEY = 'f1591609-237b-42b0-a39e-0c9537b5bc61';
   var dateFmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
   var timeFmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
   var clockFmt = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit' });
@@ -243,8 +246,22 @@
       default: return String(v);
     }
   }
+  // Short text for values fmt() can't print in one line (used on the audit page).
+  function brief(claim, v) {
+    if (v == null) return null;
+    switch (claim.format) {
+      case 'poolFees': return trimNum(v.epoch, 2) + '% on rewards, ' + trimNum(v.deposit, 2) + '% deposit, ' + trimNum(v.withdraw, 2) + '% withdraw';
+      case 'exitCost': return v.map(function (q) { return q.sol.toLocaleString('en-US') + ' SOL: ' + (q.drop == null ? 'no quote' : trimNum(q.drop, 2) + '%'); }).join(', ');
+      case 'rows': return v.length + (v.length === 1 ? ' donation' : ' donations') + ' listed';
+      case 'links': return v.map(function (a) { return a.name; }).join(', ');
+      default: return fmt(claim, v);
+    }
+  }
   function cur(claim) { return claim._cur || { value: claim.value, asOf: claim.asOf, live: false }; }
   function isUnverified(claim) { return claim.status !== 'verified'; }
+  // The audit page lists verified claims that appear on a linked page. "not shown", "none" and the unlinked
+  // donations page are left off, and so are claims not yet verifiable or still pending.
+  function onAudit(claim) { return claim.status === 'verified' && !/^(not shown|none|donations$)/.test(claim.page); }
 
   /* ---------- source chip ---------- */
   function orgLogo(slug, dark) {
@@ -437,8 +454,71 @@
         }))
       ]);
       n.replaceChildren(el('div', { class: 'tbl-wrap' }, [t]));
+    },
+    // Audit page: every claim on the site, grouped, with its value, status, check method and source.
+    // Rows are built once; later calls (after each live fetch) only refresh the value and source cells.
+    register: function (n) {
+      if (!n._rows) {
+        n._rows = [];
+        var groups = REG_GROUPS.map(function (g) { return { title: g[0], prefixes: g[1], claims: [] }; });
+        var other = { title: 'Other', prefixes: [], claims: [] };
+        REG.claims.filter(onAudit).forEach(function (c) {
+          var g = groups.filter(function (g) { return g.prefixes.some(function (p) { return c.id.indexOf(p) === 0; }); })[0] || other;
+          g.claims.push(c);
+        });
+        n.replaceChildren.apply(n, groups.concat(other).filter(function (g) { return g.claims.length; }).map(function (g) {
+          return el('div', { class: 'reg-group' }, [
+            el('h2', { text: g.title }),
+            el('div', { class: 'reg-head', 'aria-hidden': 'true' }, [el('span', { text: 'Claim' }), el('span', { text: 'Value' }), el('span', { text: 'Status and source' })])
+          ].concat(g.claims.map(function (c) {
+            var row = { claim: c, val: el('div', { class: 'reg-val' }), src: el('div', { class: 'reg-src' }) };
+            n._rows.push(row);
+            return el('div', { class: 'reg-row', id: c.id }, [
+              el('div', null, [el('p', { class: 'reg-name', text: c.label || c.text }), c.note ? el('p', { class: 'reg-note small muted', text: c.note }) : null]),
+              row.val, row.src
+            ]);
+          })));
+        }));
+        var t = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+        // The rows did not exist when the browser looked for the #claim-id, so jump and highlight here.
+        if (t && n.contains(t)) { t.classList.add('is-target'); t.scrollIntoView({ block: 'start', behavior: 'instant' }); }
+      }
+      n._rows.forEach(function (r) {
+        var c = r.claim, v = cur(c).value, s = SRC[c.source] || {}, url = c.sourceUrl || s.url, val;
+        if (c.format === 'links' && v) {
+          val = el('span');
+          v.forEach(function (a, i) { if (i) val.appendChild(document.createTextNode(', ')); val.appendChild(el('a', { href: a.url, target: '_blank', rel: 'noopener', text: a.name })); });
+        } else {
+          var text = brief(c, v);
+          val = text == null ? el('span', { class: 'pending', text: 'pending' }) : el('span', { class: c._fails ? 'check-fail' : '', text: text });
+        }
+        r.val.replaceChildren(val);
+        r.src.replaceChildren(
+          el('span', { class: 'badge st-' + c.status, text: REG_STATUS[c.status] || c.status }),
+          el('span', { class: 'reg-check', text: REG_CHECK[c.check] || c.check }),
+          isUnverified(c) ? (url ? sourceLink(c.source, url) : '') : chip(c)
+        );
+      });
+    },
+    registerSummary: function (n) {
+      var shown = REG.claims.filter(onAudit);
+      function count(k, v) { return shown.filter(function (c) { return c[k] === v; }).length; }
+      n.textContent = shown.length + ' verified numbers and facts on this site. ' + count('check', 'live') + ' are fetched live from public sources each time you open a page, ' +
+        count('check', 'link') + ' link to a public source and ' + count('check', 'manual') + ' are confirmed by our team. Register last updated ' + dateFmt.format(new Date(REG.updated)) + '.';
     }
   };
+  var REG_GROUPS = [
+    ['Validator', ['validator.', 'network.']],
+    ['Yield vs the big custodians', ['yield.']],
+    ['Who stakes with us', ['stakedBy.']],
+    ['refiSOL and other liquid staking tokens', ['refisol.', 'lst.']],
+    ['Impact', ['impact.']],
+    ['Donations', ['donations.']],
+    ['Operations and security', ['ops.']],
+    ['Company and contact', ['company.', 'contact.']]
+  ];
+  var REG_STATUS = { verified: 'Verified', 'unverifiable-yet': 'Not yet verifiable', placeholder: 'Pending' };
+  var REG_CHECK = { live: 'Fetched live', link: 'Linked source', manual: 'Confirmed by our team' };
 
   /* ---------- live run ---------- */
   function runLive() {
@@ -451,6 +531,7 @@
       if (r === 'lstFees') ['refisol.poolFees', 'lst.jitosolFees', 'lst.msolFees'].forEach(function (k) { used[k] = 1; });
       if (r === 'exitCost') used['refisol.exitCost'] = 1;
       if (r === 'swapMock') used['refisol.rate'] = 1;
+      if (r === 'register') REG.claims.filter(onAudit).forEach(function (c) { used[c.id] = 1; });
       if (r === 'receipt') ['validator.netApy', 'yield.peer.coinbase', 'yield.peer.figment', 'yield.peer.kiln', 'yield.peer.everstake', 'impact.feesPer100k', 'impact.coralsPer100k'].forEach(function (k) { used[k] = 1; });
     });
     if (used['yield.compare']) ['validator.netApy', 'yield.peer.coinbase', 'yield.peer.figment', 'yield.peer.kiln', 'yield.peer.everstake'].forEach(function (k) { used[k] = 1; });
@@ -502,8 +583,11 @@
       $$('.rv').forEach(function (n) { io.observe(n); });
     } else $$('.rv').forEach(function (n) { n.classList.add('in'); });
     $$('a[aria-disabled="true"]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); }); });
-    var form = $('form.signup') || $('.signup form');
-    if (form) form.addEventListener('submit', function (e) { e.preventDefault(); });
+    $$('form.signup').forEach(function (f) {
+      wireForm(f, function () {
+        return { subject: 'Newsletter signup: ' + f.elements.email.value, email: f.elements.email.value };
+      }, 'Thanks, you are on the list.');
+    });
     $$('[data-copy]').forEach(function (b) {
       b.addEventListener('click', function () {
         var label = $('em', b);
@@ -515,11 +599,45 @@
       });
     });
     var cf = $('.contact-form');
-    if (cf) cf.addEventListener('submit', function (e) {
+    if (cf) wireForm(cf, function () {
+      var v = cf.elements;
+      return {
+        subject: 'Stake insight inquiry: ' + v.name.value + ' (' + v.org.value + ')',
+        name: v.name.value,
+        email: v.email.value,
+        'Organization': v.org.value,
+        'SOL to stake': v.size.value,
+        'Custodian or wallet': v.custody.value,
+        'Message': v.msg.value,
+        'Wants diligence pack': v.pack.checked ? 'Yes' : 'No'
+      };
+    }, 'Thanks, we have your message. We reply within one business day.');
+  }
+
+  // Send a form to Web3Forms by email. fields() returns what goes in the email.
+  function wireForm(form, fields, thanks) {
+    var note = $('.form-note', form), btn = $('button[type="submit"]', form);
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var msg = $('.form-note', cf);
-      if (!cf.checkValidity()) { cf.reportValidity(); return; }
-      msg.textContent = 'Mockup only: this form is not connected yet.';
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      var data = fields();
+      data.access_key = FORM_KEY;
+      data.from_name = 'ReFi Hub staking site';
+      data.page = location.pathname.split('/').pop() || 'index.html';
+      data.botcheck = form.elements.botcheck && form.elements.botcheck.checked;
+      btn.disabled = true;
+      note.textContent = 'Sending...';
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(data)
+      }).then(function (r) { return r.json(); }).then(function (r) {
+        if (!r.success) throw new Error(r.message);
+        form.reset();
+        note.textContent = thanks;
+      }).catch(function () {
+        note.textContent = 'Sorry, that did not send. Please try again, or message us on X.';
+      }).then(function () { btn.disabled = false; });
     });
   }
 
@@ -530,6 +648,37 @@
     $$('[data-claim-href]').forEach(function (a) { var c = CL[a.dataset.claimHref]; if (c) a.href = c.sourceUrl || (SRC[c.source] || {}).url; });
   }
 
+  /* ---------- Jupiter swap widget ----------
+     Uses the pinned copy in assets/vendor/jupiter-plugin (see its README). The fallback
+     card stays visible until the widget has actually rendered, and stays if it never does. */
+  function jupiterSwap() {
+    var card = $('[data-swap]'), mount = $('#jupiter-swap');
+    if (!card || !mount || !window.Jupiter || !window.Jupiter.init || !C.refisolMint || !C.solMint) return;
+    try {
+      window.Jupiter.init({
+        displayMode: 'integrated',
+        integratedTargetId: 'jupiter-swap',
+        containerStyles: { height: '520px' },
+        defaultExplorer: 'Solscan',
+        formProps: {
+          initialInputMint: C.solMint,
+          initialOutputMint: C.refisolMint,
+          fixedMint: C.refisolMint
+        }
+      });
+    } catch (e) {
+      if (window.console) console.warn('[swap] Jupiter widget failed to start', e && e.message);
+      return;
+    }
+    var tries = 0, t = setInterval(function () {
+      var host = $$('*', mount).filter(function (n) { return n.shadowRoot; })[0];
+      if (host && host.shadowRoot.querySelector('form')) {
+        clearInterval(t);
+        card.classList.add('is-live');
+      } else if (++tries > 150) clearInterval(t); // ~15s, then keep the fallback
+    }, 100);
+  }
+
   // Open the FAQ answer a link points to (for example index.html#faq-fees).
   function openFromHash() {
     var id = location.hash.slice(1), d = id && document.getElementById(id);
@@ -537,6 +686,26 @@
   }
   addEventListener('hashchange', openFromHash);
 
+  /* ---------- analytics ---------- */
+  // Umami (cloud.umami.is) counts page views on its own. This adds a few click events:
+  // main buttons, links that leave the site, copying the vote account, and form sends.
+  function track(name, data) { if (window.umami) window.umami.track(name, data); }
+  function analytics() {
+    document.addEventListener('click', function (e) {
+      var n = e.target.closest('a, button'); if (!n) return;
+      var label = n.textContent.replace(/\s+/g, ' ').trim().slice(0, 60);
+      if (n.hasAttribute('data-copy')) track('copy-address');
+      else if (n.tagName === 'A' && n.hostname && n.hostname !== location.hostname) track('outbound-link', { to: n.hostname, label: label });
+      else if (n.classList.contains('btn') && n.tagName === 'A') track('cta-click', { label: label, to: n.getAttribute('href') });
+    });
+    document.addEventListener('submit', function (e) {
+      var f = e.target, email = $('input[type="email"]', f);
+      if (!f.checkValidity() || (email && !email.value)) return;
+      track(f.classList.contains('contact-form') ? 'contact-form' : 'newsletter-signup');
+    });
+  }
+
+  analytics();
   chrome();
   openFromHash();
   getJSON('claims.json').then(function (reg) {
@@ -544,6 +713,7 @@
     reg.claims.forEach(function (c) { CL[c.id] = c; });
     window.REFI_CLAIMS = CL;
     constLinks();
+    jupiterSwap();
     renderValues();
     runLive();
   }).catch(function (e) {

@@ -421,7 +421,7 @@
   // The head follows a slow figure-eight above the reef, or drifts after the pointer and circles it.
   // A point is dropped every few pixels of travel, so the swoosh keeps the same length at any speed.
   function pollenStep(S, t, f, m) {
-    var H = S.head, ease = 0.03, tx = S.w * (0.5 + 0.36 * Math.sin(t * 0.21)), ty = S.h * (0.3 + 0.12 * Math.sin(t * 0.42));
+    var H = S.head, ease = 0.03, tx = S.w * (0.5 + 0.36 * Math.sin(t * 0.21)), ty = S.h * (0.18 + 0.08 * Math.sin(t * 0.42));
     if (m && m.on > 0.3) { tx = m.x + Math.cos(t * 1.3) * 14; ty = m.y + Math.sin(t * 1.3) * 14; ease = 0.045; }
     H.x += (tx - H.x) * Math.min(1, ease * f); H.y += (ty - H.y) * Math.min(1, ease * f);
     var last = S.trail[0];
@@ -447,8 +447,10 @@
     build: function (w, h, R) {
       var s = Math.min(w, h), ds = Math.max(0.6, s / 460), xs = [0.2, 0.41, 0.62, 0.82];
       var S = { w: w, h: h, polyps: [], fronds: [], bases: [], head: { x: w * 0.5, y: h * 0.3 }, trail: [] };
-      xs.forEach(function (fx) {
-        var r = s * (0.08 + R() * 0.04), x = w * fx + (R() - 0.5) * w * 0.04, y = h * (0.66 + R() * 0.12);
+      // alternate short and tall stems: the tall pair rises into the open water and keeps the heads apart
+      var ys = [0.68, 0.4, 0.62, 0.34];
+      xs.forEach(function (fx, i) {
+        var tall = i % 2 === 1, r = s * ((tall ? 0.095 : 0.08) + R() * 0.03), x = w * fx + (R() - 0.5) * w * 0.03, y = h * (ys[i] + R() * 0.05);
         S.polyps.push(makePolyp(x, y, r, 0.35 + R() * 0.15, (R() - 0.5) * 0.5, R, { ds: ds }));
         S.bases.push([x + (R() - 0.5) * r, h]);
       });

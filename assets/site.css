@@ -277,6 +277,8 @@ footer a:hover{color:#fff;text-decoration:underline}
 .signup input{flex:1;min-width:0;font:inherit;padding:12px 14px;border-radius:999px;border:1px solid #1e293b;background:#0f172a;color:#fff}
 .signup input::placeholder{color:#64748b}
 .signup .badge{margin-top:10px}
+.signup .form-note{display:block;margin-top:10px;color:#cbd5e1}
+.hp{position:absolute;left:-9999px}
 .foot-links{display:flex;flex-wrap:wrap;gap:10px 20px;align-content:flex-start}
 .foot-links .soon{color:#64748b}
 .legal{margin-top:40px;padding-top:24px;border-top:1px solid #1e293b;font-size:13px;color:#94a3b8;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
@@ -384,7 +386,20 @@ a.logo-card:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(13,58,6
 .swap-btn{width:100%;margin-top:14px;border:0;border-radius:14px;padding:16px;font:500 16px var(--sans);background:#8fd3c8;color:#0d3a42;cursor:pointer}
 .swap-foot{display:flex;justify-content:space-between;margin-top:14px;font-size:12.5px;color:#7d9592}
 .swap-foot a{color:#9fd5cf}
-.swap-tag{position:absolute;top:-12px;right:16px;font:500 10.5px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;background:var(--sun-100);color:#7a5a10;padding:5px 9px;border-radius:999px}
+a.swap-btn{display:block;text-align:center;text-decoration:none}
+.swap-foot{justify-content:center}
+/* Jupiter widget: hidden until it has rendered, then it replaces the fallback card.
+   Colours are RGB triples, matched to the card above. */
+.swap-live{display:none;
+  --jupiter-plugin-background:15, 26, 28;
+  --jupiter-plugin-module:23, 38, 42;
+  --jupiter-plugin-interactive:34, 52, 58;
+  --jupiter-plugin-primary:143, 211, 200;
+  --jupiter-plugin-primaryText:230, 242, 240;
+  --jupiter-plugin-warning:228, 176, 74}
+.swap-card.is-live{padding:8px}
+.swap-card.is-live .swap-live{display:block}
+.swap-card.is-live .swap-fallback{display:none}
 .steps-3{grid-template-columns:repeat(3,1fr)}
 @media (max-width:860px){.steps-3{grid-template-columns:1fr}}
 
@@ -460,6 +475,27 @@ a.logo-card:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(13,58,6
 .record-4{grid-template-columns:repeat(4,1fr)}
 @media (max-width:1040px){.record-4{grid-template-columns:1fr 1fr}}
 @media (max-width:520px){.record-4{grid-template-columns:1fr}}
+
+/* ---------- audit page: the claim register ---------- */
+.reg-legend dl{margin:0}
+.reg-legend dt{font-weight:500;color:var(--text-strong);margin-top:12px}
+.reg-legend dd{margin:2px 0 0;color:var(--muted);font-size:15px}
+.reg-group{margin-top:clamp(36px,5vw,56px)}
+.reg-group:first-child{margin-top:0}
+.reg-head,.reg-row{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1.1fr);gap:6px 28px}
+.reg-head{font:400 11px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:8px 0;border-bottom:1px solid var(--line)}
+.reg-row{padding:14px 0;border-bottom:1px solid var(--line);scroll-margin-top:88px}
+.reg-row:target,.reg-row.is-target{background:var(--sea-100);box-shadow:0 0 0 10px var(--sea-100)}
+.reg-name{margin:0;font-weight:500;color:var(--text-strong)}
+.reg-note{margin:4px 0 0;font-size:13.5px}
+.reg-val{font-weight:500;overflow-wrap:anywhere}
+.reg-src{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;align-content:flex-start}
+.reg-check{font:400 11.5px/1.3 var(--mono);color:var(--muted)}
+.reg-src .badge{cursor:default}
+.badge.st-verified{color:var(--leaf-700);background:var(--leaf-100);border-color:rgba(53,94,61,.2)}
+.badge.st-placeholder{color:var(--muted);background:var(--sand);border-color:var(--line)}
+@media (max-width:760px){.reg-head{display:none}.reg-row{grid-template-columns:minmax(0,1fr)}}
+
 /* stipple graphics: animated dotted artwork drawn by assets/stipple.js into <canvas data-stipple> */
 canvas[data-stipple]{display:block;pointer-events:none}
 canvas.hero-art{width:min(440px,36vw);height:min(440px,36vw);top:-28px}
@@ -480,3 +516,35 @@ canvas.hero-art{width:min(440px,36vw);height:min(440px,36vw);top:-28px}
   .tl-graphic{min-height:0;height:220px;order:-1}
   .split-graphic,.split-graphic-sm{height:260px}
 }
+
+/* gallery: spotlight with thumbnails (assets/gallery.js); without JS every photo shows, stacked */
+.gallery{margin-top:56px}
+.gal-head{margin-bottom:22px}
+.gal-head h3{font-size:clamp(22px,2.4vw,30px);font-weight:400;letter-spacing:-.03em;margin-bottom:6px}
+.gal-head p{color:var(--muted);margin:0}
+.spot{display:grid;grid-template-columns:minmax(0,1fr) 104px;gap:20px;align-items:start}
+.no-js .spot{grid-template-columns:1fr}
+.spot-fig{margin:0}
+.spot-fig+.spot-fig{margin-top:36px}
+.gallery.is-ready .spot-fig{margin-top:0}
+.spot-fig img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:14px;background:rgba(255,255,255,.45)}
+.spot-fig.is-active{animation:spot-in .35s ease}
+@keyframes spot-in{from{opacity:0}to{opacity:1}}
+.spot-fig figcaption{display:flex;flex-direction:column;gap:3px;padding-top:14px;max-width:720px}
+.spot-fig .cap-kicker{font:400 11px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--sea-700)}
+.spot-fig .cap-title{font-weight:500;font-size:18px;line-height:1.35;color:var(--text-strong)}
+.spot-fig .cap-body{font-size:15px;color:var(--text)}
+.spot-fig .cap-credit{font:400 11px/1.5 var(--mono);color:#6b7c85;margin-top:4px}
+.spot-thumbs{display:flex;flex-direction:column;gap:8px}
+.no-js .spot-thumbs{display:none}
+.spot-th{padding:0;border:2px solid transparent;border-radius:10px;overflow:hidden;cursor:pointer;background:none;opacity:.6;transition:opacity .2s,border-color .2s}
+.spot-th img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+.spot-th[aria-pressed="true"]{border-color:var(--sea-900);opacity:1}
+.spot-th:hover{opacity:1}
+.spot-th:focus-visible{outline:2px solid var(--sea-500);outline-offset:2px}
+@media (max-width:760px){
+  .spot{grid-template-columns:1fr}
+  .spot-thumbs{flex-direction:row;overflow-x:auto;padding-bottom:4px}
+  .spot-th{flex:0 0 88px}
+}
+@media (prefers-reduced-motion: reduce){.spot-fig.is-active{animation:none}.spot-th{transition:none}}
