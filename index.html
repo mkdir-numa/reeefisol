@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;400;500&family=Geist:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/brand-tokens.css">
-<link rel="stylesheet" href="assets/site.css?v=10">
+<link rel="stylesheet" href="assets/site.css?v=11">
 <script src="assets/site.js?v=13" defer></script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="3f416ae1-d70a-4f8d-b82f-4b7835e6029d"></script>
 </head>
@@ -57,6 +57,7 @@
     <div class="btns">
       <a class="btn btn-primary" href="institutions.html#contact">Talk to us</a>
       <a class="btn btn-coral" href="refisol.html">Stake refiSOL</a>
+      <a class="btn btn-ghost" href="#stake">Stake with our validator</a>
     </div>
 
     <div class="stats">
@@ -83,6 +84,31 @@
         <h3>refiSOL for everyone</h3>
         <p>refiSOL is the liquid staking token from our Solana validator. Any amount. Swap back any time.</p>
         <div class="btns"><a class="btn btn-primary" href="refisol.html">Stake refiSOL</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stake directly with the validator (native staking, no token) -->
+<section id="stake" class="stake-direct">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Stake with our validator</h2>
+      <p>Prefer to keep your SOL in your own wallet? Delegate it to us directly. No token, no middleman, and you can unstake any time.</p>
+    </div>
+    <div class="stake-grid">
+      <div class="steps steps-3">
+        <div class="step rv"><div class="n">1</div><h3>Copy our vote account</h3><p>It's the address your wallet delegates to.</p></div>
+        <div class="step rv"><div class="n">2</div><h3>Open staking in your wallet</h3><p>In Phantom, Solflare or most Solana wallets, choose Stake SOL and paste the vote account.</p></div>
+        <div class="step rv"><div class="n">3</div><h3>Choose an amount and confirm</h3><p>Rewards land every epoch. Using a custodian? <a href="#faq-custodian">Ask them to delegate</a>.</p></div>
+      </div>
+      <div class="card stake-card rv">
+        <button class="copy copy-ref" type="button" data-copy-const="voteAccount"><b>Vote account</b><span data-const="voteAccount">…</span><em>Copy</em></button>
+        <dl class="stake-terms">
+          <div><dt>Commission</dt><dd><span data-claim="validator.commission">…</span> on staking rewards</dd></div>
+          <div><dt>MEV commission</dt><dd><span data-claim="validator.mevCommission">…</span> on MEV rewards</dd></div>
+        </dl>
+        <p class="verified"><span class="dot" aria-hidden="true"></span>Check us first on <a data-const-href="stakewizUrl" href="#" target="_blank" rel="noopener">Stakewiz</a> and <a data-const-href="validatorsAppUrl" href="#" target="_blank" rel="noopener">validators.app</a>.</p>
       </div>
     </div>
   </div>

@@ -548,3 +548,14 @@ canvas.hero-art{width:min(440px,36vw);height:min(440px,36vw);top:-28px}
   .spot-th{flex:0 0 88px}
 }
 @media (prefers-reduced-motion: reduce){.spot-fig.is-active{animation:none}.spot-th{transition:none}}
+
+/* stake with our validator (home #stake): steps on the left, vote account and terms on the right */
+.stake-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:32px;align-items:start}
+.stake-grid .steps-3{grid-template-columns:1fr;gap:22px}
+.stake-card{display:flex;flex-direction:column;gap:18px}
+.stake-terms{margin:0;display:grid;gap:10px}
+.stake-terms div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.stake-terms dt{color:var(--muted)}
+.stake-terms dd{margin:0;font-weight:500;color:var(--text-strong);text-align:right}
+.stake-card .verified{margin:0}
+@media (max-width:860px){.stake-grid{grid-template-columns:1fr}}
