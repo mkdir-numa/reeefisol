@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;400;500&family=Geist:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/brand-tokens.css">
-<link rel="stylesheet" href="assets/site.css?v=5">
+<link rel="stylesheet" href="assets/site.css?v=6">
 <script src="assets/site.js?v=8" defer></script>
 </head>
 <body>
@@ -34,16 +34,7 @@
 <!-- Hero -->
 <section class="hero">
   <div class="wrap hero-wrap">
-    <svg class="hero-art" viewBox="0 0 420 420" aria-hidden="true" focusable="false">
-      <circle cx="250" cy="170" r="150" fill="var(--sea-100)"/>
-      <circle cx="160" cy="250" r="110" fill="var(--coral-100)"/>
-      <circle cx="300" cy="300" r="80" fill="var(--leaf-100)"/>
-      <g fill="none" stroke-linecap="round" stroke-width="3">
-        <path d="M150 330c0-40 4-70 18-104M168 226c-10-18-26-28-44-30M168 226c8-20 22-30 40-32M160 270c-14-6-28-4-38 6" stroke="var(--coral-500)"/>
-        <path d="M300 340v-90M300 250c-18 0-30 18-34 40M300 250c18 0 30 18 34 40M300 250c-6-26-2-46 14-60M300 250c4-24 18-38 40-44" stroke="var(--leaf-500)"/>
-        <path d="M120 120c30-14 60-14 90 0s60 14 90 0M140 150c26-12 52-12 78 0s52 12 78 0" stroke="var(--sea-500)" opacity=".7"/>
-      </g>
-    </svg>
+    <canvas class="hero-art" data-stipple="reef" aria-hidden="true"></canvas>
     <h1>Stake SOL. Plant corals and mangroves.</h1>
     <div class="hero-sub">
       <p>Higher net yield than the big custodians. Built for treasuries and funds.</p>
@@ -67,7 +58,8 @@
 <section id="ways" style="padding-top:0">
   <div class="wrap">
     <div class="grid ways">
-      <div class="card card-sea rv">
+      <div class="card card-sea card-art rv">
+        <canvas data-stipple="current" data-dark aria-hidden="true"></canvas>
         <h3>Managed staking for large positions</h3>
         <p>Contracted terms, reporting and a quarterly impact receipt for your board.</p>
         <div class="btns"><a class="btn btn-light" href="institutions.html">For institutions</a></div>
@@ -170,11 +162,14 @@
 <section>
   <div class="wrap">
     <div class="sec-head"><h2>How to start</h2></div>
+    <div class="tl-wrap">
     <div class="tl">
       <div class="tl-step rv"><div class="tl-num">1</div><div><h3>Choose your route</h3><p>Large position? <a href="institutions.html#contact">Talk to us</a>. Any amount? <a href="refisol.html">Use refiSOL</a>.</p></div></div>
       <div class="tl-step rv"><div class="tl-num">2</div><div><h3>Stake</h3><p>Delegate from your custodian or wallet, or swap SOL for refiSOL.</p></div></div>
       <div class="tl-step rv"><div class="tl-num">3</div><div><h3>Earn</h3><p>Rewards land every epoch, every one to two days.</p></div></div>
       <div class="tl-step rv"><div class="tl-num">4</div><div><h3>See what you planted</h3><p>Every donation and planting, in your quarterly impact receipt.</p></div></div>
+    </div>
+    <canvas class="tl-graphic" data-stipple="pollen" aria-hidden="true"></canvas>
     </div>
   </div>
 </section>
@@ -292,5 +287,6 @@
     </div>
   </div>
 </footer>
+<script src="assets/stipple.js?v=2" defer></script>
 </body>
 </html>
