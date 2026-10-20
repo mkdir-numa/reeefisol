@@ -8,6 +8,7 @@ Static site for the ReFi Hub validator and refiSOL. Plain HTML, CSS and JS, no b
 - `institutions.html`: For institutions, with a contact form mockup (not connected)
 - `refisol.html`: refiSOL, with a swap widget mockup (rate is live; the real swap opens in Jupiter)
 - `donations.html`: Donations. Kept but not linked from anywhere for now
+- `audit.html`: Audit our numbers. Lists every claim shown on the site with its value, status, check method and source, read straight from `claims.json`. Linked from the Verify column of every footer
 
 ## How the numbers work
 
@@ -26,7 +27,7 @@ Live sources (all public and CORS-enabled):
 - Solana RPC (publicnode, then mainnet-beta): refiSOL, jitoSOL and Marinade pool accounts (fees, exchange rate, supply, program)
 - Jupiter API: refiSOL holders, swap quotes at 10, 100 and 1,000 SOL, SOL price (for corals per 100K SOL)
 
-To update a saved value, edit its entry in `claims.json` and its `asOf` date.
+To update a saved value, edit its entry in `claims.json` and its `asOf` date. Notes are public: they appear on the audit page and in source tooltips, so write them for visitors. When a claim's `text` is a page fragment, an optional `label` gives the audit page a plain name.
 
 ## Run locally
 
