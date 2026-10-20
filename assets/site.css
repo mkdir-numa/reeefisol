@@ -464,6 +464,18 @@ a.swap-btn{display:block;text-align:center;text-decoration:none}
 .sf-social svg{width:20px;height:20px;fill:#e2e8f0;display:block;transition:fill .2s}
 .sf-social a:hover svg{fill:#fff}
 
+/* Delegation programs page: copyable addresses on light backgrounds */
+.copy-ref{display:flex;align-items:center;gap:10px;width:100%;margin:0;font:400 13px/1.45 var(--mono);color:var(--text-strong);background:#fff;border:1px solid var(--line-cool);border-radius:var(--radius);padding:12px 14px;cursor:pointer;text-align:left}
+.copy-ref:hover{border-color:var(--sea-700)}
+.copy-ref b{font:600 13px var(--sans);flex:none;min-width:96px}
+.copy-ref span{flex:1;min-width:0;word-break:break-all}
+.copy-ref em{font-style:normal;color:var(--sea-700);flex:none}
+.copy-refs{display:grid;gap:10px}
+.hero .copy-ref{width:auto;border-radius:999px;padding:12px 18px;max-width:100%}
+.record-4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:1040px){.record-4{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.record-4{grid-template-columns:1fr}}
+
 /* ---------- audit page: the claim register ---------- */
 .reg-legend dl{margin:0}
 .reg-legend dt{font-weight:500;color:var(--text-strong);margin-top:12px}

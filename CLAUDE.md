@@ -6,7 +6,7 @@ Guidance for Claude Code when working in this repo. Two people collaborate here 
 
 Static site for the ReFi Hub validator and refiSOL. Plain HTML/CSS/JS, **no build step**. Deployed by GitHub Pages from the `main` branch root: merging a PR to main publishes the site at https://mkdir-numa.github.io/reeefisol/ within a couple of minutes.
 
-- Pages: `index.html`, `institutions.html`, `refisol.html`, `donations.html` (unlinked)
+- Pages: `index.html`, `institutions.html`, `delegation.html`, `refisol.html`, `donations.html` (unlinked)
 - `assets/site.css`, `assets/site.js` — styles and the claim renderer
 - `assets/vendor/jupiter-plugin/` — pinned Jupiter swap widget (touches wallets). Never hand-edit, never switch to loading it from `plugin.jup.ag`, and keep the CSP and `integrity` attributes in `refisol.html`. Updates go through `scripts/vendor-jupiter-plugin.sh` and the review steps in that folder's README
 - Analytics: Umami Cloud (free Hobby plan, one site, cookieless). The script tag is in each page's `<head>`; click events are in the `analytics` section of `assets/site.js`. Add the script tag to any new page, except `refisol.html`, which only allows scripts from our own site.

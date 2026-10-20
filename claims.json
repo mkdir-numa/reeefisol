@@ -261,7 +261,7 @@
     {
       "id": "validator.uptime30d",
       "text": "Uptime, last 30 days",
-      "page": "not shown",
+      "page": "delegation",
       "section": "Hero stats; Why ReFi Hub; The public record",
       "value": 100,
       "format": "pct2",
@@ -437,6 +437,78 @@
         "path": "ip_org"
       },
       "note": "Hosting network from IP lookup (ASN 396356, Latitude.sh). Confirm the data centre name with Pine Stake."
+    },
+    {
+      "id": "validator.voteSuccess",
+      "text": "vote success, per Stakewiz",
+      "label": "Vote success",
+      "page": "delegation",
+      "section": "Decentralization; Performance; Terms and client",
+      "value": 96.65,
+      "format": "pct2",
+      "source": "stakewiz",
+      "check": "live",
+      "status": "verified",
+      "asOf": "2026-10-20T13:14:09Z",
+      "live": {
+        "fetch": "stakewiz.validator",
+        "path": "vote_success"
+      },
+      "note": "Stakewiz field vote_success: share of votes that landed."
+    },
+    {
+      "id": "validator.network",
+      "text": "hosting network and ASN",
+      "label": "Hosting network and ASN",
+      "page": "delegation",
+      "section": "Decentralization; Performance; Terms and client",
+      "value": "Latitude.sh, AS396356",
+      "format": "text",
+      "source": "stakewiz",
+      "check": "live",
+      "status": "verified",
+      "asOf": "2026-10-20T13:14:09Z",
+      "live": {
+        "fetch": "stakewiz.validator",
+        "derive": "network"
+      },
+      "note": "Stakewiz fields ip_org and ip_asn, from IP data. This is the network, not the data centre name (see validator.dataCentre)."
+    },
+    {
+      "id": "validator.superminority",
+      "text": "Outside the superminority",
+      "label": "Superminority status",
+      "page": "delegation",
+      "section": "Decentralization; Performance; Terms and client",
+      "value": "Outside the superminority",
+      "format": "text",
+      "source": "stakewiz",
+      "check": "live",
+      "status": "verified",
+      "asOf": "2026-10-20T13:14:09Z",
+      "live": {
+        "fetch": "stakewiz.validator",
+        "derive": "superminority"
+      },
+      "note": "Stakewiz field superminority_penalty is 0, meaning we are not in the superminority."
+    },
+    {
+      "id": "validator.versionValid",
+      "text": "Stakewiz marks this version as valid.",
+      "label": "Client version status",
+      "page": "delegation",
+      "section": "Decentralization; Performance; Terms and client",
+      "value": "Stakewiz marks this version as valid.",
+      "format": "text",
+      "source": "stakewiz",
+      "check": "live",
+      "status": "verified",
+      "asOf": "2026-10-20T13:14:09Z",
+      "live": {
+        "fetch": "stakewiz.validator",
+        "derive": "versionValid"
+      },
+      "note": "Stakewiz field version_valid."
     },
     {
       "id": "validator.voteAccount",
@@ -1430,15 +1502,15 @@
     {
       "id": "contact.email",
       "text": "Contact email",
-      "page": "institutions",
+      "page": "delegation",
       "section": "Contact",
-      "value": null,
+      "value": "adolfo@refihub.io",
       "format": "text",
       "source": "team",
       "check": "manual",
-      "status": "placeholder",
-      "asOf": null,
-      "note": "To be added."
+      "status": "verified",
+      "asOf": "2026-10-20T13:14:09Z",
+      "note": "Team contact address, confirmed by Adolfo on 2026-10-20. Shown without a named person."
     },
     {
       "id": "contact.handles",

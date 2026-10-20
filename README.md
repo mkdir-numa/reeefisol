@@ -6,6 +6,7 @@ Static site for the ReFi Hub validator and refiSOL. Plain HTML, CSS and JS, no b
 
 - `index.html`: Home, with the FAQ
 - `institutions.html`: For institutions, with the contact form (sent by email via Web3Forms, see `FORM_KEY` in `assets/site.js`)
+- `delegation.html`: For delegation programs. Linked from the footer and the home trust strip, not the top nav
 - `refisol.html`: refiSOL, with Jupiter's real swap widget (a pinned, reviewed copy; see below). If it can't load, a fallback card shows a pool-rate estimate and a link to swap on Jupiter
 - `donations.html`: Donations. Kept but not linked from anywhere for now
 - `audit.html`: Audit our numbers. Lists every verified claim shown on the site with its value, status, check method and source, read straight from `claims.json`. Linked from the Verify column of every footer
