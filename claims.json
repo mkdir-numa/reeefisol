@@ -1558,13 +1558,13 @@
       "text": "Quarterly impact update signup",
       "page": "all",
       "section": "Footer",
-      "value": null,
+      "value": "Signups go to the team inbox (Web3Forms)",
       "format": "text",
       "source": "team",
       "check": "manual",
-      "status": "placeholder",
-      "asOf": null,
-      "note": "No mailing list connected. The form does not submit anywhere yet."
+      "status": "verified",
+      "asOf": "2026-10-20T00:00:00Z",
+      "note": "Since Oct 20 (PR #16) the footer signup sends each email to the team inbox via Web3Forms. No mailing-list tool yet; quarterly updates are sent by hand."
     },
     {
       "id": "gallery.coralsIndonesia",
