@@ -223,10 +223,10 @@
     ctx.fill();
     ctx.fillStyle = pal.glint;
     for (var b = 0; b < 3; b++) {
-      ctx.globalAlpha = [0.35, 0.65, 1][b]; ctx.beginPath();
+      ctx.globalAlpha = [0.35, 0.65, 1][b] * (o.glow || 1); ctx.beginPath();
       for (var g = 0; g < glow.length; g += 3) {
         var v = glow[g + 2], bucket = v < 0.33 ? 0 : v < 0.66 ? 1 : 2;
-        if (bucket === b) dot(ctx, glow[g], glow[g + 1], 0.7 + v * 1.1);
+        if (bucket === b) dot(ctx, glow[g], glow[g + 1], (0.7 + v * 1.1) * (o.glowSize || 1));
       }
       ctx.fill();
     }
@@ -303,7 +303,7 @@
   EXPR.current = {
     build: function (w, h, R) {
       var s = Math.min(w, h), cx = w * 0.52, cy = h * 0.5, rx = w * 0.47, ry = h * 0.46, nodes = [], qsum = 0;
-      for (var i = 0; i < 12; i++) {
+      for (var i = 0; i < 10; i++) {
         var a = R() * TAU, r = 0.3 + Math.sqrt(R()) * 0.6, q = (i % 5 === 4) ? -(0.4 + R() * 0.3) : 0.6 + R() * 0.8;
         if (q > 0) qsum += q;
         nodes.push({ x: cx + Math.cos(a) * r * rx, y: cy + Math.sin(a) * r * ry, q: q, spin: R() * TAU });
@@ -311,21 +311,22 @@
       var core = { x: cx + (R() - 0.5) * rx * 0.2, y: cy + (R() - 0.5) * ry * 0.2, q: -qsum * 0.45, r0: s * 0.05 };
       nodes.push(core);
       var S = { core: core, gap: 5 };
-      S.lines = traceField(nodes, blob(cx, cy, rx, ry, R), { lines: 14, gap: S.gap, r0: 6 }, R);
+      S.lines = traceField(nodes, blob(cx, cy, rx, ry, R), { lines: 9, gap: S.gap, r0: 6 }, R);
       S.polyps = nodes.filter(function (n) { return n.q > 0; }).map(function (n) {
         return makePolyp(n.x, n.y, 5 + n.q * 5, 0.85 + R() * 0.15, R() * TAU, R, { trumpet: false, curl: 0.5, ds: 0.6, sens: 2.2 });
       });
       S.hub = makePolyp(core.x, core.y, s * 0.06, 0.95, 0, R, { trumpet: false, curl: 0.6, sens: 1.8 });
-      S.motes = makeMotes(14, w, h, R);
+      S.motes = makeMotes(5, w, h, R);
       return S;
     },
+    // Kept deliberately quiet: faint lines, an occasional slow pulse, a steady ring.
     draw: function (ctx, S, t, dt, m, pal) {
-      drawDotLines(ctx, S.lines, t, m, pal, { gap: S.gap, wave: 150, speed: 0.3, base: 0.45 });
+      drawDotLines(ctx, S.lines, t, m, pal, { gap: S.gap, wave: 420, speed: 0.12, base: 0.3, glow: 0.55, glowSize: 0.75, rad: 60, str: 10 });
       S.polyps.forEach(function (P) { drawPolyp(ctx, P, t, m, pal, S.sp); });
       drawPolyp(ctx, S.hub, t, m, pal, S.sp, { mouth: pal.accent });
-      ctx.strokeStyle = pal.accent; ctx.lineWidth = 1; ctx.globalAlpha = 0.6 + 0.4 * Math.sin(t * 2);
-      ctx.beginPath(); ctx.arc(S.hub.hx, S.hub.hy, S.hub.r * (1.45 + 0.08 * Math.sin(t * 2)), 0, TAU); ctx.stroke(); ctx.globalAlpha = 1;
-      if (Math.random() < dt * 2.5) S.sp.add(S.hub.hx + (Math.random() - 0.5) * S.hub.r * 2, S.hub.hy + (Math.random() - 0.5) * S.hub.r * 2);
+      ctx.strokeStyle = pal.accent; ctx.lineWidth = 1; ctx.globalAlpha = 0.45;
+      ctx.beginPath(); ctx.arc(S.hub.hx, S.hub.hy, S.hub.r * 1.45, 0, TAU); ctx.stroke(); ctx.globalAlpha = 1;
+      if (Math.random() < dt * 0.4) S.sp.add(S.hub.hx + (Math.random() - 0.5) * S.hub.r * 2, S.hub.hy + (Math.random() - 0.5) * S.hub.r * 2);
       drawMotes(ctx, S.motes, t, dt * 60, m, pal);
       trail(S, m);
     }
