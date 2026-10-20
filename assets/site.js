@@ -8,7 +8,7 @@
   var REG = null, C = {}, SRC = {}, ORGS = {}, CL = {};
   // Web3Forms access key (free plan). Submissions from the contact form and newsletter boxes
   // are emailed to the inbox this key was created for. Public by design: it can only send to that inbox.
-  var FORM_KEY = 'PASTE-WEB3FORMS-ACCESS-KEY-HERE';
+  var FORM_KEY = 'f1591609-237b-42b0-a39e-0c9537b5bc61';
   var dateFmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
   var timeFmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
   var clockFmt = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit' });
@@ -520,7 +520,7 @@
     if (cf) wireForm(cf, function () {
       var v = cf.elements;
       return {
-        subject: 'Institution enquiry: ' + v.name.value + ' (' + v.org.value + ')',
+        subject: 'Stake insight inquiry: ' + v.name.value + ' (' + v.org.value + ')',
         name: v.name.value,
         email: v.email.value,
         'Organization': v.org.value,
