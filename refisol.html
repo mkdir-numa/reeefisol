@@ -11,13 +11,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;400;500&family=Geist:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/brand-tokens.css">
-<link rel="stylesheet" href="assets/site.css?v=6">
+<link rel="stylesheet" href="assets/site.css?v=8">
 <!-- Jupiter swap widget, pinned copy. integrity = the browser refuses the file if a single byte changes.
      The app script carries the id the loader looks for, so the loader uses this checked copy instead of adding its own.
      To update: scripts/vendor-jupiter-plugin.sh (see assets/vendor/jupiter-plugin/README.md). -->
 <script src="assets/vendor/jupiter-plugin/1.0.16/plugin-v1.js" integrity="sha384-VqTeMzcevTMEcQjlLr91lxMw3JrOFEGmM32VllKpfOhznrTCIm+4XmbiTCeA/Jrw" defer></script>
 <script id="jupiter-load-script-app" src="assets/vendor/jupiter-plugin/1.0.16/plugin-1.0.16-app.js" integrity="sha384-TWtgSU/UbGA4iE6R1fx/AJadHkj/7gG6jLQeUfs6bXROWHTNn8vNEmjBkCFUrF82" defer></script>
-<script src="assets/site.js?v=9" defer></script>
+<script src="assets/site.js?v=10" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -132,7 +132,9 @@
       <div class="sf-sign">
         <form class="signup">
           <label for="email">Quarterly impact update</label>
-          <div class="row"><input id="email" type="email" placeholder="you@example.com" autocomplete="email"><button class="btn btn-coral btn-sm" type="submit">Subscribe</button></div>
+          <div class="row"><input id="email" name="email" type="email" required placeholder="you@example.com" autocomplete="email"><button class="btn btn-coral btn-sm" type="submit">Subscribe</button></div>
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <span class="form-note small" role="status"></span>
         </form>
         <button class="copy" type="button" data-copy="ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx"><b>Vote account</b><span>ReFiSbu...9NUx</span><em>Copy</em></button>
       </div>
