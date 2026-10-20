@@ -6,7 +6,7 @@ Guidance for Claude Code when working in this repo. Two people collaborate here 
 
 Static site for the ReFi Hub validator and refiSOL. Plain HTML/CSS/JS, **no build step**. Deployed by GitHub Pages from the `main` branch root: merging a PR to main publishes the site at https://mkdir-numa.github.io/reeefisol/ within a couple of minutes.
 
-- Pages: `index.html`, `institutions.html`, `refisol.html`, `donations.html` (unlinked)
+- Pages: `index.html`, `institutions.html`, `delegation.html`, `refisol.html`, `donations.html` (unlinked)
 - `assets/site.css`, `assets/site.js` — styles and the claim renderer
 - Run locally: `python3 -m http.server 8765` then open http://localhost:8765 (opening files directly breaks `fetch`)
 

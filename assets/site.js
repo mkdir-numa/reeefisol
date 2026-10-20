@@ -180,6 +180,9 @@
         case 'stakewiz.peer':
           if (L.derive === 'client') v = (d.is_jito ? 'Jito-Solana ' : 'Agave ') + d.version;
           else if (L.derive === 'city') v = d.ip_city + ', ' + d.ip_country;
+          else if (L.derive === 'network') v = d.ip_org + ', ' + d.ip_asn;
+          else if (L.derive === 'superminority') v = d.superminority_penalty === 0 ? 'Outside the superminority' : 'In the superminority';
+          else if (L.derive === 'versionValid') v = d.version_valid ? 'Stakewiz marks this version as valid.' : 'Stakewiz flags this version.';
           else { v = pick(d, L.path); if (L.scale) v = v * L.scale; }
           return { value: v, asOf: stakewizTime(d.updated_at) || now };
         case 'stakewiz.delinquencies':
@@ -312,6 +315,7 @@
       if (text == null) { n.textContent = 'pending'; n.classList.add('pending'); }
       else { n.textContent = text; n.classList.remove('pending'); }
       if (n.tagName === 'A' && claim.format === 'code' && claim.sourceUrl == null) n.href = (SRC[claim.source] || {}).url;
+      if (n.tagName === 'A' && n.hasAttribute('data-mailto') && text != null) n.href = 'mailto:' + text;
     });
     $$('[data-chip]').forEach(function (n) {
       var claim = CL[n.dataset.chip]; if (!claim) return;
@@ -503,7 +507,7 @@
     $$('[data-copy]').forEach(function (b) {
       b.addEventListener('click', function () {
         var label = $('em', b);
-        if (!navigator.clipboard) return;
+        if (!navigator.clipboard || !b.dataset.copy) return;
         navigator.clipboard.writeText(b.dataset.copy).then(function () {
           label.textContent = 'Copied';
           setTimeout(function () { label.textContent = 'Copy'; }, 1500);
@@ -522,6 +526,7 @@
   function constLinks() {
     $$('[data-const-href]').forEach(function (a) { var v = C[a.dataset.constHref]; if (v) a.href = v; });
     $$('[data-const]').forEach(function (n) { var v = C[n.dataset.const]; if (v) n.textContent = v; });
+    $$('[data-copy-const]').forEach(function (b) { var v = C[b.dataset.copyConst]; if (v) b.dataset.copy = v; });
     $$('[data-claim-href]').forEach(function (a) { var c = CL[a.dataset.claimHref]; if (c) a.href = c.sourceUrl || (SRC[c.source] || {}).url; });
   }
 

@@ -6,6 +6,7 @@ Static site for the ReFi Hub validator and refiSOL. Plain HTML, CSS and JS, no b
 
 - `index.html`: Home, with the FAQ
 - `institutions.html`: For institutions, with a contact form mockup (not connected)
+- `delegation.html`: For delegation programs. Linked from the footer and the home trust strip, not the top nav
 - `refisol.html`: refiSOL, with a swap widget mockup (rate is live; the real swap opens in Jupiter)
 - `donations.html`: Donations. Kept but not linked from anywhere for now
 
