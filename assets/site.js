@@ -243,8 +243,22 @@
       default: return String(v);
     }
   }
+  // Short text for values fmt() can't print in one line (used on the audit page).
+  function brief(claim, v) {
+    if (v == null) return null;
+    switch (claim.format) {
+      case 'poolFees': return trimNum(v.epoch, 2) + '% on rewards, ' + trimNum(v.deposit, 2) + '% deposit, ' + trimNum(v.withdraw, 2) + '% withdraw';
+      case 'exitCost': return v.map(function (q) { return q.sol.toLocaleString('en-US') + ' SOL: ' + (q.drop == null ? 'no quote' : trimNum(q.drop, 2) + '%'); }).join(', ');
+      case 'rows': return v.length + (v.length === 1 ? ' donation' : ' donations') + ' listed';
+      case 'links': return v.map(function (a) { return a.name; }).join(', ');
+      default: return fmt(claim, v);
+    }
+  }
   function cur(claim) { return claim._cur || { value: claim.value, asOf: claim.asOf, live: false }; }
   function isUnverified(claim) { return claim.status !== 'verified'; }
+  // The audit page lists verified claims that appear on a linked page. "not shown", "none" and the unlinked
+  // donations page are left off, and so are claims not yet verifiable or still pending.
+  function onAudit(claim) { return claim.status === 'verified' && !/^(not shown|none|donations$)/.test(claim.page); }
 
   /* ---------- source chip ---------- */
   function orgLogo(slug, dark) {
@@ -436,8 +450,71 @@
         }))
       ]);
       n.replaceChildren(el('div', { class: 'tbl-wrap' }, [t]));
+    },
+    // Audit page: every claim on the site, grouped, with its value, status, check method and source.
+    // Rows are built once; later calls (after each live fetch) only refresh the value and source cells.
+    register: function (n) {
+      if (!n._rows) {
+        n._rows = [];
+        var groups = REG_GROUPS.map(function (g) { return { title: g[0], prefixes: g[1], claims: [] }; });
+        var other = { title: 'Other', prefixes: [], claims: [] };
+        REG.claims.filter(onAudit).forEach(function (c) {
+          var g = groups.filter(function (g) { return g.prefixes.some(function (p) { return c.id.indexOf(p) === 0; }); })[0] || other;
+          g.claims.push(c);
+        });
+        n.replaceChildren.apply(n, groups.concat(other).filter(function (g) { return g.claims.length; }).map(function (g) {
+          return el('div', { class: 'reg-group' }, [
+            el('h2', { text: g.title }),
+            el('div', { class: 'reg-head', 'aria-hidden': 'true' }, [el('span', { text: 'Claim' }), el('span', { text: 'Value' }), el('span', { text: 'Status and source' })])
+          ].concat(g.claims.map(function (c) {
+            var row = { claim: c, val: el('div', { class: 'reg-val' }), src: el('div', { class: 'reg-src' }) };
+            n._rows.push(row);
+            return el('div', { class: 'reg-row', id: c.id }, [
+              el('div', null, [el('p', { class: 'reg-name', text: c.label || c.text }), c.note ? el('p', { class: 'reg-note small muted', text: c.note }) : null]),
+              row.val, row.src
+            ]);
+          })));
+        }));
+        var t = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+        // The rows did not exist when the browser looked for the #claim-id, so jump and highlight here.
+        if (t && n.contains(t)) { t.classList.add('is-target'); t.scrollIntoView({ block: 'start', behavior: 'instant' }); }
+      }
+      n._rows.forEach(function (r) {
+        var c = r.claim, v = cur(c).value, s = SRC[c.source] || {}, url = c.sourceUrl || s.url, val;
+        if (c.format === 'links' && v) {
+          val = el('span');
+          v.forEach(function (a, i) { if (i) val.appendChild(document.createTextNode(', ')); val.appendChild(el('a', { href: a.url, target: '_blank', rel: 'noopener', text: a.name })); });
+        } else {
+          var text = brief(c, v);
+          val = text == null ? el('span', { class: 'pending', text: 'pending' }) : el('span', { class: c._fails ? 'check-fail' : '', text: text });
+        }
+        r.val.replaceChildren(val);
+        r.src.replaceChildren(
+          el('span', { class: 'badge st-' + c.status, text: REG_STATUS[c.status] || c.status }),
+          el('span', { class: 'reg-check', text: REG_CHECK[c.check] || c.check }),
+          isUnverified(c) ? (url ? sourceLink(c.source, url) : '') : chip(c)
+        );
+      });
+    },
+    registerSummary: function (n) {
+      var shown = REG.claims.filter(onAudit);
+      function count(k, v) { return shown.filter(function (c) { return c[k] === v; }).length; }
+      n.textContent = shown.length + ' verified numbers and facts on this site. ' + count('check', 'live') + ' are fetched live from public sources each time you open a page, ' +
+        count('check', 'link') + ' link to a public source and ' + count('check', 'manual') + ' are confirmed by our team. Register last updated ' + dateFmt.format(new Date(REG.updated)) + '.';
     }
   };
+  var REG_GROUPS = [
+    ['Validator', ['validator.', 'network.']],
+    ['Yield vs the big custodians', ['yield.']],
+    ['Who stakes with us', ['stakedBy.']],
+    ['refiSOL and other liquid staking tokens', ['refisol.', 'lst.']],
+    ['Impact', ['impact.']],
+    ['Donations', ['donations.']],
+    ['Operations and security', ['ops.']],
+    ['Company and contact', ['company.', 'contact.']]
+  ];
+  var REG_STATUS = { verified: 'Verified', 'unverifiable-yet': 'Not yet verifiable', placeholder: 'Pending' };
+  var REG_CHECK = { live: 'Fetched live', link: 'Linked source', manual: 'Confirmed by our team' };
 
   /* ---------- live run ---------- */
   function runLive() {
@@ -450,6 +527,7 @@
       if (r === 'lstFees') ['refisol.poolFees', 'lst.jitosolFees', 'lst.msolFees'].forEach(function (k) { used[k] = 1; });
       if (r === 'exitCost') used['refisol.exitCost'] = 1;
       if (r === 'swapMock') used['refisol.rate'] = 1;
+      if (r === 'register') REG.claims.filter(onAudit).forEach(function (c) { used[c.id] = 1; });
       if (r === 'receipt') ['validator.netApy', 'yield.peer.coinbase', 'yield.peer.figment', 'yield.peer.kiln', 'yield.peer.everstake', 'impact.feesPer100k', 'impact.coralsPer100k'].forEach(function (k) { used[k] = 1; });
     });
     if (used['yield.compare']) ['validator.netApy', 'yield.peer.coinbase', 'yield.peer.figment', 'yield.peer.kiln', 'yield.peer.everstake'].forEach(function (k) { used[k] = 1; });

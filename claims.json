@@ -1,6 +1,6 @@
 {
-  "about": "Claim register for the ReFi Hub staking site. Every number and checkable fact on the site is read from here. check: live = fetched on page load (value below is the last saved fallback), link = static link to the source, manual = confirmed by a person. status: verified, placeholder, unverifiable-yet.",
-  "updated": "2026-10-20T00:00:00Z",
+  "about": "Claim register for the ReFi Hub staking site. Every number and checkable fact on the site is read from here. check: live = fetched on page load (value below is the last saved fallback), link = static link to the source, manual = confirmed by a person. status: verified, placeholder, unverifiable-yet. label (optional) = plain name shown on the audit page (audit.html) when text is a page fragment.",
+  "updated": "2026-10-20T12:00:00Z",
   "constants": {
     "voteAccount": "ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx",
     "identity": "ReFiqMfGnc7tW8WQtFFcJRPZSDAWDBnAsdoFYF2QnfR",
@@ -32,7 +32,8 @@
     "stakewizUrl": "https://stakewiz.com/validator/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx",
     "validatorsAppUrl": "https://www.validators.app/validators/ReFiqMfGnc7tW8WQtFFcJRPZSDAWDBnAsdoFYF2QnfR?locale=en&network=mainnet",
     "solscanDonationsUrl": "https://solscan.io/account/DevcTKVqwDEZfUSw5R9DjQNSmMiV2o6P1GcJuBtmS4t1?exclude_amount_zero=true&remove_spam=false&from_address=ReFiqMfGnc7tW8WQtFFcJRPZSDAWDBnAsdoFYF2QnfR&to_address=DevcTKVqwDEZfUSw5R9DjQNSmMiV2o6P1GcJuBtmS4t1#transfers",
-    "withdrawAuthorityUrl": "https://explorer.solana.com/address/BKa7sXqov6kuBLvN5UM8q13a6Tg8yhBxQHEjJPFMLx8o"
+    "withdrawAuthorityUrl": "https://explorer.solana.com/address/BKa7sXqov6kuBLvN5UM8q13a6Tg8yhBxQHEjJPFMLx8o",
+    "registerHistoryUrl": "https://github.com/mkdir-numa/reeefisol/commits/main/claims.json"
   },
   "sources": {
     "stakewiz": {
@@ -242,6 +243,7 @@
     {
       "id": "validator.activeStake",
       "text": "Staked",
+      "label": "Total SOL staked with us",
       "page": "home, institutions",
       "section": "Hero stats; The public record",
       "value": 142720.847677923,
@@ -288,7 +290,7 @@
       "live": {
         "fetch": "stakewiz.delinquencies"
       },
-      "note": "1 minus delinquent minutes in the last 365 days over 525,600 minutes. Stakewiz validator_delinquencies lists 238 delinquent minutes from 2025-10-22 to 2026-09-18 (largest: 42 min on 2026-05-23, 34 min on 2026-05-24). The 30-day figure (100%) is kept in the register but no longer shown."
+      "note": "1 minus delinquent minutes in the last 365 days over 525,600 minutes. Stakewiz validator_delinquencies lists 238 delinquent minutes from 2025-10-22 to 2026-09-18 (largest: 42 min on 2026-05-23, 34 min on 2026-05-24)."
     },
     {
       "id": "validator.skipRate",
@@ -305,7 +307,7 @@
         "fetch": "stakewiz.validator",
         "path": "skip_rate"
       },
-      "note": "Copy names validators.app as the source. validators.app shows the same 0% (104 of 104 leader slots, epoch 1056) but its API sends no CORS header, so browsers cannot fetch it. Live value comes from Stakewiz; validators.app is linked as a second check.",
+      "note": "validators.app shows the same 0% (104 of 104 leader slots, epoch 1056), but its API cannot be read from a browser. The live value comes from Stakewiz; validators.app is linked as a second check.",
       "also": [
         "validatorsapp"
       ]
@@ -313,6 +315,7 @@
     {
       "id": "validator.commission",
       "text": "5% fee on staking rewards",
+      "label": "Commission on staking rewards",
       "page": "home, institutions, faq",
       "section": "Why ReFi Hub; Two ways to stake; How we operate; FAQ fees",
       "value": 5,
@@ -331,6 +334,7 @@
     {
       "id": "validator.mevCommission",
       "text": "10% on MEV",
+      "label": "Commission on MEV rewards",
       "page": "home, institutions, faq",
       "section": "Why ReFi Hub; Two ways to stake; How we operate; FAQ fees",
       "value": 10,
@@ -349,6 +353,7 @@
     {
       "id": "validator.client",
       "text": "Jito client",
+      "label": "Validator client",
       "page": "home, institutions, faq",
       "section": "Why ReFi Hub; The public record; How we operate",
       "value": "Jito-Solana 4.3.0",
@@ -366,6 +371,7 @@
     {
       "id": "validator.liveSince",
       "text": "live since October 10, 2025",
+      "label": "Live since",
       "page": "institutions",
       "section": "The public record",
       "value": "October 10, 2025",
@@ -379,6 +385,7 @@
     {
       "id": "validator.onlyArgentina",
       "text": "Only validator in Argentina",
+      "label": "Active validators in Argentina (we are the only one)",
       "page": "institutions",
       "section": "The public record",
       "value": 1,
@@ -399,6 +406,7 @@
     {
       "id": "validator.city",
       "text": "Buenos Aires",
+      "label": "Validator location",
       "page": "home, institutions",
       "section": "How we secure your stake; How we operate",
       "value": "Buenos Aires, Argentina",
@@ -446,6 +454,7 @@
     {
       "id": "validator.publicRecord",
       "text": "Public on Stakewiz, validators.app and JPool.",
+      "label": "Listed publicly on",
       "page": "home, institutions",
       "section": "Why ReFi Hub; Two ways to stake",
       "value": "Stakewiz, validators.app, JPool",
@@ -459,6 +468,7 @@
     {
       "id": "validator.operator",
       "text": "run with Pine Stake",
+      "label": "Operated with",
       "page": "home, institutions, faq",
       "section": "Why ReFi Hub; How we operate; FAQ",
       "value": "Pine Stake",
@@ -472,7 +482,8 @@
     },
     {
       "id": "network.epochLength",
-      "text": "about every two days",
+      "text": "every one to two days",
+      "label": "Solana epoch length",
       "page": "home, faq",
       "section": "How to start; FAQ unstaking",
       "value": 1.09,
@@ -485,15 +496,16 @@
         "fetch": "stakewiz.epoch",
         "derive": "epochDays"
       },
-      "note": "Stakewiz epoch_info: epoch 1056 lasts 94,196 s (about 26 hours), 335 epochs a year. JPool's epoch report shows epochs of 1 to 2 days in Sep-Oct 2026. Copy says about two days.",
+      "note": "Stakewiz epoch_info: epoch 1056 lasts 94,196 s (about 26 hours), 335 epochs a year. JPool's epoch report shows epochs of 1 to 2 days in Sep-Oct 2026. The site says rewards land and stake unlocks every one to two days.",
       "expect": {
-        "min": 1.5,
-        "max": 2.5
+        "min": 0.9,
+        "max": 2.1
       }
     },
     {
       "id": "yield.compare",
       "text": "Higher net yield than the big custodians / than Coinbase, Figment, Kiln and Everstake",
+      "label": "Our net APY vs the big custodians",
       "page": "home, institutions, faq",
       "section": "Hero subline; Why ReFi Hub; The public record; FAQ cost",
       "value": {
@@ -511,11 +523,12 @@
         "fetch": "stakewiz.peers",
         "derive": "compare"
       },
-      "note": "Compares Stakewiz total_apy for our vote account with the largest vote account of each custodian (see yield.peer.*).41% vs 4.20-4.33%."
+      "note": "Compares the Stakewiz net APY of our vote account with the largest vote account of each custodian (Coinbase, Figment, Kiln, Everstake). Shown in red if ours stops being higher."
     },
     {
       "id": "yield.peer.coinbase",
       "text": "Coinbase",
+      "label": "Coinbase net APY",
       "page": "home, institutions",
       "section": "Why ReFi Hub table; The public record",
       "value": 4.71,
@@ -535,6 +548,7 @@
     {
       "id": "yield.peer.figment",
       "text": "Figment",
+      "label": "Figment net APY",
       "page": "home, institutions",
       "section": "Why ReFi Hub table; The public record",
       "value": 4.75,
@@ -554,6 +568,7 @@
     {
       "id": "yield.peer.kiln",
       "text": "Kiln",
+      "label": "Kiln net APY",
       "page": "home, institutions",
       "section": "Why ReFi Hub table; The public record",
       "value": 4.72,
@@ -573,6 +588,7 @@
     {
       "id": "yield.peer.everstake",
       "text": "Everstake",
+      "label": "Everstake net APY",
       "page": "home, institutions",
       "section": "Why ReFi Hub table; The public record",
       "value": 4.63,
@@ -607,7 +623,7 @@
           "BVPWEKqzHD4H2pAX34wbtn33eNpzx6KxHxuaJW7uKZei"
         ]
       },
-      "note": "JPool labels this stake 'SFDP'. Live sum of stake accounts by withdraw authority from the Stakewiz stake list; authorities matched to JPool's labels on Oct 13. Amount: live sum of this program's stake accounts from the Stakewiz stake list (by withdraw authority). Program labels match JPool's \"Stake\" tab on Oct 13."
+      "note": "JPool labels this stake 'SFDP'. Amount: live sum of this program's stake accounts from the Stakewiz stake list (by withdraw authority). Program labels match JPool's \"Stake\" tab on Oct 13."
     },
     {
       "id": "stakedBy.jagpool",
@@ -761,7 +777,7 @@
         "fetch": "rpc.refisolPool",
         "derive": "fees"
       },
-      "note": "Decoded from the stake pool account: epoch fee 50/1000, SOL and stake deposit fee 0, SOL and stake withdrawal fee 1/1000. IMPORTANT: the pool's 5% applies on top of the validator's 5% commission, so a refiSOL holder pays both."
+      "note": "Decoded from the stake pool account: epoch fee 50/1000, SOL and stake deposit fee 0, SOL and stake withdrawal fee 1/1000. Note: the pool's 5% applies on top of the validator's 5% commission, so a refiSOL holder pays both."
     },
     {
       "id": "refisol.rate",
@@ -794,7 +810,8 @@
       "live": {
         "fetch": "rpc.refisolPool",
         "derive": "supply"
-      }
+      },
+      "note": "Pool token supply, read live from the refiSOL stake pool account."
     },
     {
       "id": "refisol.holders",
@@ -816,6 +833,7 @@
     {
       "id": "refisol.program",
       "text": "stake pool program",
+      "label": "refiSOL stake pool program",
       "page": "faq",
       "section": "FAQ risks",
       "value": "SP12tWFxD9oJsVWNavTTBZvMbA6gkAmxtVgxdqvyvhY",
@@ -833,6 +851,7 @@
     {
       "id": "refisol.audits",
       "text": "audit links",
+      "label": "Audits of the stake pool program",
       "page": "faq",
       "section": "FAQ risks",
       "value": [
@@ -867,6 +886,7 @@
     {
       "id": "refisol.exitCost",
       "text": "price drop swapping refiSOL back to SOL at 10, 100 and 1,000 SOL",
+      "label": "Cost of swapping refiSOL back to SOL",
       "page": "faq",
       "section": "FAQ unstaking",
       "value": [
@@ -896,7 +916,7 @@
           1000
         ]
       },
-      "note": "Jupiter quote refiSOL to SOL, compared with the pool's own SOL value. Saved 10 SOL value is from a quote on Oct 13 (10 refiSOL in, 10.468 SOL out). 100 and 1,000 were not saved."
+      "note": "Jupiter quote refiSOL to SOL, compared with the pool's own SOL value. Saved 10 SOL value is from a quote on Oct 13 (10 refiSOL in, 10.468 SOL out). The 100 and 1,000 SOL quotes show only when the live quote loads."
     },
     {
       "id": "lst.jitosolFees",
@@ -943,6 +963,7 @@
     {
       "id": "impact.refisolShare",
       "text": "30% of our refiSOL fees plant corals and mangroves",
+      "label": "Share of our refiSOL fees that plants corals and mangroves",
       "page": "institutions, faq",
       "section": "Two ways to stake; How we operate; FAQ",
       "value": 30,
@@ -951,11 +972,12 @@
       "check": "manual",
       "status": "unverifiable-yet",
       "asOf": "2026-10-01T00:00:00Z",
-      "note": "30% of refiSOL profits go to coral and mangrove restoration. Not yet checkable on-chain; a monthly owed vs paid record is planned."
+      "note": "Team commitment: 30% of refiSOL profits go to coral and mangrove restoration. Not yet checkable on-chain; we plan to publish a monthly owed vs paid record."
     },
     {
       "id": "impact.institutionalShare",
       "text": "20% of our fees on your stake",
+      "label": "Share of our fees on institutional stake that funds impact",
       "page": "institutions, faq",
       "section": "Two ways to stake; How we operate; FAQ",
       "value": 20,
@@ -964,7 +986,7 @@
       "check": "manual",
       "status": "unverifiable-yet",
       "asOf": "2026-09-30T00:00:00Z",
-      "note": "Proposed share for new institutional stake. Not final."
+      "note": "The share we propose for new institutional stake. Not final yet, so not yet verifiable."
     },
     {
       "id": "impact.scale",
@@ -982,6 +1004,7 @@
     {
       "id": "impact.coralsPer100k",
       "text": "Every 100K SOL staked plants about n corals a year / 100K SOL for a year = n corals planted",
+      "label": "Corals planted per 100K SOL staked for a year",
       "page": "home, institutions",
       "section": "Where our fees go; Your impact receipt",
       "value": 190,
@@ -1001,6 +1024,7 @@
     {
       "id": "impact.feesPer100k",
       "text": "Fees we earn on 100K SOL a year (used for the sample impact receipt)",
+      "label": "Fees we earn on 100K SOL a year",
       "page": "institutions",
       "section": "Your impact receipt",
       "value": 268.9,
@@ -1033,6 +1057,7 @@
     {
       "id": "impact.coralPrice",
       "text": "$30 per coral, SeaTrees, Golfo Dulce, Costa Rica",
+      "label": "Price of one coral (SeaTrees, Golfo Dulce, Costa Rica)",
       "page": "home, institutions, faq",
       "section": "Where our fees go",
       "value": 30,
@@ -1059,6 +1084,7 @@
     {
       "id": "impact.communityPlanted",
       "text": "planted by the ReFi Hub community",
+      "label": "Planted by the ReFi Hub community",
       "page": "home",
       "section": "Where our fees go",
       "value": "2,000 corals and 1,000 mangroves",
@@ -1067,7 +1093,7 @@
       "check": "manual",
       "status": "verified",
       "asOf": "2026-10-13T00:00:00Z",
-      "note": "Confirmed by the team (Oct 13): planted with Coral Tribe. Same figure as the ReFi Hub community total.",
+      "note": "Confirmed by the team (Oct 13): planted with Coral Tribe.",
       "sourceUrl": "https://www.coraltribe.io/"
     },
     {
@@ -1085,6 +1111,7 @@
     {
       "id": "impact.partners",
       "text": "We've worked with SeaTrees, Coral Guardian and Coral Tribe.",
+      "label": "Restoration partners",
       "page": "home, faq",
       "section": "Where our fees go; FAQ",
       "value": "SeaTrees, Coral Guardian, Coral Tribe",
@@ -1093,11 +1120,12 @@
       "check": "manual",
       "status": "verified",
       "asOf": "2026-10-01T00:00:00Z",
-      "note": "Team confirmed (Oct 13). Logo permission still to be requested in writing."
+      "note": "Confirmed by the team (Oct 13)."
     },
     {
       "id": "impact.locations",
       "text": "restoration locations",
+      "label": "Restoration locations",
       "page": "faq",
       "section": "Where does the money go?",
       "value": "Golfo Dulce, Costa Rica (SeaTrees); Hatamin Island, Indonesia (Coral Guardian)",
@@ -1111,6 +1139,7 @@
     {
       "id": "impact.partnerRecords",
       "text": "Our partners publish their planting records.",
+      "label": "Partner planting records",
       "page": "faq",
       "section": "How do I verify it?",
       "value": null,
@@ -1119,11 +1148,12 @@
       "check": "manual",
       "status": "unverifiable-yet",
       "asOf": null,
-      "note": "Link each partner's public planting record for the projects our donations funded. None linked yet."
+      "note": "We will link each partner's public planting record for the projects our donations funded. None linked yet."
     },
     {
       "id": "donations.fromValidator",
       "text": "donated",
+      "label": "Donated from validator fees",
       "page": "donations",
       "section": "Counters",
       "value": 3.6941,
@@ -1132,11 +1162,12 @@
       "check": "link",
       "status": "unverifiable-yet",
       "asOf": "2026-10-13T10:31:00Z",
-      "note": "Sum of SOL sent from the validator identity to wallet DevcT... (one transfer, May 11, 2026). Whose wallet DevcT... is has not been confirmed, so the amount is shown with an unverified badge. Copy asks for a $ total; no USD figure is shown because the final recipient is unconfirmed. Saved from a full read of the wallet's transactions on mainnet RPC (Oct 13). Not fetched live: public Solana RPCs refuse browser requests for transaction history (api.mainnet-beta returns 403 to browsers; publicnode keeps no history). Make it live with a keyed RPC or a scheduled snapshot job."
+      "note": "Sum of SOL sent from the validator identity to wallet DevcT... (one transfer, May 11, 2026). Whose wallet DevcT... is has not been confirmed, so the amount is shown as unverified, and no USD figure is shown. Saved from a full read of the wallet's transactions on mainnet RPC (Oct 13). Not fetched live, because public Solana RPCs do not serve transaction history to browsers."
     },
     {
       "id": "donations.count",
       "text": "donations",
+      "label": "Number of donations",
       "page": "donations",
       "section": "Counters",
       "value": 1,
@@ -1145,7 +1176,7 @@
       "check": "link",
       "status": "unverifiable-yet",
       "asOf": "2026-10-13T10:31:00Z",
-      "note": "Saved from a full read of the wallet's transactions on mainnet RPC (Oct 13). Not fetched live: public Solana RPCs refuse browser requests for transaction history (api.mainnet-beta returns 403 to browsers; publicnode keeps no history). Make it live with a keyed RPC or a scheduled snapshot job."
+      "note": "Saved from a full read of the wallet's transactions on mainnet RPC (Oct 13). Not fetched live, because public Solana RPCs do not serve transaction history to browsers."
     },
     {
       "id": "donations.paidThisMonth",
@@ -1158,7 +1189,7 @@
       "check": "link",
       "status": "verified",
       "asOf": "2026-10-13T10:31:00Z",
-      "note": "SOL sent from the validator identity to the donation wallet in the current calendar month (UTC). Saved from a full read of the wallet's transactions on mainnet RPC (Oct 13). Not fetched live: public Solana RPCs refuse browser requests for transaction history (api.mainnet-beta returns 403 to browsers; publicnode keeps no history). Make it live with a keyed RPC or a scheduled snapshot job."
+      "note": "SOL sent from the validator identity to the donation wallet in the current calendar month (UTC). Saved from a full read of the wallet's transactions on mainnet RPC (Oct 13). Not fetched live, because public Solana RPCs do not serve transaction history to browsers."
     },
     {
       "id": "donations.owedThisMonth",
@@ -1171,11 +1202,12 @@
       "check": "manual",
       "status": "placeholder",
       "asOf": null,
-      "note": "Owed amount to be published monthly."
+      "note": "We will publish the amount owed each month."
     },
     {
       "id": "donations.walletActivity",
       "text": "donation wallet activity",
+      "label": "Donation wallet activity",
       "page": "donations",
       "section": "Table note",
       "value": {
@@ -1187,11 +1219,12 @@
       "check": "link",
       "status": "verified",
       "asOf": "2026-10-13T10:31:00Z",
-      "note": "Saved from a full read of the wallet's transactions on mainnet RPC (Oct 13). Not fetched live: public Solana RPCs refuse browser requests for transaction history (api.mainnet-beta returns 403 to browsers; publicnode keeps no history). Make it live with a keyed RPC or a scheduled snapshot job."
+      "note": "Saved from a full read of the wallet's transactions on mainnet RPC (Oct 13). Not fetched live, because public Solana RPCs do not serve transaction history to browsers."
     },
     {
       "id": "donations.rows",
       "text": "Donation table",
+      "label": "Donation history",
       "page": "donations",
       "section": "Table",
       "value": [
@@ -1233,6 +1266,7 @@
     {
       "id": "ops.hardware",
       "text": "Hardware",
+      "label": "Hardware",
       "page": "institutions",
       "section": "How we operate",
       "value": "Enterprise-grade servers, with redundancy and backup systems.",
@@ -1272,6 +1306,7 @@
     {
       "id": "ops.monitoring",
       "text": "Monitored around the clock / Monitoring",
+      "label": "Monitoring",
       "page": "home, institutions",
       "section": "How we secure your stake; How we operate",
       "value": "24/7 monitoring with real-time alerts. Strict firewall policies.",
@@ -1280,11 +1315,12 @@
       "check": "link",
       "status": "verified",
       "asOf": "2026-10-13T15:30:00Z",
-      "note": "Pine security page."
+      "note": "From Pine Stake's published security page."
     },
     {
       "id": "ops.keyCustody",
       "text": "Withdraw keys are kept offline, never on a validator server.",
+      "label": "Withdraw key custody",
       "page": "home, institutions",
       "section": "Key security; How we operate",
       "value": "Withdraw keys offline, never on a validator server. SSH key-only access. No hosting provider access to validator accounts.",
@@ -1298,6 +1334,7 @@
     {
       "id": "validator.withdrawAuthority",
       "text": "Withdraw authority: Squads multisig",
+      "label": "Withdraw authority",
       "page": "home, institutions",
       "section": "Key security; How we operate",
       "value": "BKa7sXqov6kuBLvN5UM8q13a6Tg8yhBxQHEjJPFMLx8o",
@@ -1311,6 +1348,7 @@
     {
       "id": "ops.bareMetal",
       "text": "Bare-metal servers",
+      "label": "Servers",
       "page": "home",
       "section": "Physical security",
       "value": "Bare-metal servers",
@@ -1324,6 +1362,7 @@
     {
       "id": "company.since",
       "text": "Building on Solana since 2021.",
+      "label": "Building on Solana since",
       "page": "home",
       "section": "Who we are",
       "value": "2021",
@@ -1332,11 +1371,12 @@
       "check": "manual",
       "status": "unverifiable-yet",
       "asOf": null,
-      "note": "Team statement. No public source checked."
+      "note": "Team statement. No public source yet."
     },
     {
       "id": "company.team",
       "text": "Team: founder names, photos, one line each",
+      "label": "Team",
       "page": "home",
       "section": "Who we are",
       "value": null,
@@ -1344,11 +1384,13 @@
       "source": "team",
       "check": "manual",
       "status": "placeholder",
-      "asOf": null
+      "asOf": null,
+      "note": "Founder names and photos to be added."
     },
     {
       "id": "company.legal",
       "text": "Legal entity and jurisdiction",
+      "label": "Legal entity",
       "page": "all",
       "section": "Footer; Diligence pack",
       "value": "ReFi Hub LTD",
@@ -1357,7 +1399,7 @@
       "check": "manual",
       "status": "verified",
       "asOf": "2026-10-13T00:00:00Z",
-      "note": "Team confirmed (Oct 13): footer reads '© 2026 ReFi Hub LTD. All rights reserved.' Jurisdiction still to add."
+      "note": "Confirmed by the team (Oct 13). Jurisdiction to be added."
     },
     {
       "id": "company.custodians",
@@ -1382,7 +1424,8 @@
       "source": "team",
       "check": "manual",
       "status": "placeholder",
-      "asOf": null
+      "asOf": null,
+      "note": "To be added."
     },
     {
       "id": "contact.email",
@@ -1394,7 +1437,8 @@
       "source": "team",
       "check": "manual",
       "status": "placeholder",
-      "asOf": null
+      "asOf": null,
+      "note": "To be added."
     },
     {
       "id": "contact.handles",
@@ -1407,11 +1451,12 @@
       "check": "manual",
       "status": "placeholder",
       "asOf": null,
-      "note": "refihub.io links X to https://x.com/refihub. Confirm whether that is the contact handle, and add Telegram."
+      "note": "Our X account is x.com/refihub. Telegram handle to be added."
     },
     {
       "id": "company.sampleReceipt",
       "text": "See a sample receipt",
+      "label": "First impact receipt",
       "page": "institutions",
       "section": "Your impact receipt",
       "value": null,
@@ -1420,7 +1465,7 @@
       "check": "manual",
       "status": "placeholder",
       "asOf": null,
-      "note": "Build the first impact receipt."
+      "note": "The receipt on the institutions page is a sample built from live numbers. The first real receipt is still to come."
     },
     {
       "id": "company.legalPages",
@@ -1432,7 +1477,8 @@
       "source": "team",
       "check": "manual",
       "status": "placeholder",
-      "asOf": null
+      "asOf": null,
+      "note": "Terms, Privacy and Disclaimer pages are being written."
     },
     {
       "id": "company.newsletter",
