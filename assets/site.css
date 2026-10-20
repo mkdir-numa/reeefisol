@@ -384,7 +384,20 @@ a.logo-card:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(13,58,6
 .swap-btn{width:100%;margin-top:14px;border:0;border-radius:14px;padding:16px;font:500 16px var(--sans);background:#8fd3c8;color:#0d3a42;cursor:pointer}
 .swap-foot{display:flex;justify-content:space-between;margin-top:14px;font-size:12.5px;color:#7d9592}
 .swap-foot a{color:#9fd5cf}
-.swap-tag{position:absolute;top:-12px;right:16px;font:500 10.5px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;background:var(--sun-100);color:#7a5a10;padding:5px 9px;border-radius:999px}
+a.swap-btn{display:block;text-align:center;text-decoration:none}
+.swap-foot{justify-content:center}
+/* Jupiter widget: hidden until it has rendered, then it replaces the fallback card.
+   Colours are RGB triples, matched to the card above. */
+.swap-live{display:none;
+  --jupiter-plugin-background:15, 26, 28;
+  --jupiter-plugin-module:23, 38, 42;
+  --jupiter-plugin-interactive:34, 52, 58;
+  --jupiter-plugin-primary:143, 211, 200;
+  --jupiter-plugin-primaryText:230, 242, 240;
+  --jupiter-plugin-warning:228, 176, 74}
+.swap-card.is-live{padding:8px}
+.swap-card.is-live .swap-live{display:block}
+.swap-card.is-live .swap-fallback{display:none}
 .steps-3{grid-template-columns:repeat(3,1fr)}
 @media (max-width:860px){.steps-3{grid-template-columns:1fr}}
 
