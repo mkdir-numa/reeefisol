@@ -469,3 +469,35 @@ canvas.hero-art{width:min(440px,36vw);height:min(440px,36vw);top:-28px}
   .tl-graphic{min-height:0;height:220px;order:-1}
   .split-graphic,.split-graphic-sm{height:260px}
 }
+
+/* gallery: spotlight with thumbnails (assets/gallery.js); without JS every photo shows, stacked */
+.gallery{margin-top:56px}
+.gal-head{margin-bottom:22px}
+.gal-head h3{font-size:clamp(22px,2.4vw,30px);font-weight:400;letter-spacing:-.03em;margin-bottom:6px}
+.gal-head p{color:var(--muted);margin:0}
+.spot{display:grid;grid-template-columns:minmax(0,1fr) 120px;gap:20px;align-items:start}
+.no-js .spot{grid-template-columns:1fr}
+.spot-fig{margin:0}
+.spot-fig+.spot-fig{margin-top:36px}
+.gallery.is-ready .spot-fig{margin-top:0}
+.spot-fig img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:14px;background:rgba(255,255,255,.45)}
+.spot-fig.is-active{animation:spot-in .35s ease}
+@keyframes spot-in{from{opacity:0}to{opacity:1}}
+.spot-fig figcaption{display:flex;flex-direction:column;gap:3px;padding-top:14px;max-width:720px}
+.spot-fig .cap-kicker{font:400 11px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--sea-700)}
+.spot-fig .cap-title{font-weight:500;font-size:18px;line-height:1.35;color:var(--text-strong)}
+.spot-fig .cap-body{font-size:15px;color:var(--text)}
+.spot-fig .cap-credit{font:400 11px/1.5 var(--mono);color:#6b7c85;margin-top:4px}
+.spot-thumbs{display:flex;flex-direction:column;gap:10px}
+.no-js .spot-thumbs{display:none}
+.spot-th{padding:0;border:2px solid transparent;border-radius:10px;overflow:hidden;cursor:pointer;background:none;opacity:.6;transition:opacity .2s,border-color .2s}
+.spot-th img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+.spot-th[aria-pressed="true"]{border-color:var(--sea-900);opacity:1}
+.spot-th:hover{opacity:1}
+.spot-th:focus-visible{outline:2px solid var(--sea-500);outline-offset:2px}
+@media (max-width:760px){
+  .spot{grid-template-columns:1fr}
+  .spot-thumbs{flex-direction:row;overflow-x:auto;padding-bottom:4px}
+  .spot-th{flex:0 0 88px}
+}
+@media (prefers-reduced-motion: reduce){.spot-fig.is-active{animation:none}.spot-th{transition:none}}

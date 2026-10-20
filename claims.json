@@ -1,6 +1,6 @@
 {
   "about": "Claim register for the ReFi Hub staking site. Every number and checkable fact on the site is read from here. check: live = fetched on page load (value below is the last saved fallback), link = static link to the source, manual = confirmed by a person. status: verified, placeholder, unverifiable-yet.",
-  "updated": "2026-10-13T10:31:00Z",
+  "updated": "2026-10-20T00:00:00Z",
   "constants": {
     "voteAccount": "ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx",
     "identity": "ReFiqMfGnc7tW8WQtFFcJRPZSDAWDBnAsdoFYF2QnfR",
@@ -111,6 +111,10 @@
     "explorerWithdrawer": {
       "name": "Solana Explorer",
       "url": "https://explorer.solana.com/address/BKa7sXqov6kuBLvN5UM8q13a6Tg8yhBxQHEjJPFMLx8o"
+    },
+    "coraltribeImpact": {
+      "name": "Coral Tribe impact page",
+      "url": "https://coraltribe.io/impact"
     }
   },
   "orgs": {
@@ -1439,6 +1443,45 @@
       "status": "placeholder",
       "asOf": null,
       "note": "No mailing list connected. The form does not submit anywhere yet."
+    },
+    {
+      "id": "gallery.coralsIndonesia",
+      "text": "corals planted across Bali and Hatamin Island, Indonesia, with Coral Triangle Center and Coral Guardian",
+      "page": "home",
+      "section": "Where our fees go (gallery)",
+      "value": 1297,
+      "format": "int",
+      "source": "coraltribeImpact",
+      "check": "link",
+      "status": "verified",
+      "asOf": "2026-10-20T00:00:00Z",
+      "note": "Coral Tribe impact page, October 2022 slide. Planted by the Coral Tribe community, not with validator fees."
+    },
+    {
+      "id": "gallery.granadaWasteKg",
+      "text": "kg of waste cleared from the deep-water reefs off Granada by Coral Soul and Coral Guardian",
+      "page": "home",
+      "section": "Where our fees go (gallery)",
+      "value": 2598,
+      "format": "int",
+      "source": "coraltribeImpact",
+      "check": "link",
+      "status": "verified",
+      "asOf": "2026-10-20T00:00:00Z",
+      "note": "Coral Tribe impact page, August 2025 slide. Partner work; shown in the caption of the José Macías photo."
+    },
+    {
+      "id": "gallery.solanaReFiEvents",
+      "text": "meetups and IRL events for public-goods builders delivered with Solana ReFi since 2022",
+      "page": "home",
+      "section": "Where our fees go (gallery)",
+      "value": "50+",
+      "format": "text",
+      "source": "coraltribeImpact",
+      "check": "link",
+      "status": "verified",
+      "asOf": "2026-10-20T00:00:00Z",
+      "note": "Coral Tribe impact page, Breakpoint 2023 slide. Solana ReFi now continues as Solana Impact."
     }
   ]
 }
