@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stake with our validator · ReFi Hub</title>
+<meta name="description" content="Delegate SOL directly to the ReFi Hub validator. No token, no middleman.">
+<!-- Draft page for review (issue: how institutions stake with us). Not linked from the site yet. -->
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#0d3a42">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;400;500&family=Geist:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/brand-tokens.css">
+<link rel="stylesheet" href="assets/site.css?v=12">
+<script src="assets/site.js?v=14" defer></script>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="3f416ae1-d70a-4f8d-b82f-4b7835e6029d"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="ReFi Hub home"><img src="assets/refihub-black.svg" alt="ReFi Hub"></a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="institutions.html">For institutions</a>
+      <a href="refisol.html">refiSOL</a>
+      <a href="index.html#impact">Impact</a>
+      <a href="index.html#faq">FAQ</a>
+      <a class="btn btn-primary btn-sm" href="institutions.html#contact">Talk to us</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section id="stake" class="stake-direct stake-page">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Stake with our validator</h2>
+      <p>Prefer to keep your SOL in your own wallet? Delegate it to us directly. No token, no middleman, and you can unstake any time.</p>
+    </div>
+    <div class="stake-grid">
+      <div class="steps steps-3">
+        <div class="step rv"><div class="n">1</div><h3>Copy our vote account</h3><p>It's the address your wallet delegates to.</p></div>
+        <div class="step rv"><div class="n">2</div><h3>Open staking in your wallet</h3><p>In Phantom, Solflare or most Solana wallets, choose Stake SOL and paste the vote account.</p></div>
+        <div class="step rv"><div class="n">3</div><h3>Choose an amount and confirm</h3><p>Rewards land every epoch. Using a custodian? <a href="index.html#faq-custodian">Ask them to delegate</a>.</p></div>
+      </div>
+      <div class="card stake-card rv">
+        <button class="copy copy-ref" type="button" data-copy-const="voteAccount"><b>Vote account</b><span data-const="voteAccount">…</span><em>Copy</em></button>
+        <dl class="stake-terms">
+          <div><dt>Commission</dt><dd><span data-claim="validator.commission">…</span> on staking rewards</dd></div>
+          <div><dt>MEV commission</dt><dd><span data-claim="validator.mevCommission">…</span> on MEV rewards</dd></div>
+        </dl>
+        <p class="verified"><span class="dot" aria-hidden="true"></span>Check us first on <a data-const-href="stakewizUrl" href="#" target="_blank" rel="noopener">Stakewiz</a> and <a data-const-href="validatorsAppUrl" href="#" target="_blank" rel="noopener">validators.app</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="sf-top">
+      <div>
+        <img src="assets/refihub-white.svg" alt="ReFi Hub" class="sf-logo">
+        <p class="sf-tag">Impact investing on Solana DeFi.</p>
+      </div>
+      <div class="sf-sign">
+        <form class="signup">
+          <label for="email">Quarterly impact update</label>
+          <div class="row"><input id="email" type="email" placeholder="you@example.com" autocomplete="email"><button class="btn btn-coral btn-sm" type="submit">Subscribe</button></div>
+        </form>
+        <button class="copy" type="button" data-copy="ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx"><b>Vote account</b><span>ReFiSbu...9NUx</span><em>Copy</em></button>
+      </div>
+    </div>
+    <div class="sf-cols">
+      <nav class="sf-col" aria-label="Stake"><p class="sf-h">Stake</p><a href="institutions.html">For institutions</a><a href="delegation.html">For delegation programs</a><a href="refisol.html">refiSOL</a><a href="institutions.html#contact">Talk to us</a><a href="institutions.html#operate">How we operate</a></nav>
+      <nav class="sf-col" aria-label="Verify"><p class="sf-h">Verify</p><a href="audit.html">Audit our numbers</a><a data-const-href="stakewizUrl" href="#" target="_blank" rel="noopener">Stakewiz</a><a data-const-href="validatorsAppUrl" href="#" target="_blank" rel="noopener">validators.app</a><a href="https://app.jpool.one/validators/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx" target="_blank" rel="noopener">JPool</a><a href="https://explorer.solana.com/address/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx" target="_blank" rel="noopener">Solana Explorer</a><a data-const-href="pineSecurityUrl" href="#" target="_blank" rel="noopener">Security (Pine Stake)</a></nav>
+      <nav class="sf-col" aria-label="Questions"><p class="sf-h">Questions</p><a href="index.html#faq-fees">What are the fees?</a><a href="index.html#faq-risks">What are the risks?</a><a href="index.html#faq-unstake">How do I get my SOL back?</a><a href="index.html#faq-custodian">Stake from a custodian</a></nav>
+      <nav class="sf-col" aria-label="Impact"><p class="sf-h">Impact</p><a data-const-href="seatreesCoralUrl" href="#" target="_blank" rel="noopener">SeaTrees, Costa Rica</a><a href="https://www.coralguardian.org/" target="_blank" rel="noopener">Coral Guardian</a><a href="https://www.coraltribe.io/" target="_blank" rel="noopener">Coral Tribe</a><a href="index.html#faq-impact">Does every stake fund impact?</a></nav>
+    </div>
+    <div class="sf-bottom">
+      <span class="sf-legal">© 2026 ReFi Hub LTD. All rights reserved. · <span class="soon">Terms</span> · <span class="soon">Privacy</span> · <span class="soon">Disclaimer</span></span>
+      <span class="sf-social">
+        <a data-const-href="xUrl" href="#" target="_blank" rel="noopener" aria-label="ReFi Hub on X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a>
+        <a href="https://www.linkedin.com/company/refi-hub" target="_blank" rel="noopener" aria-label="ReFi Hub on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="4.5" cy="4.6" r="2.4"/><rect x="2.4" y="8.6" width="4.2" height="13"/><path d="M9.4 8.6h4v1.8c.6-1.1 2-2.2 4.1-2.2 4.3 0 5.1 2.8 5.1 6.5v6.9h-4.2v-6.1c0-1.5 0-3.3-2-3.3s-2.4 1.6-2.4 3.2v6.2H9.4z"/></svg></a>
+        <a data-const-href="discordUrl" href="#" target="_blank" rel="noopener" aria-label="ReFi Hub on Discord"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.445.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.618-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.058a.082.082 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.042-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .078-.01c3.927 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .079.009c.12.099.246.198.373.292a.077.077 0 0 1-.007.128 12.3 12.3 0 0 1-1.873.891.077.077 0 0 0-.041.107c.36.698.772 1.363 1.225 1.993a.076.076 0 0 0 .084.029 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.055c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.029ZM8.02 15.331c-1.182 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418Z"/></svg></a>
+      </span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

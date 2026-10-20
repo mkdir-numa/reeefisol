@@ -559,3 +559,4 @@ canvas.hero-art{width:min(440px,36vw);height:min(440px,36vw);top:-28px}
 .stake-terms dd{margin:0;font-weight:500;color:var(--text-strong);text-align:right}
 .stake-card .verified{margin:0}
 @media (max-width:860px){.stake-grid{grid-template-columns:1fr}}
+.stake-page{padding-top:clamp(48px,7vw,96px)}
