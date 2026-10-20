@@ -187,6 +187,16 @@
   var state = { style: 'all', palette: 'site', seed: 7 };
   var root = document.getElementById('sections');
 
+  // ?style=A&palette=ink&seed=42 opens a given view; &capture hides the lab chrome for screenshots.
+  var q = new URLSearchParams(location.search);
+  if (/^(all|A|B|C)$/.test(q.get('style'))) state.style = q.get('style');
+  if (RefiGraphics.palettes.indexOf(q.get('palette')) > -1) state.palette = q.get('palette');
+  if (+q.get('seed')) state.seed = +q.get('seed');
+  if (q.has('capture')) document.querySelectorAll('.lab-bar,.lab-intro').forEach(function (n) { n.style.display = 'none'; });
+  [['style', state.style], ['palette', state.palette]].forEach(function (p) {
+    document.querySelectorAll('#' + p[0] + ' button').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-v') === p[1] ? 'true' : 'false'); });
+  });
+
   function label(text, style) {
     var d = document.createElement('div');
     d.className = 'lab-label';
