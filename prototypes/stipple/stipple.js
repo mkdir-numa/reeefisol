@@ -4,7 +4,7 @@
      current   Current         dotted flow lines with warm pulses into the validator node
      plate     Specimen plate  nine polyps linked to the centre
      tide      Tide            a halftone field where coral shapes surface; the pointer sends ripples
-     life      Reef life       polyps on the reef floor with a small school, a lone fish and a jellyfish
+     pollen    Pollen drift    polyps on the reef floor with one swoosh of golden pollen drifting above
    Every graphic reacts to the pointer and adds small sparkles. With prefers-reduced-motion
    each one draws a single still frame instead.
    Prototype: not linked from the site yet. */
@@ -412,102 +412,37 @@
     }
   };
 
-  /* ---------- reef life: fish and a jellyfish, drawn in dots ---------- */
+  /* ---------- pollen drift: one swoosh of golden pollen over the reef ---------- */
 
-  // A fish is a spine that undulates; dots fill a body that tapers into a forked tail.
-  function makeFish(x, y, len, speed, R, o) {
-    o = o || {};
-    return { x: x, y: y, a: (R() - 0.5) * 0.6 + (R() < 0.5 ? 0 : Math.PI), v: speed, base: speed, len: len, ph: R() * TAU, seed: R() * 100,
-      leader: o.leader || null, ox: o.ox || 0, oy: o.oy || 0 };
+  // The head follows a slow figure-eight above the reef, or drifts after the pointer and circles it.
+  // A point is dropped every few pixels of travel, so the swoosh keeps the same length at any speed.
+  function pollenStep(S, t, f, m) {
+    var H = S.head, ease = 0.03, tx = S.w * (0.5 + 0.36 * Math.sin(t * 0.21)), ty = S.h * (0.3 + 0.12 * Math.sin(t * 0.42));
+    if (m && m.on > 0.3) { tx = m.x + Math.cos(t * 1.3) * 14; ty = m.y + Math.sin(t * 1.3) * 14; ease = 0.045; }
+    H.x += (tx - H.x) * Math.min(1, ease * f); H.y += (ty - H.y) * Math.min(1, ease * f);
+    var last = S.trail[0];
+    if (!last || Math.hypot(H.x - last.x, H.y - last.y) > 7) S.trail.unshift({ x: H.x, y: H.y, ph: Math.random() * TAU });
+    if (S.trail.length > 24) S.trail.pop();
   }
 
-  // Steering: wander, stay in the water above the reef, keep clear of polyps, flee the pointer, schools follow a leader.
-  function steerFish(F, t, f, S, m) {
-    var dx = Math.cos(F.a), dy = Math.sin(F.a), w = S.w, h = S.h, mg = Math.min(w, h) * 0.1, k;
-    if (F.leader) {
-      var L = F.leader, ca = Math.cos(L.a), sa = Math.sin(L.a);
-      var tx = L.x + F.ox * ca - F.oy * sa - F.x, ty = L.y + F.ox * sa + F.oy * ca - F.y, td = Math.hypot(tx, ty) || 1;
-      dx += tx / td * 1.4 + ca * 0.6; dy += ty / td * 1.4 + sa * 0.6;
-      F.v += (L.v * (0.9 + Math.min(0.8, td / 30)) - F.v) * 0.1;
-    } else {
-      var wander = 0.5 * Math.sin(t * 0.37 + F.seed) + 0.3 * Math.sin(t * 0.91 + F.seed * 3);
-      dx += -Math.sin(F.a) * wander; dy += Math.cos(F.a) * wander;
-      F.v += (F.base - F.v) * 0.03;
+  function drawPollen(ctx, S, t, pal) {
+    ctx.strokeStyle = pal.glint; ctx.fillStyle = pal.glint; ctx.lineWidth = 0.8;
+    for (var i = 0; i < S.trail.length; i++) {
+      var p = S.trail[i], k = 1 - i / 24, tw = 0.6 + 0.4 * Math.sin(t * 3 + p.ph);
+      // the tail loosens and settles a little, like pollen left behind
+      var x = p.x + Math.sin(t * 0.8 + p.ph) * 5 * (1 - k), y = p.y + Math.cos(t * 0.7 + p.ph) * 5 * (1 - k) + 4 * (1 - k);
+      var s = (1 + 2.2 * k) * tw;
+      ctx.globalAlpha = 0.85 * k * tw;
+      ctx.beginPath(); ctx.moveTo(x - s, y); ctx.lineTo(x + s, y); ctx.moveTo(x, y - s); ctx.lineTo(x, y + s); ctx.stroke();
+      ctx.beginPath(); dot(ctx, x, y, 0.4 + 0.5 * k); ctx.fill();
     }
-    if (F.x < mg) dx += (mg - F.x) / mg * 2; if (F.x > w - mg) dx -= (F.x - w + mg) / mg * 2;
-    if (F.y < mg) dy += (mg - F.y) / mg * 2; if (F.y > S.floor) dy -= (F.y - S.floor) / mg * 2;
-    S.polyps.forEach(function (P) {
-      var px = F.x - P.hx, py = F.y - P.hy, d = Math.hypot(px, py), r = P.r * 1.9;
-      if (d < r && d > 0.1) { k = (1 - d / r) * 2; dx += px / d * k; dy += py / d * k; }
-    });
-    if (m.on > 0.01) {
-      var mx = F.x - m.x, my = F.y - m.y, md = Math.hypot(mx, my);
-      if (md < 140 && md > 0.1) { k = (1 - md / 140) * 3 * m.on; dx += mx / md * k; dy += my / md * k; F.v = Math.max(F.v, F.base * (1 + 2.5 * k / 3)); }
-    }
-    var want = Math.atan2(dy, dx), diff = Math.atan2(Math.sin(want - F.a), Math.cos(want - F.a)), maxTurn = (F.leader ? 0.09 : 0.05) * f;
-    F.a += Math.max(-maxTurn, Math.min(maxTurn, diff));
-    F.x += Math.cos(F.a) * F.v * f; F.y += Math.sin(F.a) * F.v * f;
-    F.ph += (0.08 + F.v * 0.12) * f;
+    ctx.globalAlpha = 1;
   }
 
-  function drawFish(ctx, F, pal) {
-    var L = F.len, ca = Math.cos(F.a), sa = Math.sin(F.a), W = L * 0.18, g = Math.max(1.5, L / 24), amp = L * 0.07;
-    var edge = [], inner = [];
-    for (var u = 0; u <= 1.0001; u += g / L) {
-      var off = amp * u * u * Math.sin(F.ph - u * 4);
-      var cx = F.x - ca * u * L - sa * off, cy = F.y - sa * u * L + ca * off;
-      var half = W * Math.pow(Math.sin(Math.PI * (0.13 + 0.87 * u)), 0.6), row = Math.round(u * L / g) % 2 ? g / 2 : 0;
-      for (var v = -half + row; v <= half + 0.01; v += g) {
-        (Math.abs(v) > half - g ? edge : inner).push(cx - sa * v, cy + ca * v);
-      }
-    }
-    // forked tail: a fan of dotted rays, swinging with the body
-    var tb = amp * Math.sin(F.ph - 4), bx = F.x - ca * L - sa * tb, by = F.y - sa * L + ca * tb;
-    var back = F.a + Math.PI + 0.35 * Math.sin(F.ph - 4.6), tl = L * 0.36;
-    for (var j = -3; j <= 3; j++) {
-      var ang = back + j * 0.16, len = tl * (Math.abs(j) === 3 ? 1 : 0.55 + 0.1 * Math.abs(j));
-      for (var s = g; s <= len; s += g) (s + g > len ? edge : inner).push(bx + Math.cos(ang) * s, by + Math.sin(ang) * s);
-    }
-    var de = Math.max(0.55, L / 85), di = Math.max(0.4, L / 150);
-    ctx.fillStyle = pal.line;
-    ctx.globalAlpha = 0.95; ctx.beginPath(); for (var i = 0; i < edge.length; i += 2) dot(ctx, edge[i], edge[i + 1], de); ctx.fill();
-    ctx.globalAlpha = 0.5; ctx.beginPath(); for (i = 0; i < inner.length; i += 2) dot(ctx, inner[i], inner[i + 1], di); ctx.fill();
-    // eye
-    ctx.globalAlpha = 1; ctx.beginPath(); dot(ctx, F.x - ca * L * 0.12 - sa * W * 0.25, F.y - sa * L * 0.12 + ca * W * 0.25, Math.max(0.9, L / 40)); ctx.fill();
-  }
-
-  // Jellyfish: a pulsing dotted bell with a warm centre and trailing tentacles.
-  function drawJelly(ctx, J, t, f, m, pal, S) {
-    var p = 0.5 + 0.5 * Math.sin(t * 2 + J.ph), r = J.r;
-    var tx = J.bx + Math.sin(t * 0.17 + J.ph) * S.w * 0.12, ty = J.by + Math.sin(t * 0.23 + J.ph) * S.h * 0.08 - p * 3;
-    if (m.on > 0.01) { var mx = tx - m.x, my = ty - m.y, md = Math.hypot(mx, my); if (md < 130 && md > 0.1) { var k = (1 - md / 130) * 60 * m.on; tx += mx / md * k; ty += my / md * k; } }
-    J.x += (tx - J.x) * 0.03 * f; J.y += (ty - J.y) * 0.03 * f;
-    var rw = r * (1 - 0.12 * p), rh = r * (0.72 + 0.12 * p), g = Math.max(1.6, r / 9), x = J.x, y = J.y;
-    ctx.fillStyle = pal.line;
-    for (var ring = 1; ring <= 4; ring++) {
-      var q = ring / 4, n = Math.max(6, Math.round(Math.PI * rw * q / g));
-      ctx.globalAlpha = ring === 4 ? 0.95 : 0.35; ctx.beginPath();
-      for (var i = 0; i <= n; i++) { var th = Math.PI + Math.PI * i / n; dot(ctx, x + Math.cos(th) * rw * q, y + Math.sin(th) * rh * q, ring === 4 ? 0.8 : 0.5); }
-      ctx.fill();
-    }
-    ctx.globalAlpha = 0.6; ctx.beginPath();
-    for (var tn = 0; tn < 5; tn++) {
-      var sx = x + (tn - 2) / 2 * rw * 0.8, tlen = r * (1.8 + 0.3 * Math.sin(J.ph + tn));
-      for (var s = g; s < tlen; s += g * 1.2) {
-        var sway = Math.sin(t * 1.6 + tn * 0.9 - s * 0.08) * r * 0.16 * (s / tlen);
-        dot(ctx, sx + sway, y + s * (1 - 0.15 * p), 0.55 * (1 - 0.5 * s / tlen));
-      }
-    }
-    ctx.fill();
-    ctx.fillStyle = pal.warm; ctx.globalAlpha = 0.85; ctx.beginPath();
-    for (var w2 = 0; w2 < 4; w2++) { var a2 = Math.PI + Math.PI * (w2 + 0.5) / 4; dot(ctx, x + Math.cos(a2) * rw * 0.35, y + Math.sin(a2) * rh * 0.35, 0.9); }
-    ctx.fill(); ctx.globalAlpha = 1;
-  }
-
-  EXPR.life = {
+  EXPR.pollen = {
     build: function (w, h, R) {
       var s = Math.min(w, h), ds = Math.max(0.6, s / 460), xs = [0.2, 0.41, 0.62, 0.82];
-      var S = { w: w, h: h, floor: h * 0.55, polyps: [], fronds: [], bases: [], fish: [], bubbles: [] };
+      var S = { w: w, h: h, polyps: [], fronds: [], bases: [], head: { x: w * 0.5, y: h * 0.3 }, trail: [] };
       xs.forEach(function (fx) {
         var r = s * (0.08 + R() * 0.04), x = w * fx + (R() - 0.5) * w * 0.04, y = h * (0.66 + R() * 0.12);
         S.polyps.push(makePolyp(x, y, r, 0.35 + R() * 0.15, (R() - 0.5) * 0.5, R, { ds: ds }));
@@ -516,35 +451,16 @@
       var g = Math.max(3.4, s / 110);
       S.fronds.push(makeFrond(w * 0.32, h, w * 0.08, h * 0.62, s * 0.06, R, g));
       S.fronds.push(makeFrond(w * 0.7, h, w * 0.95, h * 0.7, s * 0.05, R, g));
-      // one lone fish, and a small school following a leader in loose formation
-      S.fish.push(makeFish(w * 0.3, h * 0.25, Math.max(34, s * 0.17), 0.55, R));
-      var lead = makeFish(w * 0.7, h * 0.3, Math.max(12, s * 0.05), 0.85, R);
-      S.fish.push(lead);
-      [[-14, -9], [-14, 9], [-27, 0], [-28, -17], [-29, 16], [-41, -6]].forEach(function (o) {
-        var sc = Math.max(12, s * 0.05) / 18;
-        S.fish.push(makeFish(lead.x + o[0] * sc, lead.y + o[1] * sc, Math.max(10, s * 0.044) * (0.85 + R() * 0.3), 0.85, R, { leader: lead, ox: o[0] * sc, oy: o[1] * sc }));
-      });
-      S.fish.forEach(function (F) { if (F.leader) F.a = F.leader.a; });
-      S.jelly = { bx: w * 0.82, by: h * 0.22, x: w * 0.82, y: h * 0.22, r: Math.max(10, s * 0.045), ph: R() * TAU };
+      // run the path for a few seconds so the first frame (and reduced motion) already shows the swoosh
+      for (var k = 0; k < 300; k++) pollenStep(S, k / 60, 1, null);
       return S;
     },
     draw: function (ctx, S, t, dt, m, pal) {
-      var f = dt * 60, big = S.fish[0];
       S.fronds.forEach(function (F) { drawFrond(ctx, F, t, m, pal); });
       S.polyps.forEach(function (P, i) { drawStem(ctx, S.bases[i][0], S.bases[i][1], P, pal); });
       S.polyps.forEach(function (P) { drawPolyp(ctx, P, t, m, pal, S.sp); });
-      drawJelly(ctx, S.jelly, t, f, m, pal, S);
-      S.fish.forEach(function (F) { if (f > 0) steerFish(F, t, f, S, m); drawFish(ctx, F, pal); });
-      // the lone fish lets out the odd bubble
-      if (Math.random() < dt * 0.5) S.bubbles.push({ x: big.x + Math.cos(big.a) * 3, y: big.y - 2, r: 1 + Math.random() * 1.6, life: 0, ph: Math.random() * TAU });
-      ctx.strokeStyle = pal.line; ctx.lineWidth = 0.7;
-      for (var i = S.bubbles.length - 1; i >= 0; i--) {
-        var b = S.bubbles[i]; b.life += dt; b.y -= 0.35 * f; b.x += Math.sin(t * 3 + b.ph) * 0.15 * f;
-        if (b.life > 3.5 || b.y < -5) { S.bubbles.splice(i, 1); continue; }
-        ctx.globalAlpha = 0.55 * Math.min(1, (3.5 - b.life)); ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, TAU); ctx.stroke();
-      }
-      ctx.globalAlpha = 1;
-      trail(S, m);
+      pollenStep(S, t, dt * 60, m);
+      drawPollen(ctx, S, t, pal);
     }
   };
 
