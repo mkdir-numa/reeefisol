@@ -18,13 +18,15 @@ Every number and checkable fact is read from [`claims.json`](claims.json), the c
 Each claim has the exact text, page and section, the saved value, its source, how it is checked and its status:
 
 - `check`: `live` (fetched on page load), `link` (static link to the source) or `manual` (confirmed by a person)
+- `live.valid` (optional): `{"min": 0, "max": 100}`. A live value outside this range is ignored and the saved value stays. Use it for sources that sometimes send nonsense
 - `status`: `verified`, `placeholder` or `unverifiable-yet`
 
 Each section ends with one line saying the live data is independently verified by Stakewiz and validators.app (with links), instead of a source chip on every number. If a live fetch fails, the saved value from `claims.json` stays. The register still records each claim's status, including the ones the site shows as pending.
 
 Live sources (all public and CORS-enabled):
 
-- Stakewiz API: stake, APY, 12-month uptime (from its delinquency history), skip rate, commissions, client, location, epoch length, peer yields, stake by source, Argentina count
+- Stakewiz API: stake, APY, 12-month uptime (from its delinquency history), commissions, client, location, epoch length, peer yields, stake by source, Argentina count
+- Trillium API (`api.trillium.so/validator_rewards`): skip rate over the last 10 completed epochs. CC BY 4.0, so every skip-rate figure carries a "per Trillium" link
 - Solana RPC (publicnode, then mainnet-beta): refiSOL, jitoSOL and Marinade pool accounts (fees, exchange rate, supply, program)
 - Jupiter API: refiSOL holders, swap quotes at 10, 100 and 1,000 SOL, SOL price (for corals per 100K SOL)
 

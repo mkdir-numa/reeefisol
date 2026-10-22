@@ -125,6 +125,10 @@
         return spec.stakeSol * feeRate(r[0]) * spec.share * r[1] / spec.coralUsd;
       });
     },
+    // Trillium: one row per completed epoch (CC BY 4.0, credited next to each number that uses it)
+    'trillium.rewards': function () {
+      return once('trw', function () { return getJSON('https://api.trillium.so/validator_rewards/' + C.voteAccount); });
+    },
     'stakewiz.all': function () {
       return once('swa', function () { return getJSON('https://api.stakewiz.com/validators', null, 30000); });
     },
@@ -203,6 +207,14 @@
           v = d.filter(function (s) { return L.authorities.indexOf(s.withdraw_authority) > -1; })
                .reduce(function (a, s) { return a + (s.active_stake || 0); }, 0) / 1e9;
           return { value: v, asOf: now };
+        case 'trillium.rewards':
+          // skip rate over the last n completed epochs: 1 - blocks produced / leader slots
+          var rows = d.filter(function (x) { return x.vote_account_pubkey === C.voteAccount; })
+                      .sort(function (a, b) { return b.epoch - a.epoch; }).slice(0, L.epochs);
+          if (rows.length < L.epochs) throw new Error('only ' + rows.length + ' epochs');
+          var slots = rows.reduce(function (a, x) { return a + x.leader_slots; }, 0), made = rows.reduce(function (a, x) { return a + x.blocks_produced; }, 0);
+          if (!slots) throw new Error('no leader slots');
+          return { value: (1 - made / slots) * 100, asOf: now };
         case 'stakewiz.all':
           v = d.filter(function (x) { return x.ip_country === 'Argentina' && !x.delinquent && x.activated_stake > 0; });
           return { value: v.length, asOf: now, extra: { includesUs: v.some(function (x) { return x.vote_identity === C.voteAccount; }) } };
@@ -330,7 +342,12 @@
       n.classList.add('val');
       n.classList.toggle('check-fail', !!claim._fails);
       if (text == null) { n.textContent = 'pending'; n.classList.add('pending'); }
-      else { n.textContent = text; n.classList.remove('pending'); }
+      else {
+        // data-split-unit: "190.8K SOL" shows as a big number with a smaller unit
+        var unit = n.hasAttribute('data-split-unit') && /^(.*\S)\s+(SOL)$/.exec(text);
+        if (unit) n.replaceChildren(unit[1], el('span', { class: 'u', text: unit[2] })); else n.textContent = text;
+        n.classList.remove('pending');
+      }
       if (n.tagName === 'A' && claim.format === 'code' && claim.sourceUrl == null) n.href = (SRC[claim.source] || {}).url;
       if (n.tagName === 'A' && n.hasAttribute('data-mailto') && text != null) n.href = 'mailto:' + text;
     });
@@ -541,6 +558,8 @@
       if (!claim || claim.check !== 'live' || !claim.live || claim.live.fetch === 'stakewiz.peers') return null;
       return resolve(claim).then(function (r) {
         if (r.value == null || (typeof r.value === 'number' && isNaN(r.value))) throw new Error('empty live value');
+        // a source sometimes sends nonsense (Stakewiz vote_success came back as 199,085%): keep the saved value instead
+        if (claim.live.valid && !(r.value >= claim.live.valid.min && r.value <= claim.live.valid.max)) throw new Error('live value ' + r.value + ' outside ' + claim.live.valid.min + '-' + claim.live.valid.max);
         claim._cur = { value: r.value, asOf: r.asOf, live: true };
         if (claim.id === 'validator.onlyArgentina') claim._fails = !(r.value === 1 && r.extra.includesUs);
         if (claim.expect) claim._fails = !(r.value >= claim.expect.min && r.value <= claim.expect.max);

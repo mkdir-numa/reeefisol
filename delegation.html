@@ -23,8 +23,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;400;500&family=Geist:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/brand-tokens.css">
-<link rel="stylesheet" href="assets/site.css?v=12">
-<script src="assets/site.js?v=14" defer></script>
+<link rel="stylesheet" href="assets/site.css?v=13">
+<script src="assets/site.js?v=15" defer></script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="3f416ae1-d70a-4f8d-b82f-4b7835e6029d"></script>
 </head>
 <body>
@@ -36,6 +36,7 @@
     <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Main">
       <a href="institutions.html">For institutions</a>
+      <a href="delegation.html" aria-current="page">For delegators</a>
       <a href="refisol.html">refiSOL</a>
       <a href="index.html#impact">Impact</a>
       <a href="index.html#faq">FAQ</a>
@@ -67,38 +68,40 @@
     <div class="stats">
       <div class="stat"><span class="v" data-claim="validator.onlyArgentina">…</span><span class="l">active validator in Argentina: ours</span></div>
       <div class="stat"><span class="v" data-claim="validator.uptime12m">…</span><span class="l">Uptime, last 12 months</span></div>
-      <div class="stat"><span class="v" data-claim="validator.skipRate">…</span><span class="l">Skip rate, current epoch</span></div>
+      <div class="stat"><span class="v" data-claim="validator.skipRate">…</span><span class="l">Skip rate, last 10 epochs (per <a data-const-href="trilliumUrl" href="https://trillium.so/validators/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx" target="_blank" rel="noopener">Trillium</a>)</span></div>
       <div class="stat"><span class="v" data-claim="validator.commission">…</span><span class="l">Commission</span></div>
     </div>
     <p class="verified"><span class="dot" aria-hidden="true"></span>Live data independently verified by <a data-const-href="stakewizUrl" href="#" target="_blank" rel="noopener">Stakewiz</a> and <a data-const-href="validatorsAppUrl" href="#" target="_blank" rel="noopener">validators.app</a>.</p>
   </div>
 </section>
 
-<!-- Decentralization -->
+<!-- Decentralization: dotted map of South America with the facts beside it -->
 <section class="band-sea" id="decentralization">
-  <div class="wrap">
-    <div class="sec-head">
+  <div class="wrap map-split">
+    <div>
       <h2>Stake here spreads Solana out.</h2>
-      <p>For programs that weight geographic and network diversity. Each of these can be checked on-chain.</p>
+      <p class="lead">For programs that weight geographic and network diversity. Each of these can be checked on-chain.</p>
+      <dl class="facts">
+        <div><dt>Country</dt><dd><span data-claim="validator.onlyArgentina">…</span> active validator in Argentina: ours<span class="src-l">Per <a data-const-href="argentinaUrl" href="#" target="_blank" rel="noopener">validators.app</a></span></dd></div>
+        <div><dt>Location</dt><dd><span data-claim="validator.city">…</span><span class="src-l">From IP data</span></dd></div>
+        <div><dt>Network</dt><dd><span data-claim="validator.network">…</span><span class="src-l">Hosting network and ASN</span></dd></div>
+        <div><dt>Superminority</dt><dd><span data-claim="validator.superminority">…</span><span class="src-l"><span data-claim="validator.activeStake">…</span> active stake</span></dd></div>
+      </dl>
+      <p class="verified"><span class="dot" aria-hidden="true"></span>Live data independently verified by <a data-const-href="stakewizUrl" href="#" target="_blank" rel="noopener">Stakewiz</a> and <a data-const-href="validatorsAppUrl" href="#" target="_blank" rel="noopener">validators.app</a>.</p>
     </div>
-    <div class="record record-4">
-      <div class="stat rv"><span class="v" data-claim="validator.onlyArgentina">…</span><span class="l">active validator in Argentina (<a data-const-href="argentinaUrl" href="#" target="_blank" rel="noopener">validators.app</a>)</span></div>
-      <div class="stat rv"><span class="v v-text" data-claim="validator.city">…</span><span class="l">location, from IP data</span></div>
-      <div class="stat rv"><span class="v v-text" data-claim="validator.network">…</span><span class="l">hosting network and ASN</span></div>
-      <div class="stat rv"><span class="v v-text" data-claim="validator.superminority">…</span><span class="l"><span data-claim="validator.activeStake">…</span> active stake</span></div>
-    </div>
-    <p class="verified"><span class="dot" aria-hidden="true"></span>Live data independently verified by <a data-const-href="stakewizUrl" href="#" target="_blank" rel="noopener">Stakewiz</a> and <a data-const-href="validatorsAppUrl" href="#" target="_blank" rel="noopener">validators.app</a>.</p>
+    <canvas class="map-art" data-stipple="map" aria-hidden="true"></canvas>
   </div>
 </section>
 
 <!-- Performance -->
-<section id="performance">
+<section id="performance" class="has-bg-art">
+  <canvas class="bg-art" data-stipple="plankton" data-palette="gold" aria-hidden="true"></canvas>
   <div class="wrap">
     <div class="sec-head"><h2>The numbers programs score.</h2></div>
     <div class="record record-4">
       <div class="stat rv"><span class="v" data-claim="validator.uptime12m">…</span><span class="l">uptime, last 12 months</span></div>
       <div class="stat rv"><span class="v" data-claim="validator.uptime30d">…</span><span class="l">uptime, last 30 days</span></div>
-      <div class="stat rv"><span class="v" data-claim="validator.skipRate">…</span><span class="l">skip rate, current epoch</span></div>
+      <div class="stat rv"><span class="v" data-claim="validator.skipRate">…</span><span class="l">skip rate, last 10 epochs (per <a data-const-href="trilliumUrl" href="https://trillium.so/validators/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx" target="_blank" rel="noopener">Trillium</a>)</span></div>
       <div class="stat rv"><span class="v" data-claim="validator.voteSuccess">…</span><span class="l">vote success, per Stakewiz</span></div>
     </div>
     <p class="verified"><span class="dot" aria-hidden="true"></span>Live data independently verified by <a data-const-href="stakewizUrl" href="#" target="_blank" rel="noopener">Stakewiz</a> and <a data-const-href="validatorsAppUrl" href="#" target="_blank" rel="noopener">validators.app</a>.</p>
@@ -135,15 +138,19 @@
   </div>
 </section>
 
-<!-- Programs already delegating -->
+<!-- Programs already delegating: the total, then each program's live stake -->
 <section class="band-ink trust" id="programs">
-  <div class="wrap">
-    <div class="trust-head">
-      <h2>Programs staking us today</h2>
-      <p>Live stake from each program. Check each one on-chain.</p>
+  <div class="wrap total-list">
+    <div class="total">
+      <span class="total-kick">Total staked with ReFi Hub</span>
+      <div class="total-serif" data-claim="validator.activeStake" data-split-unit>…</div>
+      <h2>Staked by Solana's delegation programs</h2>
+      <div class="btns"><a class="btn btn-mint btn-sm" data-const-href="stakewizUrl" href="#" target="_blank" rel="noopener">Check our performance ↗</a></div>
     </div>
-    <div class="logos rv" data-render="stakedBy" data-dark data-orgs="solana-foundation,jagpool,phase,vault,definity,dyno,blaze,jpool"></div>
-    <p class="trust-link"><a href="https://app.jpool.one/validators/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx" target="_blank" rel="noopener">See our stake by source →</a></p>
+    <div>
+      <div class="logos rv" data-render="stakedBy" data-dark data-orgs="solana-foundation,shinobi,jagpool,definity,phase,vault,jpool,blaze,dyno"></div>
+      <p class="trust-link small"><a href="https://app.jpool.one/validators/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx" target="_blank" rel="noopener">See our stake by source →</a></p>
+    </div>
   </div>
 </section>
 
@@ -211,6 +218,6 @@
     </div>
   </div>
 </footer>
-<script src="assets/stipple.js?v=3" defer></script>
+<script src="assets/stipple.js?v=4" defer></script>
 </body>
 </html>

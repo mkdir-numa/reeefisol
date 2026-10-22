@@ -23,8 +23,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;400;500&family=Geist:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/brand-tokens.css">
-<link rel="stylesheet" href="assets/site.css?v=12">
-<script src="assets/site.js?v=14" defer></script>
+<link rel="stylesheet" href="assets/site.css?v=13">
+<script src="assets/site.js?v=15" defer></script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="3f416ae1-d70a-4f8d-b82f-4b7835e6029d"></script>
 </head>
 <body>
@@ -36,6 +36,7 @@
     <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Main">
       <a href="institutions.html">For institutions</a>
+      <a href="delegation.html">For delegators</a>
       <a href="refisol.html">refiSOL</a>
       <a href="index.html#impact">Impact</a>
       <a href="index.html#faq">FAQ</a>
@@ -63,7 +64,7 @@
       <div class="stat"><span class="v" data-claim="validator.netApy">…</span><span class="l">Net APY</span></div>
       <div class="stat"><span class="v" data-claim="validator.activeStake">…</span><span class="l">Staked</span></div>
       <div class="stat"><span class="v" data-claim="validator.uptime12m">…</span><span class="l">Uptime, last 12 months</span></div>
-      <div class="stat"><span class="v" data-claim="validator.skipRate">…</span><span class="l">Skip rate</span></div>
+      <div class="stat"><span class="v" data-claim="validator.skipRate">…</span><span class="l">Skip rate, last 10 epochs (per <a data-const-href="trilliumUrl" href="https://trillium.so/validators/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx" target="_blank" rel="noopener">Trillium</a>)</span></div>
     </div>
     <p class="verified"><span class="dot" aria-hidden="true"></span>Live data independently verified by <a data-const-href="stakewizUrl" href="#" target="_blank" rel="noopener">Stakewiz</a> and <a data-const-href="validatorsAppUrl" href="#" target="_blank" rel="noopener">validators.app</a>.</p>
   </div>
@@ -95,8 +96,19 @@
       <h2>Staked by Solana's delegation programs</h2>
       <p>They pick validators on performance. Check each one on-chain.</p>
     </div>
-    <div class="logos rv" data-render="stakedBy" data-dark data-orgs="solana-foundation,jagpool,phase,vault,definity,dyno,blaze,jpool"></div>
-    <p class="trust-link"><a href="https://app.jpool.one/validators/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx" target="_blank" rel="noopener">See our stake by source →</a> · <a href="delegation.html">For delegation programs →</a></p>
+    <div class="trust-total">
+      <div class="total">
+        <span class="total-kick">Total staked</span>
+        <span class="total-num" data-claim="validator.activeStake" data-split-unit>…</span>
+        <p class="total-sub">Active stake on our validator this epoch.</p>
+        <span class="total-live">Live from Stakewiz</span>
+        <div class="btns">
+          <a class="btn btn-onink btn-sm" data-const-href="stakewizUrl" href="#" target="_blank" rel="noopener">Check our performance ↗</a>
+          <a class="btn btn-onink btn-sm" href="delegation.html">For delegation programs →</a>
+        </div>
+      </div>
+      <div class="logos rv" data-render="stakedBy" data-dark data-orgs="solana-foundation,shinobi,jagpool,definity,phase,vault,jpool,dyno"></div>
+    </div>
   </div>
 </section>
 
@@ -375,7 +387,7 @@
     </div>
   </div>
 </footer>
-<script src="assets/stipple.js?v=3" defer></script>
+<script src="assets/stipple.js?v=4" defer></script>
 <script src="assets/gallery.js?v=1" defer></script>
 </body>
 </html>

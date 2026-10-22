@@ -1,6 +1,6 @@
 {
   "about": "Claim register for the ReFi Hub staking site. Every number and checkable fact on the site is read from here. check: live = fetched on page load (value below is the last saved fallback), link = static link to the source, manual = confirmed by a person. status: verified, placeholder, unverifiable-yet. label (optional) = plain name shown on the audit page (audit.html) when text is a page fragment.",
-  "updated": "2026-10-20T12:00:00Z",
+  "updated": "2026-10-22T19:30:00Z",
   "constants": {
     "voteAccount": "ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx",
     "identity": "ReFiqMfGnc7tW8WQtFFcJRPZSDAWDBnAsdoFYF2QnfR",
@@ -31,6 +31,7 @@
     "coralGuardianUrl": "https://www.coralguardian.org/en/",
     "coralGuardianIndonesiaUrl": "https://www.coralguardian.org/en/indonesia/",
     "stakewizUrl": "https://stakewiz.com/validator/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx",
+    "trilliumUrl": "https://trillium.so/validators/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx",
     "validatorsAppUrl": "https://www.validators.app/validators/ReFiqMfGnc7tW8WQtFFcJRPZSDAWDBnAsdoFYF2QnfR?locale=en&network=mainnet",
     "solscanDonationsUrl": "https://solscan.io/account/DevcTKVqwDEZfUSw5R9DjQNSmMiV2o6P1GcJuBtmS4t1?exclude_amount_zero=true&remove_spam=false&from_address=ReFiqMfGnc7tW8WQtFFcJRPZSDAWDBnAsdoFYF2QnfR&to_address=DevcTKVqwDEZfUSw5R9DjQNSmMiV2o6P1GcJuBtmS4t1#transfers",
     "withdrawAuthorityUrl": "https://explorer.solana.com/address/BKa7sXqov6kuBLvN5UM8q13a6Tg8yhBxQHEjJPFMLx8o",
@@ -41,6 +42,10 @@
       "name": "Stakewiz",
       "url": "https://stakewiz.com/validator/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx",
       "logo": "stakewiz"
+    },
+    "trillium": {
+      "name": "Trillium",
+      "url": "https://trillium.so/validators/ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx"
     },
     "validatorsapp": {
       "name": "validators.app",
@@ -221,6 +226,12 @@
       "url": "https://jup.ag/",
       "logo": "assets/logos/jupiter.svg",
       "logoDark": "assets/logos/jupiter-white.svg"
+    },
+    "shinobi": {
+      "name": "Shinobi",
+      "url": "https://xshin.fi/",
+      "logo": "assets/logos/shinobi.png",
+      "logoDark": "assets/logos/shinobi.png"
     }
   },
   "claims": [
@@ -295,23 +306,29 @@
     },
     {
       "id": "validator.skipRate",
-      "text": "Skip rate, current epoch",
-      "page": "home, institutions",
-      "section": "Hero stats; The public record",
+      "text": "Skip rate, last 10 epochs",
+      "page": "home, institutions, delegation",
+      "section": "Hero stats; The public record; The numbers programs score",
       "value": 0,
       "format": "pct2",
-      "source": "stakewiz",
+      "source": "trillium",
       "check": "live",
       "status": "verified",
-      "asOf": "2026-10-13T10:28:07Z",
+      "asOf": "2026-10-22T19:30:00Z",
       "live": {
-        "fetch": "stakewiz.validator",
-        "path": "skip_rate"
+        "fetch": "trillium.rewards",
+        "derive": "skipRate",
+        "epochs": 10,
+        "valid": {
+          "min": 0,
+          "max": 100
+        }
       },
-      "note": "validators.app shows the same 0% (104 of 104 leader slots, epoch 1056), but its API cannot be read from a browser. The live value comes from Stakewiz; validators.app is linked as a second check.",
+      "note": "Leader slots missed over the last 10 completed epochs, from Trillium's per-epoch validator data (api.trillium.so/validator_rewards, CC BY 4.0, credited on the page). Epochs 1055-1064: 1,456 leader slots, 1,456 blocks produced. Changed on Oct 22 from Stakewiz's current-epoch figure, which swings with a handful of slots early in an epoch (it read 20% after one missed leader window: 4 of the first 32 slots of epoch 1065).",
       "also": [
         "validatorsapp"
-      ]
+      ],
+      "label": "Skip rate, last 10 completed epochs"
     },
     {
       "id": "validator.commission",
@@ -453,9 +470,13 @@
       "asOf": "2026-10-20T13:14:09Z",
       "live": {
         "fetch": "stakewiz.validator",
-        "path": "vote_success"
+        "path": "vote_success",
+        "valid": {
+          "min": 0,
+          "max": 100
+        }
       },
-      "note": "Stakewiz field vote_success: share of votes that landed."
+      "note": "Stakewiz field vote_success: share of votes that landed. On Oct 22 Stakewiz returned 199,085.94 for this field, so live values outside 0-100 are ignored and the saved value stays."
     },
     {
       "id": "validator.network",
@@ -681,7 +702,7 @@
     {
       "id": "stakedBy.solana-foundation",
       "text": "Solana Foundation",
-      "page": "home",
+      "page": "home, delegation",
       "section": "Staked by",
       "value": 69693.8,
       "format": "solK",
@@ -701,7 +722,7 @@
     {
       "id": "stakedBy.jagpool",
       "text": "JagPool",
-      "page": "home",
+      "page": "home, delegation",
       "section": "Staked by",
       "value": 34148.7,
       "format": "solK",
@@ -720,7 +741,7 @@
     {
       "id": "stakedBy.definity",
       "text": "Definity",
-      "page": "home",
+      "page": "home, delegation",
       "section": "Staked by",
       "value": 13899.4,
       "format": "solK",
@@ -739,7 +760,7 @@
     {
       "id": "stakedBy.phase",
       "text": "Phase",
-      "page": "home",
+      "page": "home, delegation",
       "section": "Staked by",
       "value": 10909.7,
       "format": "solK",
@@ -758,7 +779,7 @@
     {
       "id": "stakedBy.vault",
       "text": "Vault",
-      "page": "home",
+      "page": "home, delegation",
       "section": "Staked by",
       "value": 4558.1,
       "format": "solK",
@@ -777,7 +798,7 @@
     {
       "id": "stakedBy.jpool",
       "text": "JPool",
-      "page": "home",
+      "page": "home, delegation",
       "section": "Staked by",
       "value": 3614.1,
       "format": "solK",
@@ -796,7 +817,7 @@
     {
       "id": "stakedBy.blaze",
       "text": "Blaze",
-      "page": "home",
+      "page": "delegation",
       "section": "Staked by",
       "value": 2728.1,
       "format": "solK",
@@ -815,7 +836,7 @@
     {
       "id": "stakedBy.dyno",
       "text": "Dyno",
-      "page": "home",
+      "page": "home, delegation",
       "section": "Staked by",
       "value": 2558.8,
       "format": "solK",
@@ -830,6 +851,26 @@
         ]
       },
       "note": "JPool labels it 'Dynosol'. Amount: live sum of this program's stake accounts from the Stakewiz stake list (by withdraw authority). Program labels match JPool's \"Stake\" tab on Oct 13."
+    },
+    {
+      "id": "stakedBy.shinobi",
+      "text": "Shinobi",
+      "label": "Shinobi Performance Pool stake",
+      "page": "home, delegation",
+      "section": "Staked by; Programs staking us today",
+      "value": 35848.7,
+      "format": "solK",
+      "source": "stakewiz",
+      "check": "live",
+      "status": "verified",
+      "asOf": "2026-10-22T18:47:00Z",
+      "live": {
+        "fetch": "stakewiz.stakes",
+        "authorities": [
+          "EpH4ZKSeViL5qAHA9QANYVHxdmuzbUH2T79f32DmSCaM"
+        ]
+      },
+      "note": "Shinobi Performance Pool (xSHIN, stake pool spp1mo6shdcrRyqDK2zdurJ8H5uttZE6H6oVjHxN1QN). Its pool withdraw authority EpH4ZKSe... is listed on Solana Compass (solanacompass.com/stake-pools/spp1mo6shdcrRyqDK2zdurJ8H5uttZE6H6oVjHxN1QN). First seen in our Stakewiz stake list on Oct 22 with 35,848.7 SOL. Amount: live sum of this program's stake accounts by withdraw authority."
     },
     {
       "id": "refisol.poolFees",
