@@ -35,10 +35,11 @@ None of the older files in `assets/` (partner-*.png) were reused. They match the
 | solscan-white.svg | Solscan | https://solscan.io/_next/static/media/branding-solscan-logo-dark.e44ec197.svg (same brand kit) | 2026-10-13 | Same as above. White with purple dot, dark bg only. |
 | jupiter.svg | Jupiter | JupiterLogo/logo-with-text-bright.svg inside https://raw.githubusercontent.com/jup-ag/docs/main/static/files/brand-kit/jupiter-brand-kit.zip (official GitHub org jup-ag, linked as "Download Jupiter Brand Kit" on https://developers.jup.ag/docs/resources/brand-kit) | 2026-10-13 | Brand kit page only covers API labelling for integrations; no logo usage terms found. Kit files date from 2023; the mark matches the current one on https://jup.ag/svg/jupiter-logo.svg. Gradient mark with #111726 text, light bg. |
 | jupiter-white.svg | Jupiter | JupiterLogo/logowithtext-dark.svg in the same zip | 2026-10-13 | Same as above. White text, dark bg only. |
+| shinobi.png | Shinobi (Shinobi Performance Pool, xSHIN) | https://xshin.fi/icons/xSHIN_3d.png (the pool token's icon, as listed in Jupiter's token metadata for mint xSoL18r4U1k2ALa4yF857VDZJqCKecLtty92nscre3o; served from the pool's own site https://xshin.fi/). The Shinobi Systems site (https://www.shinobi-systems.com/) only has an animated GIF logo. | 2026-10-22 | None found. 256x256 gold coin mark, works on light and dark bg. |
 
 ## MISSING
 
-None. All 16 organizations have at least one official logo file.
+None. All 17 organizations have at least one official logo file.
 
 ## Caveats
 

@@ -330,7 +330,12 @@
       n.classList.add('val');
       n.classList.toggle('check-fail', !!claim._fails);
       if (text == null) { n.textContent = 'pending'; n.classList.add('pending'); }
-      else { n.textContent = text; n.classList.remove('pending'); }
+      else {
+        // data-split-unit: "190.8K SOL" shows as a big number with a smaller unit
+        var unit = n.hasAttribute('data-split-unit') && /^(.*\S)\s+(SOL)$/.exec(text);
+        if (unit) n.replaceChildren(unit[1], el('span', { class: 'u', text: unit[2] })); else n.textContent = text;
+        n.classList.remove('pending');
+      }
       if (n.tagName === 'A' && claim.format === 'code' && claim.sourceUrl == null) n.href = (SRC[claim.source] || {}).url;
       if (n.tagName === 'A' && n.hasAttribute('data-mailto') && text != null) n.href = 'mailto:' + text;
     });
@@ -541,6 +546,8 @@
       if (!claim || claim.check !== 'live' || !claim.live || claim.live.fetch === 'stakewiz.peers') return null;
       return resolve(claim).then(function (r) {
         if (r.value == null || (typeof r.value === 'number' && isNaN(r.value))) throw new Error('empty live value');
+        // a source sometimes sends nonsense (Stakewiz vote_success came back as 199,085%): keep the saved value instead
+        if (claim.live.valid && !(r.value >= claim.live.valid.min && r.value <= claim.live.valid.max)) throw new Error('live value ' + r.value + ' outside ' + claim.live.valid.min + '-' + claim.live.valid.max);
         claim._cur = { value: r.value, asOf: r.asOf, live: true };
         if (claim.id === 'validator.onlyArgentina') claim._fails = !(r.value === 1 && r.extra.includesUs);
         if (claim.expect) claim._fails = !(r.value >= claim.expect.min && r.value <= claim.expect.max);

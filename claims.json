@@ -1,6 +1,6 @@
 {
   "about": "Claim register for the ReFi Hub staking site. Every number and checkable fact on the site is read from here. check: live = fetched on page load (value below is the last saved fallback), link = static link to the source, manual = confirmed by a person. status: verified, placeholder, unverifiable-yet. label (optional) = plain name shown on the audit page (audit.html) when text is a page fragment.",
-  "updated": "2026-10-20T12:00:00Z",
+  "updated": "2026-10-22T18:47:00Z",
   "constants": {
     "voteAccount": "ReFiSbuMcV8PMYcpvm9RmHDhF9HR3qyxsHZgf359NUx",
     "identity": "ReFiqMfGnc7tW8WQtFFcJRPZSDAWDBnAsdoFYF2QnfR",
@@ -221,6 +221,12 @@
       "url": "https://jup.ag/",
       "logo": "assets/logos/jupiter.svg",
       "logoDark": "assets/logos/jupiter-white.svg"
+    },
+    "shinobi": {
+      "name": "Shinobi",
+      "url": "https://xshin.fi/",
+      "logo": "assets/logos/shinobi.png",
+      "logoDark": "assets/logos/shinobi.png"
     }
   },
   "claims": [
@@ -453,9 +459,13 @@
       "asOf": "2026-10-20T13:14:09Z",
       "live": {
         "fetch": "stakewiz.validator",
-        "path": "vote_success"
+        "path": "vote_success",
+        "valid": {
+          "min": 0,
+          "max": 100
+        }
       },
-      "note": "Stakewiz field vote_success: share of votes that landed."
+      "note": "Stakewiz field vote_success: share of votes that landed. On Oct 22 Stakewiz returned 199,085.94 for this field, so live values outside 0-100 are ignored and the saved value stays."
     },
     {
       "id": "validator.network",
@@ -681,7 +691,7 @@
     {
       "id": "stakedBy.solana-foundation",
       "text": "Solana Foundation",
-      "page": "home",
+      "page": "home, delegation",
       "section": "Staked by",
       "value": 69693.8,
       "format": "solK",
@@ -701,7 +711,7 @@
     {
       "id": "stakedBy.jagpool",
       "text": "JagPool",
-      "page": "home",
+      "page": "home, delegation",
       "section": "Staked by",
       "value": 34148.7,
       "format": "solK",
@@ -720,7 +730,7 @@
     {
       "id": "stakedBy.definity",
       "text": "Definity",
-      "page": "home",
+      "page": "home, delegation",
       "section": "Staked by",
       "value": 13899.4,
       "format": "solK",
@@ -739,7 +749,7 @@
     {
       "id": "stakedBy.phase",
       "text": "Phase",
-      "page": "home",
+      "page": "home, delegation",
       "section": "Staked by",
       "value": 10909.7,
       "format": "solK",
@@ -758,7 +768,7 @@
     {
       "id": "stakedBy.vault",
       "text": "Vault",
-      "page": "home",
+      "page": "home, delegation",
       "section": "Staked by",
       "value": 4558.1,
       "format": "solK",
@@ -777,7 +787,7 @@
     {
       "id": "stakedBy.jpool",
       "text": "JPool",
-      "page": "home",
+      "page": "home, delegation",
       "section": "Staked by",
       "value": 3614.1,
       "format": "solK",
@@ -796,7 +806,7 @@
     {
       "id": "stakedBy.blaze",
       "text": "Blaze",
-      "page": "home",
+      "page": "delegation",
       "section": "Staked by",
       "value": 2728.1,
       "format": "solK",
@@ -815,7 +825,7 @@
     {
       "id": "stakedBy.dyno",
       "text": "Dyno",
-      "page": "home",
+      "page": "home, delegation",
       "section": "Staked by",
       "value": 2558.8,
       "format": "solK",
@@ -830,6 +840,26 @@
         ]
       },
       "note": "JPool labels it 'Dynosol'. Amount: live sum of this program's stake accounts from the Stakewiz stake list (by withdraw authority). Program labels match JPool's \"Stake\" tab on Oct 13."
+    },
+    {
+      "id": "stakedBy.shinobi",
+      "text": "Shinobi",
+      "label": "Shinobi Performance Pool stake",
+      "page": "home, delegation",
+      "section": "Staked by; Programs staking us today",
+      "value": 35848.7,
+      "format": "solK",
+      "source": "stakewiz",
+      "check": "live",
+      "status": "verified",
+      "asOf": "2026-10-22T18:47:00Z",
+      "live": {
+        "fetch": "stakewiz.stakes",
+        "authorities": [
+          "EpH4ZKSeViL5qAHA9QANYVHxdmuzbUH2T79f32DmSCaM"
+        ]
+      },
+      "note": "Shinobi Performance Pool (xSHIN, stake pool spp1mo6shdcrRyqDK2zdurJ8H5uttZE6H6oVjHxN1QN). Its pool withdraw authority EpH4ZKSe... is listed on Solana Compass (solanacompass.com/stake-pools/spp1mo6shdcrRyqDK2zdurJ8H5uttZE6H6oVjHxN1QN). First seen in our Stakewiz stake list on Oct 22 with 35,848.7 SOL. Amount: live sum of this program's stake accounts by withdraw authority."
     },
     {
       "id": "refisol.poolFees",

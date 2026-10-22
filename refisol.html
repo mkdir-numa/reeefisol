@@ -25,14 +25,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;400;500&family=Geist:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/brand-tokens.css">
-<link rel="stylesheet" href="assets/site.css?v=12">
+<link rel="stylesheet" href="assets/site.css?v=13">
 <!-- Jupiter swap widget, pinned copy. integrity = the browser refuses the file if a single byte changes.
      The app script carries the id the loader looks for, so the loader uses this checked copy instead of adding its own.
      To update: scripts/vendor-jupiter-plugin.sh (see assets/vendor/jupiter-plugin/README.md). -->
 <script src="assets/vendor/jupiter-plugin/1.0.16/plugin-v1.js" integrity="sha384-VqTeMzcevTMEcQjlLr91lxMw3JrOFEGmM32VllKpfOhznrTCIm+4XmbiTCeA/Jrw" defer></script>
 <!-- No analytics script here: this page only runs scripts from our own site (see the CSP above). -->
 <script id="jupiter-load-script-app" src="assets/vendor/jupiter-plugin/1.0.16/plugin-1.0.16-app.js" integrity="sha384-TWtgSU/UbGA4iE6R1fx/AJadHkj/7gG6jLQeUfs6bXROWHTNn8vNEmjBkCFUrF82" defer></script>
-<script src="assets/site.js?v=14" defer></script>
+<script src="assets/site.js?v=15" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -43,6 +43,7 @@
     <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Main">
       <a href="institutions.html">For institutions</a>
+      <a href="delegation.html">For delegators</a>
       <a href="refisol.html" aria-current="page">refiSOL</a>
       <a href="index.html#impact">Impact</a>
       <a href="index.html#faq">FAQ</a>
@@ -97,16 +98,39 @@
   </div>
 </section>
 
-<!-- How it works -->
+<!-- How it works: the round trip drawn as a dotted ring, golden pulses travelling round -->
 <section>
-  <div class="wrap">
-    <div class="sec-head"><h2>How refiSOL works</h2></div>
-    <div class="steps steps-3">
-      <div class="step rv"><div class="n">1</div><h3>Swap SOL for refiSOL</h3><p>Any amount, in one transaction.</p></div>
-      <div class="step rv"><div class="n">2</div><h3>Hold</h3><p>Rewards build up inside the token. Today 1 refiSOL = <span data-claim="refisol.rate">…</span>.</p></div>
-      <div class="step rv"><div class="n">3</div><h3>Swap back any time</h3><p>At the market rate. No lockup.</p></div>
+  <div class="wrap loop-split">
+    <div>
+      <h2>How refiSOL works</h2>
+      <p class="lead">A round trip, with rewards collected on the way.</p>
+      <ol class="loop-steps">
+        <li><span class="n">1</span><div><h3>Swap SOL for refiSOL</h3><p>Any amount, in one transaction.</p></div></li>
+        <li><span class="n">2</span><div><h3>Hold</h3><p>Rewards build up inside the token.</p></div></li>
+        <li><span class="n">3</span><div><h3>Swap back any time</h3><p>At the market rate. No lockup.</p></div></li>
+      </ol>
+      <p class="verified"><span class="dot" aria-hidden="true"></span>Live data independently verified by <a data-const-href="stakewizUrl" href="#" target="_blank" rel="noopener">Stakewiz</a> and <a data-const-href="validatorsAppUrl" href="#" target="_blank" rel="noopener">validators.app</a>.</p>
     </div>
-    <p class="verified"><span class="dot" aria-hidden="true"></span>Live data independently verified by <a data-const-href="stakewizUrl" href="#" target="_blank" rel="noopener">Stakewiz</a> and <a data-const-href="validatorsAppUrl" href="#" target="_blank" rel="noopener">validators.app</a>.</p>
+    <div class="loop">
+      <svg viewBox="0 0 400 400" aria-hidden="true">
+        <circle cx="200" cy="200" r="150" fill="none" stroke="#2a8a8c" stroke-opacity=".55" stroke-width="3" stroke-linecap="round" stroke-dasharray="0 9"/>
+        <circle cx="200" cy="200" r="116" fill="none" stroke="#dcefec" stroke-width="2" stroke-linecap="round" stroke-dasharray="0 7"/>
+        <g class="loop-pulse">
+          <circle r="5" fill="#e4b04a"><animateMotion dur="10s" repeatCount="indefinite" path="M200,50 A150,150 0 1,1 199.9,50"/></circle>
+          <circle r="3.5" fill="#e4b04a" opacity=".6"><animateMotion dur="10s" begin="-3.3s" repeatCount="indefinite" path="M200,50 A150,150 0 1,1 199.9,50"/></circle>
+          <circle r="3.5" fill="#e4b04a" opacity=".6"><animateMotion dur="10s" begin="-6.6s" repeatCount="indefinite" path="M200,50 A150,150 0 1,1 199.9,50"/></circle>
+        </g>
+        <g font-family="Chivo Mono, monospace" font-size="13" text-anchor="middle">
+          <circle cx="200" cy="50" r="24" fill="#fbfaf9" stroke="#2a8a8c" stroke-width="2"/><text x="200" y="55" fill="#155a63">1</text>
+          <text x="200" y="14" fill="#64748b" font-size="11" letter-spacing="1">SWAP IN</text>
+          <circle cx="330" cy="275" r="24" fill="#fbfaf9" stroke="#6a9a62" stroke-width="2"/><text x="330" y="280" fill="#355e3d">2</text>
+          <text x="330" y="322" fill="#64748b" font-size="11" letter-spacing="1">HOLD</text>
+          <circle cx="70" cy="275" r="24" fill="#fbfaf9" stroke="#e4b04a" stroke-width="2"/><text x="70" y="280" fill="#8a6414">3</text>
+          <text x="70" y="322" fill="#64748b" font-size="11" letter-spacing="1">SWAP BACK</text>
+        </g>
+      </svg>
+      <div class="loop-centre"><span class="k">Today</span><span class="v">1 refiSOL<small>=</small><span data-claim="refisol.rate">…</span></span></div>
+    </div>
   </div>
 </section>
 
@@ -119,6 +143,7 @@
     </div>
     <p class="worked">We've worked with SeaTrees, Coral Guardian and Coral Tribe.</p>
     <div class="partners rv" data-render="partners" data-orgs="seatrees,coral-guardian,coral-tribe"></div>
+    <div class="btns impact-cta"><a class="btn btn-primary" href="index.html#impact">View our impact →</a></div>
   </div>
 </section>
 

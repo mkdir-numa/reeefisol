@@ -560,3 +560,73 @@ canvas.hero-art{width:min(440px,36vw);height:min(440px,36vw);top:-28px}
 .stake-card .verified{margin:0}
 @media (max-width:860px){.stake-grid{grid-template-columns:1fr}}
 .stake-page{padding-top:clamp(48px,7vw,96px)}
+
+/* ---------- Oct 22 round: chosen options from drafts/oct22-iterations.html and drafts/delegation-decentralization.html ---------- */
+
+/* total staked: the big number next to the delegation programs (home: beside the logo grid; delegation: beside a list) */
+.band-ink .btn-onink{background:transparent;border-color:rgba(255,255,255,.28);color:#fff}
+.band-ink .btn-onink:hover{border-color:#fff;color:#fff}
+.band-ink .btn-mint{background:#8fd3c8;color:#0d3a42}
+.band-ink .btn-mint:hover{background:#b5e4dc;color:#0d3a42}
+.total-kick{font:400 12px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:#9fd5cf}
+.total-num{font-family:var(--num);font-weight:300;font-size:clamp(52px,5.4vw,76px);letter-spacing:-.045em;line-height:.95;color:#fff;font-feature-settings:"ss03","cv03","cv04","cv09","cv11";white-space:nowrap}
+.total-num .u,.total-serif .u{font-size:.36em;letter-spacing:-.01em;color:#a8a29e;margin-left:.18em}
+.total-sub{color:#a8a29e;font-size:15px;margin:0;max-width:30ch}
+.total-live{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#a8a29e}
+.total-live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--leaf-500);box-shadow:0 0 0 3px rgba(106,154,98,.25)}
+.trust-total{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:clamp(24px,4vw,48px);align-items:stretch}
+.trust-total .total{display:flex;flex-direction:column;gap:14px;padding:4px 0}
+.trust-total .total .btns{margin-top:auto;padding-top:8px;flex-direction:column;align-items:flex-start;gap:10px}
+.trust-total .btn{white-space:nowrap}
+@media (max-width:1000px){.trust-total{grid-template-columns:1fr}.trust-total .total .btns{margin-top:4px;flex-direction:row}}
+
+.total-list{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:clamp(24px,5vw,64px);align-items:center}
+.total-list .total{padding:28px 0}
+.total-serif{font-family:var(--serif);font-weight:300;font-size:clamp(72px,10vw,140px);line-height:.95;letter-spacing:-.03em;color:#fff;white-space:nowrap}
+.total-serif .u{font-family:var(--sans);font-size:.2em;letter-spacing:0;margin-left:.3em;vertical-align:.25em}
+.total-list h2{font:400 13px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:#9fd5cf;margin:16px 0 22px}
+.total-list .logos{grid-template-columns:1fr;gap:0}
+.total-list .logo-card{background:transparent;border:0;border-top:1px solid #2a2825;border-radius:0;padding:11px 0;flex-direction:row;align-items:center;gap:14px}
+.total-list .logo-box{height:28px;width:96px;flex:none}
+.band-ink .total-list .logo-box img{max-height:22px;max-width:96px}
+.total-list .logo-meta{flex-direction:row;justify-content:space-between;align-items:baseline;flex:1;gap:8px}
+.total-list .org-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px}
+.total-list .amt{font-size:16px;white-space:nowrap}
+@media (max-width:900px){.total-list{grid-template-columns:1fr}}
+
+/* dotted backgrounds behind a whole section (assets/stipple.js "plankton") */
+.has-bg-art{position:relative;overflow:hidden;isolation:isolate}
+.has-bg-art > .wrap{position:relative;z-index:1}
+canvas.bg-art{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.has-bg-art .record .stat,.has-bg-art .card{background:rgba(255,255,255,.84);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+
+/* delegation: dotted map with the decentralization facts beside it */
+.map-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,460px);gap:clamp(32px,6vw,72px);align-items:center}
+.map-art{width:100%;aspect-ratio:4/5}
+.facts{margin:28px 0 0;border-top:1px solid rgba(13,58,66,.14)}
+.facts > div{display:grid;grid-template-columns:150px 1fr;gap:6px 20px;padding:16px 0;border-bottom:1px solid rgba(13,58,66,.14);align-items:baseline}
+.facts dt{font:400 11.5px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--sea-700)}
+.facts dd{margin:0;font-size:19px;letter-spacing:-.01em;color:var(--text-strong)}
+.facts .src-l{display:block;font-size:13.5px;letter-spacing:0;color:var(--muted);margin-top:2px}
+@media (max-width:900px){.map-split{grid-template-columns:1fr}.map-art{max-width:420px;margin:0 auto}}
+@media (max-width:520px){.facts > div{grid-template-columns:1fr}}
+
+/* refiSOL: the round trip drawn as a dotted ring */
+.loop-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:clamp(32px,6vw,72px);align-items:center}
+.loop-steps{list-style:none;margin:28px 0 0;padding:0}
+.loop-steps li{display:grid;grid-template-columns:40px 1fr;gap:14px;padding:16px 0}
+.loop-steps .n{width:30px;height:30px;border-radius:50%;border:2px solid var(--sea-500);display:grid;place-items:center;font:500 12px var(--mono);color:var(--sea-700);background:var(--bg)}
+.loop-steps li:nth-child(2) .n{border-color:var(--leaf-500);color:var(--leaf-700)}
+.loop-steps li:nth-child(3) .n{border-color:var(--sun-500);color:#8a6414}
+.loop-steps h3{margin:2px 0 4px}
+.loop-steps p{margin:0;color:var(--muted)}
+.loop{position:relative;width:100%;aspect-ratio:1}
+.loop svg{width:100%;height:100%;display:block;overflow:visible}
+.loop-centre{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
+.loop-centre .k{font:400 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px}
+.loop-centre .v{font-family:var(--num);font-weight:300;font-size:clamp(26px,3vw,34px);letter-spacing:-.03em;color:var(--text-strong);line-height:1.15}
+.loop-centre .v small{display:block;font-size:.5em;color:var(--muted);letter-spacing:0}
+@media (prefers-reduced-motion: reduce){.loop-pulse{display:none}}
+@media (max-width:860px){.loop-split{grid-template-columns:1fr}.loop{max-width:380px;margin:0 auto}}
+
+.impact-cta{margin-top:24px}

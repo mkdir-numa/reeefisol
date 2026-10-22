@@ -18,6 +18,7 @@ Every number and checkable fact is read from [`claims.json`](claims.json), the c
 Each claim has the exact text, page and section, the saved value, its source, how it is checked and its status:
 
 - `check`: `live` (fetched on page load), `link` (static link to the source) or `manual` (confirmed by a person)
+- `live.valid` (optional): `{"min": 0, "max": 100}`. A live value outside this range is ignored and the saved value stays. Use it for sources that sometimes send nonsense
 - `status`: `verified`, `placeholder` or `unverifiable-yet`
 
 Each section ends with one line saying the live data is independently verified by Stakewiz and validators.app (with links), instead of a source chip on every number. If a live fetch fails, the saved value from `claims.json` stays. The register still records each claim's status, including the ones the site shows as pending.

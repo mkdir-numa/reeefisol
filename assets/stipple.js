@@ -5,11 +5,14 @@
      plate     Specimen plate  nine polyps linked to the centre
      tide      Tide            a halftone field where coral shapes surface; the pointer sends ripples
      pollen    Pollen drift    polyps on the reef floor with one swoosh of golden pollen drifting above
+     plankton  Plankton        hundreds of tiny dots drifting upwards behind a section, with the odd golden glint
+     map       Map             South America in halftone dots, a coral pin on our Buenos Aires validator
    Every graphic reacts to the pointer and adds small sparkles. With prefers-reduced-motion
    each one draws a single still frame instead.
 
    On the site:  <canvas data-stipple="reef" aria-hidden="true"></canvas>
-                 optional: data-dark (light-on-dark palette), data-seed="11" (another variation)
+                 optional: data-dark (light-on-dark palette), data-palette="gold" (gold dots on a light page),
+                 data-seed="11" (another variation)
    The canvas takes its size from CSS. The lab at prototypes/stipple/ shows every expression. */
 (function () {
   'use strict';
@@ -32,7 +35,8 @@
 
   var PAL = {
     light: { line: '#155a63', soft: '#cfe6e2', warm: '#e4b04a', accent: '#e07a5f', deep: '#355e3d', glint: '#e39a2d' },
-    dark: { line: '#cfe7e3', soft: 'rgba(207,231,227,.14)', warm: '#f2c460', accent: '#f0a58f', deep: '#9cc3bf', glint: '#ffe2a0' }
+    dark: { line: '#cfe7e3', soft: 'rgba(207,231,227,.14)', warm: '#f2c460', accent: '#f0a58f', deep: '#9cc3bf', glint: '#ffe2a0' },
+    gold: { line: '#d9a441', soft: '#f8edcf', warm: '#e4b04a', accent: '#e07a5f', deep: '#8a6414', glint: '#e39a2d' }
   };
 
   /* ---------- pointer helpers ---------- */
@@ -470,6 +474,81 @@
     }
   };
 
+  /* ---------- plankton: a quiet texture of drifting dots, made to sit behind a whole section ---------- */
+
+  EXPR.plankton = {
+    build: function (w, h, R) {
+      var p = [], n = Math.round(w * h / 1300);
+      for (var i = 0; i < n; i++) p.push({ x: R() * w, y: R() * h, r: 0.7 + Math.pow(R(), 2.2) * 2.6, v: 0.04 + R() * 0.16, ph: R() * TAU, a: 0.3 + R() * 0.45 });
+      return { p: p, w: w, h: h };
+    },
+    draw: function (ctx, S, t, dt, m, pal) {
+      var f = dt * 60;
+      ctx.fillStyle = pal.line;
+      for (var i = 0; i < S.p.length; i++) {
+        var q = S.p[i];
+        q.y -= q.v * f; if (q.y < -4) { q.y = S.h + 4; q.x = Math.random() * S.w; }
+        push(q.x + Math.sin(t * 0.4 + q.ph) * 8, q.y, m, 110, 26);
+        ctx.globalAlpha = q.a * (0.55 + 0.45 * Math.sin(t * 1.6 + q.ph * 3));
+        ctx.beginPath(); dot(ctx, PX, PY, q.r); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      if (Math.random() < dt * 3) { var g = S.p[Math.floor(Math.random() * S.p.length)]; S.sp.add(g.x, g.y); }
+    }
+  };
+
+  /* ---------- map: South America in halftone dots, Buenos Aires pinned ---------- */
+
+  // A rough coastline as [lon, lat]: an illustration, not a survey.
+  var SOUTH_AMERICA = [[-77.3,8.7],[-75.5,10.5],[-72,11.8],[-71,12.4],[-68,10.6],[-64,10.7],[-61.5,10.6],[-60,8.5],[-57,6],[-54,5.8],[-52,5],[-51,4],[-50,1.8],[-49.5,0],[-48,-1],[-44,-2.5],[-40,-2.8],[-37,-4.8],[-35.2,-5.5],[-35,-8],[-37,-11],[-38.8,-13],[-39,-17],[-40.5,-20.5],[-42,-23],[-44.5,-23.3],[-48,-25.5],[-48.7,-28.5],[-50.5,-30.5],[-53,-33.7],[-55,-35],[-57.5,-35.2],[-57,-36.5],[-57.6,-38.2],[-62,-39],[-62.3,-40.8],[-65,-41],[-65,-42.5],[-63.8,-42.8],[-65.5,-45],[-67.5,-46.5],[-66,-47.8],[-68.3,-50.1],[-69,-51.6],[-68.4,-52.4],[-67,-55],[-70,-55.2],[-74,-52.5],[-75.5,-48],[-74,-44],[-73.5,-41],[-73.7,-37.5],[-72,-33],[-71.5,-30],[-71.4,-25],[-70.4,-20],[-70.3,-18.3],[-75.5,-15.5],[-78,-12],[-79.6,-8],[-81.3,-5],[-80.3,-3.5],[-80.9,-1.5],[-80,0.5],[-78.9,1.5],[-77.5,4],[-77.3,6.5]];
+  var BUENOS_AIRES = [-58.4, -34.6];
+  function inPoly(x, y, poly) {
+    var c = false;
+    for (var i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+      var xi = poly[i][0], yi = poly[i][1], xj = poly[j][0], yj = poly[j][1];
+      if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c;
+    }
+    return c;
+  }
+
+  EXPR.map = {
+    build: function (w, h) {
+      var LON0 = -83, LON1 = -33, LAT0 = 14, LAT1 = -57, KX = Math.cos(22 * Math.PI / 180);
+      var s = Math.min(w / ((LON1 - LON0) * KX), h / (LAT0 - LAT1));
+      var ox = (w - (LON1 - LON0) * KX * s) / 2, oy = (h - (LAT0 - LAT1) * s) / 2;
+      var px = ox + (BUENOS_AIRES[0] - LON0) * KX * s, py = oy + (LAT0 - BUENOS_AIRES[1]) * s;
+      var g = Math.max(6, w / 46), d = [];
+      for (var y = g / 2, row = 0; y < h; y += g * 0.87, row++) for (var x = (row % 2 ? g : g / 2); x < w; x += g) {
+        if (inPoly(LON0 + (x - ox) / (KX * s), LAT0 - (y - oy) / s, SOUTH_AMERICA)) d.push(x, y, Math.hypot(x - px, y - py));
+      }
+      return { d: d, g: g, px: px, py: py, R: Math.max(w, h) * 0.9 };
+    },
+    // Land breathes gently while a slow ripple spreads out from the pin.
+    draw: function (ctx, S, t, dt, m, pal) {
+      var d = S.d, g = S.g, ring = (t * 0.06) % 1;
+      ctx.fillStyle = pal.line;
+      for (var i = 0; i < d.length; i += 3) {
+        var x = d[i], y = d[i + 1], wave = REDUCE ? 0 : Math.max(0, 1 - Math.abs(d[i + 2] - ring * S.R) / (g * 3)), l = near(x, y, m, 90);
+        ctx.globalAlpha = 0.45 + 0.4 * wave + 0.3 * l;
+        ctx.beginPath(); dot(ctx, x, y, g * (0.16 + 0.12 * wave + 0.14 * l + 0.05 * Math.sin(x * 0.03 + y * 0.02 + t * 0.8))); ctx.fill();
+      }
+      ctx.globalAlpha = 1; ctx.fillStyle = pal.accent;
+      ctx.beginPath(); dot(ctx, S.px, S.py, g * 0.55); ctx.fill();
+      ctx.strokeStyle = pal.accent; ctx.lineWidth = 1.2;
+      for (var k = 0; k < 2; k++) {
+        var p = REDUCE ? 0.5 : (t * 0.5 + k * 0.5) % 1;
+        ctx.globalAlpha = (1 - p) * 0.7; ctx.beginPath(); ctx.arc(S.px, S.py, g * (0.8 + p * 3.2), 0, TAU); ctx.stroke();
+      }
+      // label, on a pill in the band colour so the dots don't run through it
+      var lx = S.px + g * 1.6, ly = S.py;
+      ctx.globalAlpha = 0.92; ctx.fillStyle = '#dcefec';
+      ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(lx - 6, ly - 15, 142, 31, 6); else ctx.rect(lx - 6, ly - 15, 142, 31); ctx.fill();
+      ctx.globalAlpha = 1; ctx.textBaseline = 'middle';
+      ctx.font = '500 11px "Chivo Mono", monospace'; ctx.fillStyle = '#a9452f'; ctx.fillText('BUENOS AIRES', lx, ly - 6);
+      ctx.font = '400 10px "Chivo Mono", monospace'; ctx.fillStyle = '#64748b'; ctx.fillText('REFI HUB VALIDATOR', lx, ly + 7);
+    }
+  };
+
   // A few sparkles follow a moving pointer.
   function trail(S, m) {
     if (m.on > 0.5 && m.speed > 2 && Math.random() < 0.35) S.sp.add(m.x + (Math.random() - 0.5) * 16, m.y + (Math.random() - 0.5) * 16);
@@ -484,7 +563,7 @@
   }, { rootMargin: '100px' }) : null;
 
   function Stage(cv, key, opts) {
-    this.cv = cv; this.key = key; this.dark = !!opts.dark; this.seed = opts.seed || 7;
+    this.cv = cv; this.key = key; this.dark = !!opts.dark; this.palette = opts.palette; this.seed = opts.seed || 7;
     this.m = { x: 0, y: 0, tx: 0, ty: 0, on: 0, ton: 0, px: 0, py: 0, speed: 0 };
     this.visible = !io; cv.__stage = this;
     if (io) io.observe(cv);
@@ -497,7 +576,7 @@
     this.cv.width = Math.round(w * dpr); this.cv.height = Math.round(h * dpr);
     this.ctx = this.cv.getContext('2d'); this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     this.ctx.lineCap = 'round'; this.ctx.lineJoin = 'round';
-    this.w = w; this.h = h; this.pal = this.dark ? PAL.dark : PAL.light;
+    this.w = w; this.h = h; this.pal = this.dark ? PAL.dark : PAL[this.palette] || PAL.light;
     this.S = EXPR[this.key].build(w, h, rng(this.seed + hash(this.key)));
     this.S.sp = new Sparks();
     this.frame(1.5, 0.016);
@@ -563,7 +642,7 @@
   function autoMount() {
     document.querySelectorAll('canvas[data-stipple]').forEach(function (cv) {
       var key = cv.getAttribute('data-stipple');
-      if (!cv.__stage && EXPR[key]) window.RefiStipple.mount(cv, key, { dark: cv.hasAttribute('data-dark'), seed: +cv.getAttribute('data-seed') || 11 });
+      if (!cv.__stage && EXPR[key]) window.RefiStipple.mount(cv, key, { dark: cv.hasAttribute('data-dark'), palette: cv.getAttribute('data-palette'), seed: +cv.getAttribute('data-seed') || 11 });
     });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', autoMount); else autoMount();
