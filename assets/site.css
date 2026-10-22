@@ -583,7 +583,8 @@ canvas.hero-art{width:min(440px,36vw);height:min(440px,36vw);top:-28px}
 .total-list{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:clamp(24px,5vw,64px);align-items:center}
 .total-list .total{padding:28px 0}
 .total-serif{font-family:var(--serif);font-weight:300;font-size:clamp(72px,10vw,140px);line-height:.95;letter-spacing:-.03em;color:#fff;white-space:nowrap}
-.total-serif .u{font-family:var(--sans);font-size:.2em;letter-spacing:0;margin-left:.3em;vertical-align:.25em}
+/* the unit is hidden on screen (the label above says what the number is) but still read out by screen readers */
+.total-serif .u{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .total-list h2{font:400 13px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:#9fd5cf;margin:16px 0 22px}
 .total-list .logos{grid-template-columns:1fr;gap:0}
 .total-list .logo-card{background:transparent;border:0;border-top:1px solid #2a2825;border-radius:0;padding:11px 0;flex-direction:row;align-items:center;gap:14px}
