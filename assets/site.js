@@ -125,6 +125,10 @@
         return spec.stakeSol * feeRate(r[0]) * spec.share * r[1] / spec.coralUsd;
       });
     },
+    // Trillium: one row per completed epoch (CC BY 4.0, credited next to each number that uses it)
+    'trillium.rewards': function () {
+      return once('trw', function () { return getJSON('https://api.trillium.so/validator_rewards/' + C.voteAccount); });
+    },
     'stakewiz.all': function () {
       return once('swa', function () { return getJSON('https://api.stakewiz.com/validators', null, 30000); });
     },
@@ -203,6 +207,14 @@
           v = d.filter(function (s) { return L.authorities.indexOf(s.withdraw_authority) > -1; })
                .reduce(function (a, s) { return a + (s.active_stake || 0); }, 0) / 1e9;
           return { value: v, asOf: now };
+        case 'trillium.rewards':
+          // skip rate over the last n completed epochs: 1 - blocks produced / leader slots
+          var rows = d.filter(function (x) { return x.vote_account_pubkey === C.voteAccount; })
+                      .sort(function (a, b) { return b.epoch - a.epoch; }).slice(0, L.epochs);
+          if (rows.length < L.epochs) throw new Error('only ' + rows.length + ' epochs');
+          var slots = rows.reduce(function (a, x) { return a + x.leader_slots; }, 0), made = rows.reduce(function (a, x) { return a + x.blocks_produced; }, 0);
+          if (!slots) throw new Error('no leader slots');
+          return { value: (1 - made / slots) * 100, asOf: now };
         case 'stakewiz.all':
           v = d.filter(function (x) { return x.ip_country === 'Argentina' && !x.delinquent && x.activated_stake > 0; });
           return { value: v.length, asOf: now, extra: { includesUs: v.some(function (x) { return x.vote_identity === C.voteAccount; }) } };

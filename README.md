@@ -25,7 +25,8 @@ Each section ends with one line saying the live data is independently verified b
 
 Live sources (all public and CORS-enabled):
 
-- Stakewiz API: stake, APY, 12-month uptime (from its delinquency history), skip rate, commissions, client, location, epoch length, peer yields, stake by source, Argentina count
+- Stakewiz API: stake, APY, 12-month uptime (from its delinquency history), commissions, client, location, epoch length, peer yields, stake by source, Argentina count
+- Trillium API (`api.trillium.so/validator_rewards`): skip rate over the last 10 completed epochs. CC BY 4.0, so every skip-rate figure carries a "per Trillium" link
 - Solana RPC (publicnode, then mainnet-beta): refiSOL, jitoSOL and Marinade pool accounts (fees, exchange rate, supply, program)
 - Jupiter API: refiSOL holders, swap quotes at 10, 100 and 1,000 SOL, SOL price (for corals per 100K SOL)
 
