@@ -4,7 +4,7 @@ Guidance for Claude Code when working in this repo. Two people collaborate here 
 
 ## What this repo is
 
-Static site for the ReFi Hub validator and refiSOL. Plain HTML/CSS/JS, **no build step**. Deployed by GitHub Pages from the `main` branch root: merging a PR to main publishes the site at https://mkdir-numa.github.io/reeefisol/ within a couple of minutes.
+Static site for the ReFi Hub validator and refiSOL. Plain HTML/CSS/JS, **no build step**. Hosted on Netlify (site `refihub-stake`, team `numa-tribe`), which deploys automatically from the `main` branch root: merging a PR to main publishes the site at https://refihub-stake.netlify.app/ within a minute or two. Every PR also gets its own Netlify preview link (posted on the PR) so the reviewer can see the change before merging. Settings live in `netlify.toml`. GitHub hosts the code, reviews and issues; GitHub Pages is no longer used.
 
 - Pages: `index.html`, `institutions.html`, `delegation.html`, `refisol.html`, `donations.html` (unlinked)
 - `assets/site.css`, `assets/site.js` — styles and the claim renderer
@@ -32,7 +32,7 @@ When asked to review the other person's PR: `gh pr view <number>`, `gh pr diff <
 
 ## Hosting note
 
-The site currently deploys via GitHub Pages from main. The team plans to move to Netlify (or similar) later, which would add per-PR preview links — update this file when that happens.
+The site moved from GitHub Pages to Netlify in October 2026. If the site ever gets a custom domain, update the absolute `og:url`/`og:image` addresses (see below), `.github/pull_request_template.md`, `docs/COLLABORATING.md` and this file.
 
 ## Graphics
 
@@ -40,4 +40,4 @@ The animated dotted artwork comes from `assets/stipple.js`: add `<canvas data-st
 
 ## Favicon and link previews
 
-Every page's `<head>` has the favicon links (`assets/favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`) and, for public pages, Open Graph tags pointing at a 1200x630 card in `assets/og/`. Copy them into any new page. To change a card's headline or graphic, edit `scripts/make-og-images.sh` and re-run it. The `og:url` and `og:image` addresses are absolute (`https://mkdir-numa.github.io/reeefisol/`): update them if the site moves to a custom domain.
+Every page's `<head>` has the favicon links (`assets/favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`) and, for public pages, Open Graph tags pointing at a 1200x630 card in `assets/og/`. Copy them into any new page. To change a card's headline or graphic, edit `scripts/make-og-images.sh` and re-run it. The `og:url` and `og:image` addresses are absolute (`https://refihub-stake.netlify.app/`): update them if the site moves to a custom domain.

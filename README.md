@@ -1,6 +1,6 @@
 # ReFi Hub staking site
 
-Static site for the ReFi Hub validator and refiSOL. Plain HTML, CSS and JS, no build step. Works on GitHub Pages.
+Static site for the ReFi Hub validator and refiSOL. Plain HTML, CSS and JS, no build step. Hosted on Netlify (https://refihub-stake.netlify.app/), deployed automatically from `main`; every pull request gets a Netlify preview link.
 
 ## Pages
 

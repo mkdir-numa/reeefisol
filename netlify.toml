@@ -1,0 +1,30 @@
+# Netlify hosting for the staking site (site "refihub-stake", team "numa-tribe").
+# No build step: the repo root is the site. Netlify deploys every push to main,
+# and builds a preview for every pull request.
+[build]
+  publish = "."
+
+# Working files that live in the repo but aren't part of the site.
+[[redirects]]
+  from = "/CLAUDE.md"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.claude/*"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.github/*"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/netlify.toml"
+  to = "/404"
+  status = 404
+  force = true
