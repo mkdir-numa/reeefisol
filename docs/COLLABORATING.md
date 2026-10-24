@@ -4,7 +4,7 @@ A plain-English guide for the two of us. Claude Code follows these rules automat
 
 ## The golden rule
 
-**Nothing goes straight into `main`.** Every change — big or small — lives on its own branch and arrives in `main` through a pull request (PR). `main` is what GitHub Pages publishes, so it should only ever contain reviewed work.
+**Nothing goes straight into `main`.** Every change — big or small — lives on its own branch and arrives in `main` through a pull request (PR). `main` is what Netlify publishes, so it should only ever contain reviewed work.
 
 ## The cycle for any change
 
@@ -12,10 +12,10 @@ A plain-English guide for the two of us. Claude Code follows these rules automat
 2. **Branch**: `git checkout -b content/update-apy` (prefix with `feat/`, `fix/`, `content/`, or `chore/`).
 3. **Work and commit** on that branch.
 4. **Push and open a PR**: Claude does this automatically and gives you the PR link.
-5. **Send the link to the other person.** They open it on GitHub, read the "Files changed" tab, and either:
+5. **Send the link to the other person.** Netlify adds a **Deploy Preview** link to the PR within a minute or two: open it to see the change as it will look live. They open the PR on GitHub, read the "Files changed" tab, and either:
    - click **Review changes → Approve**, then **Merge pull request**, or
    - leave comments requesting changes.
-6. After merging, the site republishes automatically at https://mkdir-numa.github.io/reeefisol/ (give it a minute or two).
+6. After merging, the site republishes automatically at https://refihub-stake.netlify.app/ (give it a minute or two).
 7. Delete the branch (GitHub offers a button after merge; locally run `git checkout main && git pull && git branch -d <branch>`).
 
 Reviewing your own trivial PR and merging it is allowed when it's genuinely urgent or tiny — but the default is the other person reviews.

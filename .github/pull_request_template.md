@@ -9,7 +9,7 @@
 ## How to preview
 
 - [ ] Ran locally with `python3 -m http.server 8765` and checked the affected pages
-- Live site after merge: https://mkdir-numa.github.io/reeefisol/
+- Live site after merge: https://refihub-stake.netlify.app/
 
 ## Checklist
 
